@@ -20,7 +20,7 @@ const app = express();
 
 // middlewares
 app.use(express.json()) // // in request & response, json data transfer (by default feature in express)
-app.use(morgan('dev')) // // for knowing api getting targeted
+app.use(morgan('dev')) // // for knowing which api getting called/requested (just for local testing) - *Not for prod.
 
 // rest api
 app.get('/', (req,res)=>{
