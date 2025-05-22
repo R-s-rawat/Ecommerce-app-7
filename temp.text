@@ -1,3 +1,12 @@
 // added 5 folders besides basic(config folder containing db-connect file) for mvc of web-app
 
 // keep the separation of concerns, like helpers(or utils), routes, controllers, models, middlewares
+
+// we define userSchema (for new website visitors tracing), and saving to database
+
+// we create a auth Route (for new users ), for proper app routing the new users data to database(creating route through ExpressJS)
+
+// as we following mvc, we create controllers for routing 
+
+
+
