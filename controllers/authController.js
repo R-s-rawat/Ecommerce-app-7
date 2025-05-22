@@ -41,6 +41,7 @@ export const registerController = async (req, res) => {
 
     // register if not existing user
     // pass plain password to helper function
+    // await is necessary, or data gets saved(or exceptions) but no resonse will be sended correctly
     const hashedPassword = await hashPassword(password);
     // save
     // pass all 5 keys defined in user-model, only password is key with value hashedPassword(key:value)
