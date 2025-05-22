@@ -4,9 +4,11 @@
 
 // we define userSchema (for new website visitors tracing), and saving to database
 
-// we create a auth Route (for new users ), for proper app routing the new users data to database(creating route through ExpressJS)
+// we create routes, 1st is auth Route (for new users ), for proper app routing the new users data to database(creating route through ExpressJS)
 
-// as we following mvc, we create controllers for routing 
+// as we following mvc, we create controllers for routing , 1st is (authController)
+
+// we will now create a Helpers, (1st is authHelper) for registration, passcode encryption/hashing and comparison
 
 
 
