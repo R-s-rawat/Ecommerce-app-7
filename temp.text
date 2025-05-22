@@ -10,5 +10,7 @@
 
 // we will now create a Helpers, (1st is authHelper) for registration, passcode encryption/hashing and comparison
 
+// registration api working, mongoDB and all, but now we secure registration using JSON web token
 
+//
 
