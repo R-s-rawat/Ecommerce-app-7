@@ -24,7 +24,7 @@ app.use(express.json()); // // in request & response, json data transfer (by def
 app.use(morgan("dev")); // // for knowing which api getting called/requested (just for local testing) - *Not for prod.
 
 // routes
-app.use('/api/v1/auth', authRoutes);
+app.use('/api/v1/auth', authRoutes); 
 
 // rest api
 app.get("/", (req, res) => {
