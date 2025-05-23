@@ -31,6 +31,7 @@ app.get("/", (req, res) => {
   res.send("<h1>welcome to ecommerce app</h1>");
 });
 
+
 // port
 // nodeJS uses process.env
 const PORT = process.env.PORT || 8080;

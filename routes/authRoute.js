@@ -12,4 +12,7 @@ router.post('/register', registerController) // // test in restApi-client using 
 // LOGIN || METHOD POST
 router.post('/login', loginController)
 
+// protected routes - using authMiddleware(*next) 
+
+
 export default router;
