@@ -1,7 +1,9 @@
-import { hashPassword } from "../helpers/authHelper.js";
+import { comparePassword, hashPassword } from "../helpers/authHelper.js";
 import userModel from "../models/userModel.js";
+import JWT from "jsonwebtoken";
 // // note: es6 based approach, module import export - use extensions, e.g .js compulsory *
 
+// // POST REGISTER
 export const registerController = async (req, res) => {
   // // we get req, and res as this is callback function *
   // // 2 arguments, req(request) & res(resonse)
@@ -66,6 +68,66 @@ export const registerController = async (req, res) => {
     res.status(500).send({
       success: false,
       message: "Error in registration",
+      error,
+    });
+  }
+};
+
+// // POST LOGIN
+export const loginController = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    // validation
+    // // due to security reasons, do not directly add either that password is wrong, or email wrong
+    if (!email || !password) {
+      return res.status(404).send({
+        success: false,
+        message: "Invalid email or password",
+      });
+    }
+
+    // decrypt the MongoDB stored hashed/encrypted password
+    // check user
+    const user = await userModel.findOne({ email });
+    if (!user) {
+      // // if not returned whether user found or not, CODE CONTINUES TO RUN
+      return res.status(404).send({
+        success: false,
+        message: "Email is not registered",
+      });
+    }
+    // decrypt using comparePassword utility/helper function
+    const match = await comparePassword(password, user.password);
+    if (!match) {
+      return res.status(200).send({
+        success: false,
+        message: "Invalid password",
+      });
+    }
+    // json web token
+    // token - using sign method 🙏
+    const token = await JWT.sign({ _id: user._id }, process.env.JWT_SECRET, {
+      expiresIn: "7d",
+    });
+
+    // send the user elements as response (except password) && token
+    res.status(200).send({
+      success: true,
+      message: "Login successfully",
+      user: {
+        name: user.name,
+        email: user.email,
+        phone: user.phone,
+        address: user.address,
+      },
+      token,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      message: "Error in login",
       error,
     });
   }
