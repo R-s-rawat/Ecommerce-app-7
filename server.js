@@ -21,7 +21,7 @@ const app = express();
 
 // middlewares
 app.use(express.json()); // // in request & response, json data transfer (by default feature in express)
-app.use(morgan("dev")); // // for knowing which api getting called/requested (just for local testing) - *Not for prod.
+app.use(morgan("dev")); // // for knowing which api getting called/requested (just for local testing) - *Not for prod. (nodeJS -runtime within local setup along Express backend framework)
 
 // routes
 app.use('/api/v1/auth', authRoutes); 
