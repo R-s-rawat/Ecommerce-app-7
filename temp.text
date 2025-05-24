@@ -10,11 +10,19 @@
 
 // we will now create a Helpers, (1st is authHelper) for registration, passcode encryption/hashing and comparison
 
-// registration api working, mongoDB and all, but now we secure registration using JSON web token
+// registration api working, mongoDB and all
 
-// jwt ( JSON web token) will provide token (custom/self written jwt-secret) during login (as in registration -hashing ), so during-login, password decrypted(un-hased #) and token provided(with expiry if there)
+// but now we secure app using JSON web token
 
-// for jwt sake and usage, we create middleware(s) to protect every other route, after register and login, like requireSignIn(for decoding(unhashing password)), and isAdmin(for checking admin privileges)
+// jwt ( JSON web token) will provide token (custom/self written jwt-secret) during login, 
+
+// so during-login, password decrypted(un-hased #) (loginController decrypt password) and token provided(with expiry if there)
+
+// for jwt sake and usage,
+
+// we create middleware(s) to protect every other route, after register and login, like requireSignIn(for decrypt TOKEN and checking in every route request except register/login), 
+
+// create second middleware isAdmin(for checking ADMIN privileges)
 
 
 
