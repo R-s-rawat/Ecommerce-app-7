@@ -73,6 +73,8 @@ export const registerController = async (req, res) => {
   }
 };
 
+// export default {registerController};
+
 // // POST LOGIN
 export const loginController = async (req, res) => {
   try {
@@ -107,6 +109,7 @@ export const loginController = async (req, res) => {
     }
     // json web token
     // token - using sign method 🙏
+    // await has no effect below, but yet preserved, 🤷‍♂️
     const token = await JWT.sign({ _id: user._id }, process.env.JWT_SECRET, {
       expiresIn: "7d",
     });
@@ -133,4 +136,15 @@ export const loginController = async (req, res) => {
   }
 };
 
-// export default {registerController};
+// // test controller
+export const testController = async (req, res) => {
+  try {
+    // will console message in nodeJS environment cli
+    console.log("protected route");
+    // but for restapi client response
+    res.send("Protected route (t)");
+  } catch (error) {
+    console.log(error);
+    res.send({ error });
+  }
+}; 
