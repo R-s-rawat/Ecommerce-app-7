@@ -6,17 +6,19 @@
 
 // we create routes, 1st is auth Route (for new users ), for proper app routing the new users data to database(creating route through ExpressJS)
 
-// as we following mvc, we create controllers for routing , 1st is (authController)
+// as we following mvc, we create controllers for routing , 1st is (authController), authController will contain register, login ...
 
-// we will now create a Helpers, (1st is authHelper) for registration, passcode encryption/hashing and comparison
+// we will now create a Helpers, (1st is authHelper) for functions like registration, passcode encryption/hashing and comparison
 
-// registration api working, mongoDB and all
+// registration api working, mongoDB and all📌
 
-// but now we secure app using JSON web token
+// but now we secure app using JSON web token🙏
 
 // jwt ( JSON web token) will provide token (custom/self written jwt-secret) during login, 
 
 // so during-login, password decrypted(un-hased #) (loginController decrypt password) and token provided(with expiry if there)
+
+// login api working, mongoDB and all📌
 
 // for jwt sake and usage,
 
