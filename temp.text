@@ -1,13 +1,27 @@
 // added 5 folders besides basic(config folder containing db-connect file) for mvc of web-app
 
-// keep the separation of concerns, like helpers(or utils), routes, controllers, models, middlewares
+// keep the separation of concerns, like helpers(or utils), routes, controllers, models, middlewares 👀  (5) essentials..
 
-// we define userSchema (for new website visitors tracing), and saving to database
+________________________________________________________________________________________
+// MODEL ________________________________________________________________________________________________
+________________________________________________________________________________________
+// we create a model, 1st one is userModel where we define userSchema (for new website visitors tracing), and saving to database
 
+________________________________________________________________________________________
+// ROUTE _______________________________________________________________________________________________
+________________________________________________________________________________________
 // we create routes, 1st is auth Route (for new users ), for proper app routing the new users data to database(creating route through ExpressJS)
 
-// as we following mvc, we create controllers for routing , 1st is (authController), authController will contain register, login ...
+// as we following mvc, 😎
 
+________________________________________________________________________________________
+// CONTROLLER ________________________________________________________________________________________
+________________________________________________________________________________________
+// we create controllers for routing , 1st is (authController), authController will contain register, login ...
+
+________________________________________________________________________________________
+// HELPER __________________________________________________________________________________________
+________________________________________________________________________________________
 // we will now create a Helpers, (1st is authHelper) for functions like registration, passcode encryption/hashing and comparison
 
 // registration api working, mongoDB and all📌
@@ -22,6 +36,9 @@
 
 // for jwt sake and usage,
 
+________________________________________________________________________________________
+// MIDDLEWARE ___________________________________________________________________________________________________
+________________________________________________________________________________________
 // we create middleware(s) to protect every other route, after register and login, like requireSignIn(for decrypt TOKEN and checking in every route request except register/login), 
 
 // create second middleware isAdmin(for checking ADMIN privileges)
