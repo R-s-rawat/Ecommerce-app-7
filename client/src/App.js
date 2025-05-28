@@ -20,4 +20,6 @@ function App() {
   );
 }
 
+// notes: private protected routes will be done later
+
 export default App;
