@@ -65,6 +65,9 @@ ________________________________________________________________________________
 // FRONTEND - props (----------------------------know-how🙂)
 ________________________________________________________________________________________
 ________________________________________________________________________________________
+
+// props spelling not must to be correct, it's just an object😅 (it can be porps, popcorn)
+
 // create a layout component with header and footer, (LAYOUT COMPONENT FOR FLEXIBILITY eg. header, footer and later in future->sidebar)
 
 // WORKING 1st define component with prop e.g... const MyComponent = (props) => { // ...}; (PROPS PARAMETER IS AN OBJECT)
@@ -86,5 +89,8 @@ ________________________________________________________________________________
 //   <Layout showFooter={true}>
 //        <h1>Page 1 Content</h1>
 //   </Layout>
-
 ________________________________________________________________________________________
+
+// mern app = spa(single page app) so routing(i.e react-router-dom package) necessary📌
+
+
