@@ -67,7 +67,7 @@ ________________________________________________________________________________
 // create components and pages folder -------------------------
 // pages would have navigations, routing, ....................
 
-// 1st component - LAYOUT.JS (consume header && footer in Layout component for later use)
+// 1st component- LAYOUT.JS (app.js is 1st but given to us, so assume it 0th component(app.js)📌) (consume header && footer in Layout component for later use)
 ________________________________________________________________________________________
 // FRONTEND - props (----------------------------know-how)
 ________________________________________________________________________________________
@@ -100,4 +100,31 @@ ________________________________________________________________________________
 
 // mern app = spa(single page app) so routing(i.e react-router-dom package) necessary📌
 
+// use BrowserRouter😃 i.e from rectroutDOM, (main file - index.js)
 
+// create different pages, (i.e. home, about, contact, ... wrapped in our LAYOUT)
+
+// remove 0th component(app.js) <h1>Ecomm app</h1> 
+// i.e.   <Layout>
+// <h1>Ecommerce App</h1>
+//  </Layout>
+
+// import Routes, Route for app.js along with nav links to pages
+________________________________________________________________________________________
+// FRONTEND - router (----------------------------know-how)
+________________________________________________________________________________________
+________________________________________________________________________________________
+// use Routes as CONTAINER, and Route for specificity(subjects-pages)
+
+// use paths along their elements...
+// eg. path="/" element={<HomePage />}, path="/about" element={<About/>} etc.
+
+// use  <Route path="*" element={<Pagenotfound />} /> (AFTER ALL ROUTE) 😎😎😎 for everything
+
+// BECAUSE ✅ 200 - success, 🔁 300 - redirects, ❌ 400 - client errors, 💥 500 -server errors
+// ℹ️ 100 - informational (i.e. 100 continue- client can continue with request, 101 Switching Protocols- Protocol change (eg. HTTP to WebSocket))etc.
+________________________________________________________________________________________
+
+// DESIGN--  RE-Design (header, footer)
+
+// 
