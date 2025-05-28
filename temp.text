@@ -56,13 +56,20 @@ http://localhost:3000/
 ________________________________________________________________________________________
 ________________________________________________________________________________________
 
-// create components and pages folder
+// (MUST) add bootstrap 5 to frontend/public/index.html 😎
 
-// pages would have navigations, routing, ...
+// (MUST) remove all css (eg. app.css, index.css) (i.e Globally index. and very-first Component-App.)
+
+// (MUST) add css (index.css - i.e. global) as the (backend has server.js && frontend has index.js)
+
+// note: browser sees index.html (as browser requests/receives index.html) WEBPACK-👀 injects automatically <script> tag for index.js to index.html (DURING BUILD PROCESS) 
+
+// create components and pages folder -------------------------
+// pages would have navigations, routing, ....................
 
 // 1st component - LAYOUT.JS (consume header && footer in Layout component for later use)
 ________________________________________________________________________________________
-// FRONTEND - props (----------------------------know-how🙂)
+// FRONTEND - props (----------------------------know-how)
 ________________________________________________________________________________________
 ________________________________________________________________________________________
 
