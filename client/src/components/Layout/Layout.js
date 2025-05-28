@@ -1,27 +1,29 @@
-import React from 'react'
-import Header from './Header'
-import Footer from './Footer'
+import React from "react";
+import Header from "./Header";
+import Footer from "./Footer";
 
 // // for app.js content to work in b/w this content tags, like <h1> between <layout></layout>, pass {props} to LAYOUT and print {props.children}
 
 // const Layout = (props) => {
 //   return (
 //     <div>
-//         <Header>
+//         <Header/>
 //          <main>{props.children}</main>
-//          </Header>
+//          {/* anything else you want on the Layout */}
+//          <Footer/>
 //     </div>
 //   )
 // }
 
-const Layout = ({children}) => {
+const Layout = ({ children }) => {
   return (
     <div>
-        <Header/>
-         <main style={{minHeight:"80vh"}}>{children}</main>
-         <Footer/>
+      <Header />
+      <main style={{ minHeight: "80vh" }}>{children}</main>
+      {/* anything else you want on the Layout */}
+      <Footer />
     </div>
-  )
-}
+  );
+};
 
-export default Layout
+export default Layout;

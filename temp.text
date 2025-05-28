@@ -45,5 +45,30 @@ ________________________________________________________________________________
 
 // FRONTEND FRONTEND FRONTEND FRONTEND  FRONTEND FRONTEND FRONTEND FRONTEND  FRONTEND FRONTEND FRONTEND FRONTEND  FRONTEND FRONTEND FRONTEND FRONTEND  FRONTEND FRONTEND FRONTEND FRONTEND  FRONTEND FRONTEND FRONTEND FRONTEND  FRONTEND FRONTEND FRONTEND FRONTEND  FRONTEND FRONTEND FRONTEND FRONTEND  FRONTEND FRONTEND FRONTEND FRONTEND  FRONTEND FRONTEND FRONTEND FRONTEND  FRONTEND FRONTEND FRONTEND FRONTEND  FRONTEND FRONTEND FRONTEND FRONTEND  FRONTEND FRONTEND FRONTEND FRONTEND  FRONTEND FRONTEND FRONTEND FRONTEND  FRONTEND FRONTEND FRONTEND FRONTEND  FRONTEND FRONTEND FRONTEND FRONTEND  FRONTEND FRONTEND FRONTEND FRONTEND  FRONTEND FRONTEND FRONTEND FRONTEND  FRONTEND FRONTEND FRONTEND FRONTEND  FRONTEND FRONTEND FRONTEND FRONTEND  FRONTEND FRONTEND FRONTEND FRONTEND  FRONTEND FRONTEND FRONTEND FRONTEND  FRONTEND FRONTEND FRONTEND FRONTEND  FRONTEND FRONTEND FRONTEND FRONTEND  FRONTEND FRONTEND FRONTEND FRONTEND  FRONTEND FRONTEND FRONTEND FRONTEND  FRONTEND FRONTEND FRONTEND FRONTEND  FRONTEND FRONTEND FRONTEND FRONTEND  FRONTEND FRONTEND FRONTEND FRONTEND  FRONTEND FRONTEND FRONTEND FRONTEND  FRONTEND FRONTEND FRONTEND FRONTEND  FRONTEND FRONTEND FRONTEND FRONTEND 
 
+________________________________________________________________________________________
+// FRONTEND - props 
+________________________________________________________________________________________
+________________________________________________________________________________________
 // create a layout component with header and footer, (LAYOUT COMPONENT FOR FLEXIBILITY eg. header, footer and later in future->sidebar)
 
+// WORKING 1st define component with prop e.g... const MyComponent = (props) => { // ...}; (PROPS PARAMETER IS AN OBJECT)
+
+// USAGE 2nd use component with props e.g... <MyComponent msg="Hello" name="Rohit"/> // // Inside MyComponent, the props object will be 
+    {
+    msg:"Hello",
+    name:"Rohit"
+    }
+
+// children (i.e. as in props.children) is a SPECIAL PROP, Layout component is parent, and whatever in between that would be children automatically
+
+// {obj} DESTRUCTURING allows to unpack properties/keys (obj=key-value pair) from {ojb} into vars
+
+// so, children is special prop, and whatever regular props have to define can be destructured along this special prop, e.g
+// const Layout = ({ children, showFooter }) 
+// showFooter is regular prop 
+
+//   <Layout showFooter={true}>
+//        <h1>Page 1 Content</h1>
+//   </Layout>
+
+________________________________________________________________________________________
