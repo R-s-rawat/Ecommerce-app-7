@@ -127,4 +127,8 @@ ________________________________________________________________________________
 
 // DESIGN--  RE-Design (header, footer)
 
+// visit getbootstrap.com (for CSS - header-navbar)
+
+// Now, in place of anchor(<a>), Usage of NavLink (from REACT ROUTER DOM) take place...
+
 // 
