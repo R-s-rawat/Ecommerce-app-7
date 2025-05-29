@@ -10,23 +10,60 @@
 /* font-family: "Poppins", sans-serif; (font weight 300 & 400) */
 /* font-family: "Playfair Display", serif; (font weight 700) */
 
-/* // navbar css */
- /* webkit prefix --> for older versions of the WebKit engine (used by browsers like older versions of Safari and older versions of Chrome). */
- /* !important --> for overwriting existing classes (BOOTSTRAP) */
-.navbar{
-   font-family: "Poppins", sans-serif;;
-   font-weight: 17px;
-   line-height: 26px;
-   text-transform: uppercase;
-   box-shadow: 0px 8px 6px -6px gray;
-   -webkit-box-shadow: 0px 8px 6px -6px gray ;
-   border-bottom: solid gray !important;
+/* //////////////////////////////////////////////////////////////////////////// */
+/* //////////////////////////////////////////////////////////////////////////// navbar css */
+/* //////////////////////////////////////////////////////////////////////////// */
+/* webkit prefix --> for older versions of the WebKit engine (used by browsers like older versions of Safari and older versions of Chrome). */
+/* !important --> for overwriting existing classes (BOOTSTRAP) */
+.navbar {
+  font-family: "Poppins", sans-serif;
+  font-weight: 17px;
+  line-height: 26px;
+  text-transform: uppercase;
+  box-shadow: 0px 8px 6px -6px gray;
+  -webkit-box-shadow: 0px 8px 6px -6px gray;
+  border-bottom: solid gray !important;
 }
 
-.nav-link{
-font-weight: 300 !important;
+.nav-link {
+  font-weight: 300 !important;
 }
 
-.active{
+.active {
   border-bottom: 1px solid black !important;
+}
+/* // BOOTSTRAP by default - roboto font, FALLBACK(sans-serif) */
+.navbar-brand {
+  font-weight: 700;
+  font-family: "roboto", sans-serif;
+  letter-spacing: 3px;
+}
+
+/* ////////////////////////////////////////////////////////////////////////////  */
+/* //////////////////////////////////////////////////////////////////////////// footer css */
+/* ////////////////////////////////////////////////////////////////////////////  */
+
+.footer {
+  color: white;
+  padding: 25px;
+  background: #000000; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to right,
+    #434343,
+    #000000
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #434343, #000000);
+}
+
+/* // for link of react-router-dom */
+.footer a{
+  text-decoration: none;
+   color: white;
+    padding: 10px;
+
+}
+
+.footer a:hover{
+  color: #18cc69;
+  border-bottom: 1px solid white;
 }

@@ -1,6 +1,7 @@
 import React from "react";
 import { NavLink, Link } from "react-router-dom";
 
+
 const Header = () => {
   return (
     <>
@@ -20,7 +21,7 @@ const Header = () => {
           {/* ////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */}
           <div className="collapse navbar-collapse" id="navbarTogglerDemo01">
             <Link to="/" className="navbar-brand">
-             Ecommerce App
+            🛒 Ecommerce App
             </Link>
             {/* // BS-5 utility classes  (ME)margin-end: auto && (MS)margin-start: auto*/}
             <ul className="navbar-nav ms-auto mb-2 mb-lg-0">

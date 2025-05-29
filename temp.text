@@ -133,4 +133,14 @@ ________________________________________________________________________________
 
 // After pasting any boilerplate code or little template snippets, use COVERT HTML TO JSX, (like for eg. bootstrap navbar) --- 😎😎 Because CLASS changes to CLASS_NAME
 
+// .gitignore in parent(backend folder) ignores /public for backend but not of child-FRONTEND(client/public) using client/public/* && !client/public/robots.txt, !client/public/img
+
+// Style navbar with react icons and link, navlink-to and custom css (😌link for internal linking, navlink for beautiful styled links in menus,navs,headers)
+
+// Ensure fonts properly, BOOTSTRAP by default provides- roboto font, FALLBACK(sans-serif) for each fonts use, (import others as required)
+
+// besides REACT -icons, :emojisense: VS-CODE EXTENSION ___ctrl+i eg.shopping cart icon for logo 🛒
+
+// 💯 FOOTER - with links 
+
 // 
