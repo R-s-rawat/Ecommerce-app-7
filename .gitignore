@@ -43,8 +43,8 @@ jspm_packages
 # Ignore everything in public folder
 public/*
 
-# But NOT the public folder itself
-# !public/
+# But don't ignore the folder itself
+!public/
 
 # Ignore not whole public files But NOT these files/folders
 !public/images/
