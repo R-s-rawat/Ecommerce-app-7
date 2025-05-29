@@ -39,3 +39,15 @@ jspm_packages
 
 #Excluding build directory
 public/
+
+# Ignore everything in public folder
+public/*
+
+# Ignore not whole public files But NOT these files/folders
+!public/images/
+!public/favicon.ico
+!public/index.html
+!public/manifest.json
+!public/robots.txt
+# only for blank folders to be traced  #!public/.gitkeep
+##########################################################
