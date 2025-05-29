@@ -38,11 +38,11 @@ jspm_packages
 .DS_Store
 
 #Excluding build directory
-# public/
+ public/
 
 # If the parent .gitignore ignore (PUBLIC) then Git never even looks inside public/ if the parent already told it to ignore the whole folder.
 
-# Adding client prefix before the public folders worked, as it points to directories and files correctly
+# Adding client prefix(as it points to client folder) before the public folders worked, as it points to directories and files correctly 🔥
 # Ignore everything in public folder
 client/public/*
 
