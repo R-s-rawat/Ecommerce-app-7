@@ -43,16 +43,16 @@ jspm_packages
 # If the parent .gitignore ignore (PUBLIC) then Git never even looks inside public/ if the parent already told it to ignore the whole folder.
 
 # Ignore everything in public folder
-public/*
+client/public/*
 
 # But don't ignore the folder itself
-!public/
+!client/public/
 
 # Ignore not whole public files But NOT these files/folders
-!public/images/
-!public/favicon.ico
-!public/index.html
-!public/manifest.json 
-!public/robots.txt
-!public/.gitkeep 
+!client/public/images/
+!client/public/favicon.ico
+!client/public/index.html
+!client/public/manifest.json 
+!client/public/robots.txt
+!client/public/.gitkeep 
 ##########################################################
