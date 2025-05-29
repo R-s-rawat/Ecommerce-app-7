@@ -131,4 +131,6 @@ ________________________________________________________________________________
 
 // Now, in place of anchor(<a>), Usage of NavLink (from REACT ROUTER DOM) take place...
 
+// After pasting any boilerplate code or little template snippets, use COVERT HTML TO JSX, (like for eg. bootstrap navbar) --- 😎😎 Because CLASS changes to CLASS_NAME
+
 // 
