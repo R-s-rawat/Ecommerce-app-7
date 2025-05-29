@@ -47,7 +47,7 @@ jspm_packages
 client/public/*
 
 # But don't ignore the folder itself
-!client/public/
+# !client/public/
 
 # Ignore not whole public files But NOT these files/folders
 !client/public/images/
