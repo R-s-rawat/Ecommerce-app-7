@@ -38,10 +38,13 @@ jspm_packages
 .DS_Store
 
 #Excluding build directory
-public/
+# public/
 
 # Ignore everything in public folder
 public/*
+
+# But NOT the public folder itself
+!public/
 
 # Ignore not whole public files But NOT these files/folders
 !public/images/
@@ -49,5 +52,5 @@ public/*
 !public/index.html
 !public/manifest.json
 !public/robots.txt
-# only for blank folders to be traced  #!public/.gitkeep
+!public/.gitkeep 
 ##########################################################
