@@ -18,24 +18,24 @@ const Header = () => {
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-            <a class="navbar-brand" href="#">
+            <NavLink to="/" class="navbar-brand" href="#">
               Hidden brand
-            </a>
+            </NavLink>
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">
+                <NavLink to="/" class="nav-link active" aria-current="page" href="#">
                   Home
-                </a>
+                </NavLink>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">
+                <NavLink to="/" class="nav-link" href="#">
                   Link
-                </a>
+                </NavLink>
               </li>
               <li class="nav-item">
-                <a class="nav-link disabled" aria-disabled="true">
+                <NavLink to="/" class="nav-link disabled" aria-disabled="true">
                   Disabled
-                </a>
+                </NavLink>
               </li>
             </ul>
           </div>
