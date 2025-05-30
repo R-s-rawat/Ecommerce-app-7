@@ -147,4 +147,12 @@ ________________________________________________________________________________
 
 // Currently we not have routes for /category /register /login /cart (where we will show as all other not existing routes, Page not Found )
 
+// GIT COMMANDS, from commits to merging and all..................... GIT🎁 (Github DESKTOP app = Focus on what matters instead of fighting with Git) example: use github app for ammending(commit message) and then git push --force (for altering commit in that main repo from where it is cloned)...
+
+// REACT - by default not supports SEO, (third party packages) and other fundamentals for GOOGLE to consider your software to be ranked.... (eg. meta tag)
+
+// so, as Meta tags gets static/hard-coded not dynamic, so React-HELMET (keywords, description)...
+
+// Layout.defaultProps 🍕🍕🍕 (OBJECT😅) for default ones if no props gets passed,  (eg. in layout wrapping each page, title-description && -keywords for whole ecommerce site), or otherwise pass props from each page (100% seo), other packages later...
+
 // 
