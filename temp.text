@@ -157,6 +157,9 @@ ________________________________________________________________________________
 
 // issues with React-helmet package, some of good latest packages are react-helmet-async🍜
 
+// use * instead /* for non exising pages- routes....
+
 // Now Register and other pages like login
 
-// 
+// Register page - FRONTEND
+
