@@ -145,4 +145,6 @@ ________________________________________________________________________________
 
 // after Header, Footer done, on going to pages --> page title not changing (We should make it SEO💡 friendly)...
 
+// Currently we not have routes for /category /register /login /cart (where we will show as all other not existing routes, Page not Found )
+
 // 
