@@ -155,4 +155,6 @@ ________________________________________________________________________________
 
 // Layout.defaultProps 🍕🍕🍕 (OBJECT😅) for default ones if no props gets passed,  (eg. in layout wrapping each page, title-description && -keywords for whole ecommerce site), or otherwise pass props from each page (100% seo), other packages later...
 
-// 
+// issues with React-helmet package, some of good latest packages are react-helmet-async🍜
+
+//
