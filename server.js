@@ -8,7 +8,8 @@ import colors from "colors";
 import dotenv from "dotenv";
 import morgan from "morgan";
 import connectDB from "./config/db.js"; // // in type:module (es6) for import-export(within app), file extensions are compulsory
-import authRoutes from './routes/authRoute.js';
+import authRoutes from "./routes/authRoute.js";
+import cors from "cors";
 
 // configure env - (as our env file is in root, so no location defining inside config method(i.e. not defining any object in config() as .env is already in root path))
 dotenv.config();
@@ -20,17 +21,17 @@ connectDB();
 const app = express();
 
 // middlewares
+app.use(cors());
 app.use(express.json()); // // in request & response, json data transfer (by default feature in express)
 app.use(morgan("dev")); // // for knowing which api getting called/requested (just for local testing) - *Not for prod. (nodeJS -runtime within local setup along Express backend framework)
 
 // routes
-app.use('/api/v1/auth', authRoutes); 
+app.use("/api/v1/auth", authRoutes);
 
 // rest api
 app.get("/", (req, res) => {
   res.send("<h1>welcome to ecommerce app</h1>");
 });
-
 
 // port
 // nodeJS uses process.env

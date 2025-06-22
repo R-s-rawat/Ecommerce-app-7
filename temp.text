@@ -165,4 +165,14 @@ ________________________________________________________________________________
 
 // use bootstrap for register .. & login page template
 
-//
+// ////////////////////////////////////////////////////// Register page /////////////////////////////////////////////
+
+// Register form termplate from bootstrap-5 docs && then convert HTML to JSX
+
+axios (for http client) & toastify (for notifications) -
+
+cors (for connecting two servers =  ports 8080 && 3000 causing cross - origin conflict) // so cancel errors related to origin
+
+concurrently ( for npm start - both client and server in single command)
+
+///////////////////////////////////////////////////////  Register page ends //////////////////////////////////////////////////
