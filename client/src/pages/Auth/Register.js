@@ -1,21 +1,45 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import Layout from "../../components/Layout/Layout";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const Register = () => {
   // useState - 1st getter function, 2nd setter function
-  const [name, setName] = useState("")
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
-  const [phone, setPhone] = useState("")
-  const [address, setAddress] = useState("")
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [phone, setPhone] = useState("");
+  const [address, setAddress] = useState("");
 
-  // form function, targeting e(event)
-  const handleSubmit = (e)=>{
+  const navigate = useNavigate();
+
+  // form function,
+  //
+  // targeting e(event)
+
+  const handleSubmit = async (e) => {
+    console.log(e)
     e.preventDefault();
-    console.log(name,email,password,phone,address)
-    toast.success('Registered Successfully')
-  }
+    // console.log(name,email,password,phone,address)
+    // toast.success('Registered Successfully')
+    try {
+      const res = await axios.post(
+        '/api/v1/auth/register',
+        { name, email, password, phone, address }
+      );
+      // Now, if (true)
+      if (res.data.success) {
+        toast.success(res.data.message);
+        navigate('/login')
+      } else {
+        toast.error(res.data.message);
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("Something went wrong");
+    }
+  };
 
   return (
     <Layout title={"register page"}>
@@ -29,7 +53,7 @@ const Register = () => {
             <input
               type="text"
               value={name}
-              onChange={(e)=>setName(e.target.value)}
+              onChange={(e) => setName(e.target.value)}
               className="form-control"
               id="exampleInputEmail1"
               placeholder="Enter your Name"
@@ -41,7 +65,7 @@ const Register = () => {
             <input
               type="email"
               value={email}
-              onChange={(e)=>setEmail(e.target.value)}
+              onChange={(e) => setEmail(e.target.value)}
               className="form-control"
               id="exampleInputPassword1"
               placeholder="Enter your Email"
@@ -53,7 +77,7 @@ const Register = () => {
             <input
               type="password"
               value={password}
-              onChange={(e)=>setPassword(e.target.value)}
+              onChange={(e) => setPassword(e.target.value)}
               className="form-control"
               id="exampleInputEmail1"
               placeholder="Enter your Password"
@@ -65,7 +89,7 @@ const Register = () => {
             <input
               type="text"
               value={phone}
-              onChange={(e)=>setPhone(e.target.value)}
+              onChange={(e) => setPhone(e.target.value)}
               className="form-control"
               id="exampleInputEmail1"
               placeholder="Enter your Phone"
@@ -77,7 +101,7 @@ const Register = () => {
             <input
               type="text"
               value={address}
-              onChange={(e)=>setAddress(e.target.value)}
+              onChange={(e) => setAddress(e.target.value)}
               className="form-control"
               id="exampleInputEmail1"
               placeholder="Enter your Address"

@@ -1,19 +1,23 @@
+📌📌
 ________________________________________________________________________________________
 http://localhost:8080/ 😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎
 // BACKEND BACKEND  BACKEND BACKEND BACKEND BACKEND BACKEND BACKEND BACKEND BACKEND BACKEND BACKEND BACKEND BACKEND BACKEND BACKEND BACKEND BACKEND BACKEND BACKEND BACKEND BACKEND  BACKEND BACKEND BACKEND BACKEND BACKEND BACKEND BACKEND BACKEND BACKEND BACKEND BACKEND BACKEND BACKEND BACKEND BACKEND BACKEND BACKEND BACKEND 
 http://localhost:8080/
 ________________________________________________________________________________________
+📌📌
 ________________________________________________________________________________________
 // added 5 folders besides basic(config folder containing db-connect file) for mvc of web-app
 
 // keep the separation of concerns, like helpers(or utils), routes, controllers, models, middlewares 👀  (5) essentials..
 
 ________________________________________________________________________________________
+📌📌
 // MODEL ________________________________________________________________________________________________
 ________________________________________________________________________________________
 // we create a model, 1st one is userModel where we define userSchema (for new website visitors tracing), and saving to database
 
 ________________________________________________________________________________________
+📌📌
 // ROUTE _______________________________________________________________________________________________
 ________________________________________________________________________________________
 // we create routes, 1st is auth Route (for new users ), for proper app routing the new users data to database(creating route through ExpressJS)
@@ -21,11 +25,13 @@ ________________________________________________________________________________
 // as we following mvc, 😎
 
 ________________________________________________________________________________________
+📌📌
 // CONTROLLER ________________________________________________________________________________________
 ________________________________________________________________________________________
 // we create controllers for routing , 1st is (authController), authController will contain register, login ...
 
 ________________________________________________________________________________________
+📌📌
 // HELPER __________________________________________________________________________________________
 ________________________________________________________________________________________
 // we will now create a Helpers, (1st is authHelper) for functions like registration, passcode encryption/hashing and comparison
@@ -43,6 +49,7 @@ ________________________________________________________________________________
 // for jwt sake and usage,
 
 ________________________________________________________________________________________
+📌📌
 // MIDDLEWARE ___________________________________________________________________________________________________
 ________________________________________________________________________________________
 // we create middleware(s) to protect every other route, after register and login, like requireSignIn(for decrypt TOKEN and checking in every route request except register/login), 
@@ -50,6 +57,7 @@ ________________________________________________________________________________
 // create second middleware isAdmin(for checking ADMIN privileges)
 
 ________________________________________________________________________________________
+📌📌
 http://localhost:3000/ 😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎
 // FRONTEND FRONTEND FRONTEND FRONTEND  FRONTEND FRONTEND FRONTEND FRONTEND  FRONTEND FRONTEND FRONTEND FRONTEND  FRONTEND FRONTEND FRONTEND FRONTEND  FRONTEND FRONTEND FRONTEND FRONTEND  FRONTEND FRONTEND FRONTEND FRONTEND  FRONTEND FRONTEND FRONTEND FRONTEND  FRONTEND FRONTEND  FRONTEND FRONTEND FRONTEND FRONTEND  FRONTEND FRONTEND
 http://localhost:3000/
@@ -69,6 +77,7 @@ ________________________________________________________________________________
 
 // 1st component- LAYOUT.JS (app.js is 1st but given to us, so assume it 0th component(app.js)📌) (consume header && footer in Layout component for later use)
 ________________________________________________________________________________________
+📌📌
 // FRONTEND - props (----------------------------know-how)
 ________________________________________________________________________________________
 ________________________________________________________________________________________
@@ -111,6 +120,7 @@ ________________________________________________________________________________
 
 // import Routes, Route for app.js along with nav links to pages
 ________________________________________________________________________________________
+📌📌
 // FRONTEND - router (----------------------------know-how)
 ________________________________________________________________________________________
 ________________________________________________________________________________________
@@ -166,6 +176,10 @@ ________________________________________________________________________________
 // use bootstrap for register .. & login page template
 
 // ////////////////////////////////////////////////////// Register page /////////////////////////////////////////////
+📌📌
+📌📌
+// importing packages in client(frontend) and main directory(backend) differs a little as backend directory - package.json mentioned (type:"module") but
+// While We can use the .js extension for local modules in ES6 imports,but many libraries, including JWT, may not require it due to historical reasons and compatibility with older Node.js versions
 
 // Register form termplate from bootstrap-5 docs && then convert HTML to JSX
 
@@ -175,4 +189,59 @@ cors (for connecting two servers =  ports 8080 && 3000 causing cross - origin co
 
 concurrently ( for npm start - both client and server in single command)
 
+------------axios -  `${process.env.REACT_APP_API}/api/v1/auth/register`, ((SEND DATA OF REGISTER FORM TO BACKEND))
+--as defined ✨in auth route - post register for method, we will send form data to the register controller (i.e to the auth controller) having following::
+
+-------------------------------------
+ res.status(201).send({
+      success: true,
+      message: "User registered successfully",
+ })
+-------------------------------------
+
 ///////////////////////////////////////////////////////  Register page ends //////////////////////////////////////////////////
+📌📌
+📌📌
+________________________________________________________________________________________
+From now on, just run (npm run dev) for development of both frontend and backend (run in just 1 cli)
+
+npm run dev 
+
+> ecommerce-app-7@1.0.0 dev
+> concurrently "npm run server" "npm run client"
+________________________________________________________________________________________
+
+
+________________________________________________________________________________________
+💀💀💀
+For following error, remove <React.StrictMode> <React.StrictMode> from index.js 
+
+Using UNSAFE_componentWillMount in strict mode is not recommended and may indicate bugs in your code. See https://react.dev/link/unsafe-component-lifecycles for details.
+
+* Move code with side effects to componentDidMount, and set initial state in the constructor.
+
+Please update the following components: SideEffect(NullComponent)
+________________________________________________________________________________________
+
+
+________________________________________________________________________________________
+💀💀💀 🦊🦊🦊🦊
+For following error,
+firefox console showing (UNDEFINED) within post request url !!!
+http://localhost:3000/undefined/api/v1/auth/regis
+
+FOR THAT, W-E  A-D-D-E-D  P-R-O-X-Y not normal .env variable
+> package.json, add "proxy":"http://localhost:8080
+---------------------------------------------------
+  "name": "client",
+  "proxy": "http://localhost:8080",
+________________________________________________________________________________________
+
+
+________________________________________________________________________________________
+
+
+
+
+
+
