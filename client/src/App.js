@@ -7,19 +7,23 @@ import Policy from "./pages/Policy";
 import Pagenotfound from "./pages/Pagenotfound";
 import Register from "./pages/Auth/Register";
 import Login from "./pages/Auth/Login";
-import { ToastContainer } from "react-toastify";
+// import { ToastContainer } from "react-toastify";
 
 function App() {
   return (
     <>
       <Routes>
+        {/* main page - Parent👿👿 */}
         <Route path="/" element={<HomePage />} />
+        {/* child🐇🐇 pages */}
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/policy" element={<Policy />} />
-        <Route path="*" element={<Pagenotfound />} />
+        {/* child🐇🐇 - forms pages */}
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
+        {/* child🐇🐇 pages - not created */}
+        <Route path="*" element={<Pagenotfound />} />
       </Routes>
     </>
   );

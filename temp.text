@@ -253,5 +253,21 @@ we created authStyles css file for forms-authPages
 ________________________________________________________________________________________
 
 ________________________________________________________________________________________
+📌📌
+after login form -> html && css
+controller already setup (setup already done)
+route already setup (setup already done)
+________________________________________________________________________________________
+
+________________________________________________________________________________________
+📢📢📢📢
+We will use CONTEXT API for this project, not redux-toolkit
+
+Nothing to install, react already provides CONTEXT (function(i.e hooks) based, )
+
+let's create CONTEXT
+________________________________________________________________________________________
+
+ 
 
 
