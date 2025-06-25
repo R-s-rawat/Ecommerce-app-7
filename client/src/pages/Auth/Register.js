@@ -2,7 +2,9 @@ import React, { useState } from "react";
 import Layout from "../../components/Layout/Layout";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
+// import { toast } from "react-toastify";
+import toast from "react-hot-toast";
+import "../../styles/AuthStyles.css";
 
 const Register = () => {
   // useState - 1st getter function, 2nd setter function
@@ -19,21 +21,24 @@ const Register = () => {
   // targeting e(event)
 
   const handleSubmit = async (e) => {
-    console.log(e)
+    console.log(e);
     e.preventDefault();
     // console.log(name,email,password,phone,address)
     // toast.success('Registered Successfully')
     try {
-      const res = await axios.post(
-        '/api/v1/auth/register',
-        { name, email, password, phone, address }
-      );
+      const res = await axios.post("/api/v1/auth/register", {
+        name,
+        email,
+        password,
+        phone,
+        address,
+      });
       // Now, if (true)
-      if (res.data.success) {
+      if (res && res.data.success) {
         toast.success(res.data.message);
-        navigate('/login')
+        navigate("/login");
       } else {
-        toast.error(res.data.message);
+        toast.error(res ? res.data.message : "register");
       }
     } catch (error) {
       console.log(error);
@@ -44,7 +49,9 @@ const Register = () => {
   return (
     <Layout title={"register page"}>
       {/* <h1>Register Page</h1> */}
-      <div className="register">
+      <div className="form-container">
+        {" "}
+        {/*simple sover design using css for forms */}
         <h1>Register Page</h1>
         {/* paste form from bootstrap-5 docs && then convert HTML to JSX*/}
         <form onSubmit={handleSubmit}>

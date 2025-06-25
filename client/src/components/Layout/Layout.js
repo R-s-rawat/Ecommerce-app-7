@@ -2,7 +2,8 @@ import React from "react";
 import Header from "./Header";
 import Footer from "./Footer";
 import { Helmet } from "react-helmet";
-import { ToastContainer } from "react-toastify";
+// import { ToastContainer } from "react-toastify";
+import { Toaster } from 'react-hot-toast'; 
 
 // // for app.js content to work in b/w this content tags, like <h1> between <layout></layout>, pass {props} to LAYOUT and print {props.children}
 
@@ -29,7 +30,8 @@ const Layout = ({ children, title, description, keywords, author }) => {
       </Helmet>
       <Header />
       <main style={{ minHeight: "70vh" }}>
-        <ToastContainer />
+        {/* <ToastContainer /> */}
+        <Toaster/>
         {children}
       </main>
       {/* anything else you want on the Layout */}

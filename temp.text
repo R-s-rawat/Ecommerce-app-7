@@ -169,7 +169,7 @@ ________________________________________________________________________________
 
 // use * instead /* for non exising pages- routes....
 
-// Now Register and other pages like login
+// Now Register and other pages like login (rafce - react arrow function with export (VS CODE SNIPPET))
 
 // Register page - FRONTEND
 
@@ -239,9 +239,19 @@ ________________________________________________________________________________
 
 
 ________________________________________________________________________________________
+💀💀
+react -toastify not showing up 
+on success user registatin navigate to login
+so - ANOTHER PACKAGE RE-PLACEMENT (react -hot -toast)
+________________________________________________________________________________________
 
+________________________________________________________________________________________
+📌📌
+created a styles folder in src (of frontend i.e client)
+AS INLINE-CSS is OLD, (CAUSES WEBSITE SPEED ISSUES)
+we created authStyles css file for forms-authPages
+________________________________________________________________________________________
 
-
-
+________________________________________________________________________________________
 
 
