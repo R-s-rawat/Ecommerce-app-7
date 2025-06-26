@@ -274,9 +274,12 @@ Ok, now STORE LOGIN credentials to -> CONTEXT API -> LOCAL STORAGE, before homep
 ________________________________________________________________________________________
 
 ________________________________________________________________________________________
+💡💡💡
+So, to persist Context API state across page refreshes,  (login - credentials)
+we explicitly stored and retrieved data using client-side storage (LOCAL STORAGE)
+________________________________________________________________________________________
 
-
-
+________________________________________________________________________________________
 
  
 

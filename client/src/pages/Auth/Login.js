@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 // import { toast } from "react-toastify";
 import toast from "react-hot-toast";
 // no authStyles.css (automatically working css without import)
+// import "../../styles/AuthStyles.css";
 import { useAuth } from "../../context/auth";
 
 const Login = () => {
@@ -38,7 +39,7 @@ const Login = () => {
           token: res.data.token,
         });
         localStorage.setItem("auth", JSON.stringify(res.data));
-        navigate("/");
+        navigate('/'); 
       } else {
         toast.error(res ? res.data.message : "login");
       }
