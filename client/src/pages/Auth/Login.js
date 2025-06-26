@@ -4,11 +4,14 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 // import { toast } from "react-toastify";
 import toast from "react-hot-toast";
+// no authStyles.css (automatically working css without import)
+import { useAuth } from "../../context/auth";
 
 const Login = () => {
   // useState - 1st getter function, 2nd setter function
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [auth, setAuth] = useAuth();
 
   const navigate = useNavigate();
 
@@ -29,6 +32,12 @@ const Login = () => {
       // Now, if (true)
       if (res && res.data.success) {
         toast.success(res.data.message);
+        setAuth({
+          ...auth,
+          user: res.data.user,
+          token: res.data.token,
+        });
+        localStorage.setItem("auth", JSON.stringify(res.data));
         navigate("/");
       } else {
         toast.error(res ? res.data.message : "login");

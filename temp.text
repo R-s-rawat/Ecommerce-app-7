@@ -267,6 +267,16 @@ Nothing to install, react already provides CONTEXT (function(i.e hooks) based, )
 
 let's create CONTEXT
 ________________________________________________________________________________________
+❓❓❔❔
+unpredicted - Login page getting css automatically without explicitly defining import "../../styles/AuthStyles.css";
+
+Ok, now STORE LOGIN credentials to -> CONTEXT API -> LOCAL STORAGE, before homepage redirect
+________________________________________________________________________________________
+
+________________________________________________________________________________________
+
+
+
 
  
 
