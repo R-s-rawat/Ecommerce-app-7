@@ -277,10 +277,24 @@ ________________________________________________________________________________
 💡💡💡
 So, to persist Context API state across page refreshes,  (login - credentials)
 we explicitly stored and retrieved data using client-side storage (LOCAL STORAGE)
+
+after 1st login redirect- >>>>SET_AUTH of Login-page works until refresh<<<<<<, then on refresh(homepage refresh, so did our CONTEXT API CODE calling LOCAL-STORAGE for Login-credentials)
 ________________________________________________________________________________________
 
 ________________________________________________________________________________________
+⚡💀⚡⚡❔❓❓
+ error:
+ Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
 
- 
+ in context api folder (nested in src folder of frontend), auth.js for (context api- global storage for login credentials), Youtube Sir said to use (auth, setAuth)
+
+ but error gone after removing [auth] from dependency array, as it is triggering infinite loop.
+
+ what i know: blank dependency array run once.
+ what i got to know(this error): We are initializing state from localStorage, so there's no need to watch auth for changes.
+ ________________________________________________________________________________________
+
+ ________________________________________________________________________________________
+
 
 

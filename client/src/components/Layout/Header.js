@@ -1,7 +1,9 @@
 import React from "react";
 import { NavLink, Link } from "react-router-dom";
+import { useAuth } from "../../context/auth";
 
 const Header = () => {
+    const [auth, setAuth] = useAuth();
   return (
     <>
       <nav className="navbar navbar-expand-lg bg-body-tertiary">
@@ -40,7 +42,13 @@ const Header = () => {
               </li>
               {/* //Category Ends */}
               {/*------------------------------------------------------- */}
-              {/* //Register */}
+         {
+          // !auth.user ? (false) : (true)
+         }
+         {
+          !auth.user ? (
+            <>
+                 {/* //Register */}
               <li className="nav-item">
                 <NavLink to="/register" className="nav-link">
                   Register
@@ -55,7 +63,21 @@ const Header = () => {
                 </NavLink>
               </li>
               {/* // Login Ends */}
+              {/*------------------------------------------------------- */} 
+            </>
+          ) : (
+            <>
+                 {/* //logout */}
+              <li className="nav-item">
+                <NavLink to="/logout" className="nav-link">
+                  Logout
+                </NavLink>
+              </li>
+              {/* //logout Ends */}
               {/*------------------------------------------------------- */}
+            </>
+          )
+         }
               {/* // Cart */}
               <li className="nav-item">
                 <NavLink to="/cart" className="nav-link">
