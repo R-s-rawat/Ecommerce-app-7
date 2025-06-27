@@ -4,6 +4,16 @@ import { useAuth } from "../../context/auth";
 
 const Header = () => {
     const [auth, setAuth] = useAuth();
+
+    const handleLogout = () =>{
+      setAuth({
+        // we are spreading auth, as it is not mandatory that we have only user && token, 
+        ...auth,
+        user: null,
+        token: ''
+      })
+      localStorage.removeItem('auth')
+    }
   return (
     <>
       <nav className="navbar navbar-expand-lg bg-body-tertiary">
@@ -69,7 +79,7 @@ const Header = () => {
             <>
                  {/* //logout */}
               <li className="nav-item">
-                <NavLink to="/logout" className="nav-link">
+                <NavLink onClick={handleLogout} to="/login" className="nav-link">
                   Logout
                 </NavLink>
               </li>
