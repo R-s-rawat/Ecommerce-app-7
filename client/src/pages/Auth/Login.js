@@ -26,7 +26,7 @@ const Login = () => {
     // console.log(name,email,password,phone,address)
     // toast.success('Registered Successfully')
     try {
-      const res = await axios.post(`${import.meta.env.REACT_APP_API}/api/v1/auth/login`, {
+      const res = await axios.post(`${process.env.REACT_APP_API}/api/v1/auth/login`, {
         email,
         password,
       });
