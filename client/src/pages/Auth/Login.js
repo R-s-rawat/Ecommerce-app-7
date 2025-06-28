@@ -4,7 +4,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 // import { toast } from "react-toastify";
 import toast from "react-hot-toast";
-// no authStyles.css (automatically working css without import)
+
 // import "../../styles/AuthStyles.css";
 import { useAuth } from "../../context/auth";
 
@@ -24,7 +24,7 @@ const Login = () => {
   // targeting e(event)
 
   const handleSubmit = async (e) => {
-    console.log(e);
+    // console.log(e);
     e.preventDefault();
     // console.log(name,email,password,phone,address)
     // toast.success('Registered Successfully')

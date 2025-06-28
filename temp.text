@@ -271,6 +271,14 @@ ________________________________________________________________________________
 unpredicted - Login page getting css automatically without explicitly defining import "../../styles/AuthStyles.css";
 
 Ok, now STORE LOGIN credentials to -> CONTEXT API -> LOCAL STORAGE, before homepage redirect
+
+--- after some chat gpting;💀💀💀
+i got to know = Because CSS is global in React unless scoped🚑🚑🚑
+
+-- so thing to always remember (css is global in react unless -- css modules for scoped styling or just have css imports in app.js - laziness at extreme)
+// for now, moving that css import to app.js (to showcase, it is done as per intention- sharing to both form pages)
+
+// key note: to keep styles isolated to a single component,, IT OUGHT TO USE - css modules🚑🚑
 ________________________________________________________________________________________
 
 ________________________________________________________________________________________
@@ -286,12 +294,28 @@ ________________________________________________________________________________
  error:
  Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
 
- in context api folder (nested in src folder of frontend), auth.js for (context api- global storage for login credentials), Youtube Sir said to use (auth, setAuth)
+ in context api folder (nested in src folder of frontend), auth.js for (context api- global storage for login credentials), I got provided with knowledge to use (auth, setAuth)
 
  but error gone after removing [auth] from dependency array, as it is triggering infinite loop.
 
  what i know: blank dependency array run once.
  what i got to know(this error): We are initializing state from localStorage, so there's no need to watch auth for changes.
+
+ // then i discovered (which exists, but i not found yet, or my small brain not catched)
+
+ for cancelling linter (e.g eslint) issues (we done that)
+✅ // eslint-disable-next-line
+
+which only & only applies to the very next line
+// that prevented eslint warning ---
+----------------------------------------- for example below
+useEffect(() => {
+  console.log(auth);                // <-- used here
+}, []);                             // <-- not included here
+---------------------------------------------
+As, eslint says:
+ESLint says:
+⚠️ React Hook useEffect has a missing dependency: 'auth'. Either include it or remove the dependency array.
  ________________________________________________________________________________________
 
  ________________________________________________________________________________________
@@ -302,16 +326,34 @@ NOT FREE / E.G CYCLIC, RAILWAY, (RAILWAY DOES PROVIDES SOME FREE TIER BUT FOR SO
 
 // A FACT:
 🚫 Don't use import.meta.env unless you're using Vite. (as Render - free backend DEPLOYMENT also runs using process.env for dynamic url for cra apps)
+________________________________________________________________________________________
+________________________________________________________________________________________
 
+🔥🔥🔥making use of a variable (for making both frontend and backend work)
+  const API =
+    process.env.NODE_ENV === "production" ? process.env.REACT_APP_API : "";
+
+    using in register/login for (working on both local machine and at production without mis-configuring anything, (frontend using proxy(in package.json stating backend url - http://localhost:8080) so, not need for url))
+________________________________________________________________________________________
+________________________________________________________________________________________
+🐐🐐🐐
+not console logs in production (to prevent cluttering)
+or
+lowering user experience
+________________________________________________________________________________________
+
+________________________________________________________________________________________
+create a user dashboard page;;; 
+i.e user page -> dashboard 
+
+// then a new Component(2nd component = Routes) = components -> Routes(Private.js) (i.e a private component after routing passing all checks of protected route), (1st component = Layout is generic one for scaffolding every page as we know-desinging purpose)
+
+// for nested routing
+-- we use <OUTLET> (react-router-dom)
 ________________________________________________________________________________________
 
 ________________________________________________________________________________________
 
-
-
-________________________________________________________________________________________
-
-________________________________________________________________________________________
 
 
 

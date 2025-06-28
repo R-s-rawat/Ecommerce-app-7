@@ -4,7 +4,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 // import { toast } from "react-toastify";
 import toast from "react-hot-toast";
-import "../../styles/AuthStyles.css";
+// import "../../styles/AuthStyles.css";
 
 const Register = () => {
   const API =
@@ -24,7 +24,7 @@ const Register = () => {
   // targeting e(event)
 
   const handleSubmit = async (e) => {
-    console.log(e);
+    // console.log(e);
     e.preventDefault();
     // console.log(name,email,password,phone,address)
     // toast.success('Registered Successfully')

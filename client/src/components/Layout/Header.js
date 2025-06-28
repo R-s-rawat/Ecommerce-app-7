@@ -1,19 +1,21 @@
 import React from "react";
 import { NavLink, Link } from "react-router-dom";
 import { useAuth } from "../../context/auth";
+import { toast } from "react-hot-toast";
 
 const Header = () => {
-    const [auth, setAuth] = useAuth();
+  const [auth, setAuth] = useAuth();
 
-    const handleLogout = () =>{
-      setAuth({
-        // we are spreading auth, as it is not mandatory that we have only user && token, 
-        ...auth,
-        user: null,
-        token: ''
-      })
-      localStorage.removeItem('auth')
-    }
+  const handleLogout = () => {
+    setAuth({
+      // we are spreading auth, as it is not mandatory that we have only user && token,
+      ...auth,
+      user: null,
+      token: "",
+    });
+    localStorage.removeItem("auth");
+    toast.success("Logout successfully");
+  };
   return (
     <>
       <nav className="navbar navbar-expand-lg bg-body-tertiary">
@@ -52,42 +54,44 @@ const Header = () => {
               </li>
               {/* //Category Ends */}
               {/*------------------------------------------------------- */}
-         {
-          // !auth.user ? (false) : (true)
-         }
-         {
-          !auth.user ? (
-            <>
-                 {/* //Register */}
-              <li className="nav-item">
-                <NavLink to="/register" className="nav-link">
-                  Register
-                </NavLink>
-              </li>
-              {/* //Register Ends */}
-              {/*------------------------------------------------------- */}
-              {/* //Login */}
-              <li className="nav-item">
-                <NavLink to="/login" className="nav-link">
-                  Login
-                </NavLink>
-              </li>
-              {/* // Login Ends */}
-              {/*------------------------------------------------------- */} 
-            </>
-          ) : (
-            <>
-                 {/* //logout */}
-              <li className="nav-item">
-                <NavLink onClick={handleLogout} to="/login" className="nav-link">
-                  Logout
-                </NavLink>
-              </li>
-              {/* //logout Ends */}
-              {/*------------------------------------------------------- */}
-            </>
-          )
-         }
+              {
+                // !auth.user ? (false) : (true)
+              }
+              {!auth.user ? (
+                <>
+                  {/* //Register */}
+                  <li className="nav-item">
+                    <NavLink to="/register" className="nav-link">
+                      Register
+                    </NavLink>
+                  </li>
+                  {/* //Register Ends */}
+                  {/*------------------------------------------------------- */}
+                  {/* //Login */}
+                  <li className="nav-item">
+                    <NavLink to="/login" className="nav-link">
+                      Login
+                    </NavLink>
+                  </li>
+                  {/* // Login Ends */}
+                  {/*------------------------------------------------------- */}
+                </>
+              ) : (
+                <>
+                  {/* //logout */}
+                  <li className="nav-item">
+                    <NavLink
+                      onClick={handleLogout}
+                      to="/login"
+                      className="nav-link"
+                    >
+                      Logout
+                    </NavLink>
+                  </li>
+                  {/* //logout Ends */}
+                  {/*------------------------------------------------------- */}
+                </>
+              )}
               {/* // Cart */}
               <li className="nav-item">
                 <NavLink to="/cart" className="nav-link">
