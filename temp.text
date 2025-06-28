@@ -445,7 +445,7 @@ useState
 useEffect - No useEffect(() => {}) --- it will run on every render (one of worst cases..), array(dependency array[]) even if it is blank, tells to not re-run it on updates
 🎉🎉
 but for now, we are using useEffect (without condition-checks i.e auth?.token or execute further only if it is presence) and passing 2 values to dependency array [count, navigate] 
----- Long live Spinner.js
+---- Long live Spinner.js (a very good component!!!)
 ________________________________________________________________________________________
 
 ________________________________________________________________________________________
