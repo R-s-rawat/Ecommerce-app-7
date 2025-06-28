@@ -270,6 +270,7 @@ ________________________________________________________________________________
 ❓❓❔❔
 unpredicted - Login page getting css automatically without explicitly defining import "../../styles/AuthStyles.css";
 
+(🌟 CONTEXT-APi + LOCAL-Storage ---> SURVIVES REFRESH___________)
 Ok, now STORE LOGIN credentials to -> CONTEXT API -> LOCAL STORAGE, before homepage redirect
 
 --- after some chat gpting;💀💀💀
@@ -316,6 +317,18 @@ useEffect(() => {
 As, eslint says:
 ESLint says:
 ⚠️ React Hook useEffect has a missing dependency: 'auth'. Either include it or remove the dependency array.
+
+//now question arises
+// ❓ But Why Does This Matter?
+// ✔☑✅ Including dependencies ensures the effect always runs with the latest values.
+
+------------ IMAGINE
+useEffect(() => {
+  if (auth.token) doSomething();
+}, []);
+---------------
+🚑🚑🚑
+If auth.token is updated after mount — this effect will never re-run, and you'll miss that token change. That’s what the ESLint rule is trying to prevent. (T-O-K-E-N🙏)
  ________________________________________________________________________________________
 
  ________________________________________________________________________________________
@@ -334,6 +347,13 @@ ________________________________________________________________________________
     process.env.NODE_ENV === "production" ? process.env.REACT_APP_API : "";
 
     using in register/login for (working on both local machine and at production without mis-configuring anything, (frontend using proxy(in package.json stating backend url - http://localhost:8080) so, not need for url))
+
+    🧭🧭🧭(the magician here) = process.env.NODE_ENV
+This is automatically injected by React Scripts (from react-scripts) to tell the app which mode it's running in:
+--------------------------------------------------------
+"development" — when you run npm start
+
+"production" — when you run npm run build
 ________________________________________________________________________________________
 ________________________________________________________________________________________
 🐐🐐🐐
@@ -353,6 +373,83 @@ i.e user page -> dashboard
 ________________________________________________________________________________________
 
 ________________________________________________________________________________________
+then,
+ include axios header(which we trying to do in - GLOBAL (i.e CONTEXT API))
+ // we set axios defaults, not app-BASE-URL for now, but axios requests headers
+ // axios.defaults.headers.common['Authorization'] = auth?.token;
+ ---- 2nd component(Routing, 1st one is LAYOUT) ->private.js -- for token-checks, auth-checks
+ ----- that also recalls of that useEffect dependencies check -i.e OUGHT TO INCLUDE token-checks variable e.g auth?.token to dependency array [], // the EDGE-cases es-linter tries to prevent
+
+ i.e do the following globally (not repetitive - kind of like programmatic seo - bots fills data on every creation without 
+ seo persons intervention)
+-------------------------------------
+  headers: {
+          Authorization: auth?.token,
+        },
+---------------------------------------
+   // the auth?.token works behind the scenes as conditionally executing further code - after auth only if yes
+  // (i.e if auth then only auth.token - By condition(auth?.token))
+
+Now, we can remove the 2nd object😅
+
+Before:
+  const res = await axios.get(`${API}/api/v1/auth/user-auth`, { headers: { Authorization: auth?.token } });
+
+After:
+  const res = await axios.get(`${API}/api/v1/auth/user-auth`, );
+  const res = await axios.get(`${API}/api/v1/auth/user-auth`);
+________________________________________________________________________________________
+
+________________________________________________________________________________________
+get spinner, (get.Bootstrap😃), 
+for now, we are using --- ----- rotating ring spinner
+
+// just out of curiosity:
+/// 2 spinners in (get bootstrap)
+------------------------------
+.spinner-border — the rotating ring
+
+.spinner-grow — the pulsating grow spinner
+-------------------------------
+we will go for Placement (for that .spinner-border) 
+for: Use flexbox utilities, float utilities, or text alignment utilities to place spinners exactly where you need them in any situation.
+________________________________________________________________________________________
+
+________________________________________________________________________________________
+📌📌
+3rd component - spinner 
+copy bootstrap (.spinner-border -> Placement) 
+then convert html->JSX
+________________________________________________________________________________________
+
+________________________________________________________________________________________
+🏓🏓
+Private Route in action (2nd component magic)
+
+(within App.js)
+Before:
+ <Route path="/dashboard" element={<Dashboard />} />
+
+ After:
+   <Route path="/dashboard" element={<PrivateRoute/>}>
+              <Route path="" element={<Dashboard />} />
+   </Route>
+________________________________________________________________________________________
+
+________________________________________________________________________________________
+now,
+in 3rd component(Spinner), add logic (to not just show infinite looping animation - circle spinning)
+
+useNavigate
+useState
+useEffect - No useEffect(() => {}) --- it will run on every render (one of worst cases..), array(dependency array[]) even if it is blank, tells to not re-run it on updates
+🎉🎉
+but for now, we are using useEffect (without condition-checks i.e auth?.token or execute further only if it is presence) and passing 2 values to dependency array [count, navigate] 
+---- Long live Spinner.js
+________________________________________________________________________________________
+
+________________________________________________________________________________________
+
 
 
 

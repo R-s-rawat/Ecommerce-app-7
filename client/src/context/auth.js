@@ -1,4 +1,5 @@
 import { useState, useEffect, useContext, createContext } from "react";
+import axios from "axios";
 
 // just like useNavigate
 const AuthContext = createContext();
@@ -14,6 +15,10 @@ const AuthProvider = ({ children }) => {
     user: null,
     token: "",
   });
+
+  // default axios
+  axios.defaults.headers.common['Authorization'] = auth?.token;
+
   useEffect(() => {
     const data = localStorage.getItem("auth");
     if (data) {
@@ -27,9 +32,9 @@ const AuthProvider = ({ children }) => {
     //eslint-disable-next-line
   }, []);
 
-  useEffect(() => {
-    console.log(auth);
-  }, []);
+  // useEffect(() => {
+  //   console.log(auth);
+  // }, []);
 
   return (
     <AuthContext.Provider value={[auth, setAuth]}>
