@@ -9,6 +9,9 @@ import toast from "react-hot-toast";
 import { useAuth } from "../../context/auth";
 
 const Login = () => {
+  const API =
+    process.env.NODE_ENV === "production" ? process.env.REACT_APP_API : "";
+
   // useState - 1st getter function, 2nd setter function
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -26,7 +29,7 @@ const Login = () => {
     // console.log(name,email,password,phone,address)
     // toast.success('Registered Successfully')
     try {
-      const res = await axios.post(`${process.env.REACT_APP_API}/api/v1/auth/login`, {
+      const res = await axios.post(`${API}/api/v1/auth/login`, {
         email,
         password,
       });
@@ -39,7 +42,7 @@ const Login = () => {
           token: res.data.token,
         });
         localStorage.setItem("auth", JSON.stringify(res.data));
-        navigate('/'); 
+        navigate("/");
       } else {
         toast.error(res ? res.data.message : "login");
       }

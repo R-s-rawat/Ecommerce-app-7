@@ -7,6 +7,9 @@ import toast from "react-hot-toast";
 import "../../styles/AuthStyles.css";
 
 const Register = () => {
+  const API =
+    process.env.NODE_ENV === "production" ? process.env.REACT_APP_API : "";
+
   // useState - 1st getter function, 2nd setter function
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -28,7 +31,7 @@ const Register = () => {
     try {
       // import.meta.env.VITE_BACKEND_URL
       // const res = await axios.post("/api/v1/auth/register", {
-      const res = await axios.post(`${process.env.REACT_APP_API}/api/v1/auth/register`, {
+      const res = await axios.post(`${API}/api/v1/auth/register`, {
         name,
         email,
         password,
