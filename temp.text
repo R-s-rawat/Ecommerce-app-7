@@ -461,7 +461,35 @@ Pressed INS again, and the problem is gone...
 ________________________________________________________________________________________
 
 ________________________________________________________________________________________
+in 3rd component(spinner.js)
+which contains logic as of now, for redirecting to login (if trying to access protected /dashboard), & dashboard(for loged in users)
 
+reduced 5 seconds -> 3 seconds (the time website assumes good to reduce users bouce rate, time after which users exits site)
+________________________________________________________________________________________
 
+________________________________________________________________________________________
+📌📌
+now User -experience (implement user location history, where does user navigating or trying -- kind of navigational keywords in google(eg. gov schemes, 
+--company --service, pizza domminos))
+-- why benefit?
+assume, user has saved some product in cart,, or maybe he/she has a link(e.g checkout)
+so if he/she login -> and our app throw him/her to homePage then user get confused(is it a good navigation, or my device problem)
+
+spinner.js = access route from url(even if it is un-authorized, we re-direct it to /login, then on login-success, re-direct to /route they want to access )
+// Destination without showcasing home-page un-necessarily 
+✨✨useLocation hook (from 'react-router-dom')
+________________________________________________________________________________________
+
+________________________________________________________________________________________
+⚡⚡⚡useLocation ...
+the hook, not changes the spinner.js useEffect's dependency array vars from [count, navigate] to [count, navigate, location]
+
+and also, LOGIN.js ---- no more just 
+navigate('/') on formSubmit function, it get conditional - checks (some dynamics)
+________________________________________________________________________________________
+
+________________________________________________________________________________________
+Now, role base authentication 💀💀
+add some secret key in model(i.e userModel) - like question;
 
 
