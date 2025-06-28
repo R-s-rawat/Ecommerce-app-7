@@ -295,6 +295,23 @@ ________________________________________________________________________________
  ________________________________________________________________________________________
 
  ________________________________________________________________________________________
+🏆🏆🏆
+🥇🥇🥇
+LIVE PROJECT WORKING ON THIS STATE, THE FRONTEND IS IN THE VERCEL, THE BACKEND IS IN THE RENDER, OTHER FREE BACKEND DEPLOYMENT OPTIONS Currently
+NOT FREE / E.G CYCLIC, RAILWAY, (RAILWAY DOES PROVIDES SOME FREE TIER BUT FOR SOMETIME, AFTER THAT IT ALSO STOPS WORKING)
+
+// A FACT:
+🚫 Don't use import.meta.env unless you're using Vite. (as Render - free backend DEPLOYMENT also runs using process.env for dynamic url for cra apps)
+
+________________________________________________________________________________________
+
+________________________________________________________________________________________
+
+
+
+________________________________________________________________________________________
+
+________________________________________________________________________________________
 
 
 
