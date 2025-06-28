@@ -449,7 +449,18 @@ but for now, we are using useEffect (without condition-checks i.e auth?.token or
 ________________________________________________________________________________________
 
 ________________________________________________________________________________________
+🛺🛺
+Accidentally, clicked INS key (secondary keyboard i am using for programming)
+---------------------------------
+VS Code, like many text editors, supports two modes:
 
+1. Insert Mode (🟢 default): text is inserted at the cursor.
+2. Overwrite Mode (🔴 problem): new text replaces existing text at the cursor.
+----------------------------------
+Pressed INS again, and the problem is gone...
+________________________________________________________________________________________
+
+________________________________________________________________________________________
 
 
 
