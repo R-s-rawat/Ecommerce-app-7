@@ -10,7 +10,7 @@ import Login from "./pages/Auth/Login";
 import Dashboard from "./pages/user/Dashboard";
 // import { ToastContainer } from "react-toastify";
 // import "../../styles/AuthStyles.css"; // outside of directory
- import "./styles/AuthStyles.css";
+import "./styles/AuthStyles.css";
 import PrivateRoute from "./components/Routes/Private";
 import ForgotPassword from "./pages/Auth/ForgotPassword";
 
@@ -24,10 +24,10 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/policy" element={<Policy />} />
-         {/* child🐇🐇 protected pages */}
-         <Route path="/dashboard" element={<PrivateRoute/>}>
-              <Route path="" element={<Dashboard />} />
-         </Route>
+        {/* child🐇🐇 protected pages */}
+        <Route path="/dashboard" element={<PrivateRoute />}>
+          <Route path="" element={<Dashboard />} />
+        </Route>
         {/* child🐇🐇 - forms pages */}
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />

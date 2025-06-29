@@ -19,7 +19,7 @@ export const requireSignIn = async (req, res, next) => {
   } catch (error) {
     // either (invalid token) or (jwt must be provided)..
     console.log(error);
-    res.send('Error in Require sign-in middleware')
+    res.send("Error in Require sign-in middleware");
   }
 };
 

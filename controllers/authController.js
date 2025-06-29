@@ -9,7 +9,9 @@ export const registerController = async (req, res) => {
   // // 2 arguments, req(request) & res(resonse)
   // // registerController is callback because it is passed as 2nd argument, router.post('/register', registerController) where router=express.Router();
   try {
-    {/*  const { name, email, password, phone, address, role, answer } = req.body; */}
+    {
+      /*  const { name, email, password, phone, address, role, answer } = req.body; */
+    }
     const { name, email, password, phone, address, answer } = req.body;
 
     // validations (it can be skipped(& use directly in frontend), or use in both frontend & backend for more reliability)
@@ -28,7 +30,7 @@ export const registerController = async (req, res) => {
     if (!address) {
       return res.send({ message: "Address is Required" });
     }
-     if (!answer) {
+    if (!answer) {
       return res.send({ message: "Answer is Required" });
     }
 
@@ -82,7 +84,6 @@ export const registerController = async (req, res) => {
 
 // // POST LOGIN
 export const loginController = async (req, res) => {
- 
   try {
     const { email, password } = req.body;
 
@@ -143,8 +144,8 @@ export const loginController = async (req, res) => {
 };
 
 // forgotPasswordController
-export const forgotPasswordController = async(req, res) => {
-   try {
+export const forgotPasswordController = async (req, res) => {
+  try {
     const [email, answer, newPassword] = req.body;
     // now write just any status for server side errors (under https status code rules)
     if (!email) {
@@ -161,19 +162,18 @@ export const forgotPasswordController = async(req, res) => {
     const user = await userModel.findOne({ email, answer });
 
     // validation
-    if(!user){
+    if (!user) {
       return res.status({
-        success:false,
-        message:'Wrong Email or Answer'
-      })
+        success: false,
+        message: "Wrong Email or Answer",
+      });
     }
-    const hashed = await hashPassword(newPassword)
-    await userModel.findByIdAndUpdate(user._id, {password:hashed})
+    const hashed = await hashPassword(newPassword);
+    await userModel.findByIdAndUpdate(user._id, { password: hashed });
     res.status(200).send({
-      success:true,
-      message:'Password reset successfully'
-    })
-
+      success: true,
+      message: "Password reset successfully",
+    });
   } catch (newPassword) {
     console.log(error);
     res.status(500).send({

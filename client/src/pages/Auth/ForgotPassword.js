@@ -15,10 +15,10 @@ const ForgotPassword = () => {
   const [email, setEmail] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [answer, setAnswer] = useState("");
- // const [auth, setAuth] = useAuth();
+  // const [auth, setAuth] = useAuth();
 
   const navigate = useNavigate();
-//  const location = useLocation();
+  //  const location = useLocation();
 
   // form function,
   //
@@ -92,7 +92,7 @@ const ForgotPassword = () => {
           {/* for answer */}
           <div className="mb-3">
             <input
-              type="password"
+              type="text"
               value={answer}
               onChange={(e) => setAnswer(e.target.value)}
               className="form-control"
