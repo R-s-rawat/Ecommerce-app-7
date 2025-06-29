@@ -510,7 +510,9 @@ then, add that answer-> authController -> registerController(the 1st controller 
 ________________________________________________________________________________________
 
 ________________________________________________________________________________________
-
+// some forgot-password form error
+so removed client= frontend(package.json statement)
+ "proxy": "http://localhost:8080",
 
 
 

@@ -21,7 +21,10 @@ connectDB();
 const app = express();
 
 // middlewares
-app.use(cors());
+app.use(cors()); // ✅ cors - Setup
+// 👇 Add this line to handle preflight OPTIONS requests globally
+app.options("*", cors());  // ✅ cors - preflight
+
 app.use(express.json()); // // in request & response, json data transfer (by default feature in express)
 app.use(morgan("dev")); // // for knowing which api getting called/requested (just for local testing) - *Not for prod. (nodeJS -runtime within local setup along Express backend framework)
 
