@@ -9,7 +9,8 @@ export const registerController = async (req, res) => {
   // // 2 arguments, req(request) & res(resonse)
   // // registerController is callback because it is passed as 2nd argument, router.post('/register', registerController) where router=express.Router();
   try {
-    const { name, email, password, phone, address, role } = req.body;
+    {/*  const { name, email, password, phone, address, role, answer } = req.body; */}
+    const { name, email, password, phone, address, answer } = req.body;
 
     // validations (it can be skipped(& use directly in frontend), or use in both frontend & backend for more reliability)
     if (!name) {
@@ -26,6 +27,9 @@ export const registerController = async (req, res) => {
     }
     if (!address) {
       return res.send({ message: "Address is Required" });
+    }
+     if (!answer) {
+      return res.send({ message: "Answer is Required" });
     }
 
     // check user
@@ -55,6 +59,7 @@ export const registerController = async (req, res) => {
       phone,
       address,
       password: hashedPassword,
+      answer,
     }).save();
 
     // pass the user as response
@@ -77,32 +82,7 @@ export const registerController = async (req, res) => {
 
 // // POST LOGIN
 export const loginController = async (req, res) => {
-  try {
-    const [email, question, answer] = req.body;
-    // now write just any status for server side errors (under https status code rules)
-    if (!email) {
-      res.status(400).send({ message: "Email is required" });
-    }
-    if (!answer) {
-      res.status(400).send({ message: "Answer is required" });
-    }
-    if (!newPassword) {
-      res.status(400).send({ message: "New Password is required" });
-    }
-    // check user and email (along with answer), then change password as intended
-    // as in both frontend and backend, keys are same so we'nt used email:email && answer:answer
-    const user = await userModel.findOne({ email, answer });
-
-    // validation
-    
-  } catch (newPassword) {
-    console.log(error);
-    res.status(500).send({
-      success: false,
-      message: "Something went wrong",
-      error,
-    });
-  }
+ 
   try {
     const { email, password } = req.body;
 
@@ -163,7 +143,46 @@ export const loginController = async (req, res) => {
 };
 
 // forgotPasswordController
-export const forgotPasswordController = () => {};
+export const forgotPasswordController = async(req, res) => {
+   try {
+    const [email, answer, newPassword] = req.body;
+    // now write just any status for server side errors (under https status code rules)
+    if (!email) {
+      res.status(400).send({ message: "Email is required" });
+    }
+    if (!answer) {
+      res.status(400).send({ message: "Answer is required" });
+    }
+    if (!newPassword) {
+      res.status(400).send({ message: "New Password is required" });
+    }
+    // check user and email (along with answer), then change password as intended
+    // as in both frontend and backend, keys are same so we'nt used email:email && answer:answer
+    const user = await userModel.findOne({ email, answer });
+
+    // validation
+    if(!user){
+      return res.status({
+        success:false,
+        message:'Wrong Email or Answer'
+      })
+    }
+    const hashed = await hashPassword(newPassword)
+    await userModel.findByIdAndUpdate(user._id, {password:hashed})
+    res.status(200).send({
+      success:true,
+      message:'Password reset successfully'
+    })
+
+  } catch (newPassword) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      message: "Something went wrong",
+      error,
+    });
+  }
+};
 
 // // test controller
 export const testController = async (req, res) => {

@@ -490,12 +490,27 @@ ________________________________________________________________________________
 
 ________________________________________________________________________________________
 Now, role base authentication 💀💀
-add some secret key in model(i.e userModel) - like question;
+// let's create FORGOT-PASSWORD FUNCTIONALITY🎨🎨
+add some secret key in model(i.e userModel) - like question; (question naming is confusing, so finally- answer)
 
 create new END-POINT
-authRoute.js
+in authRoute.js -> forgotPassword
 
 But as per naming conventions and confustion prevention = question->answer... (change that key naming in the user model)
+added -> authController ->forgotPassword()
+
+now, give page(Register.js) the forgotPassword functionality (new field during register = answer);
+// question chosen for filling up answer value = What is your favourite sports
+now, give page(login.js) -> forgot password button below login button
+
+now, create new auth page(just like login/register) -> forgotPassword.js
+and then route to that auth page(forgotPassword) inside APP.JS
+
+then, add that answer-> authController -> registerController(the 1st controller user form filling logic)
+________________________________________________________________________________________
+
+________________________________________________________________________________________
+
 
 
 

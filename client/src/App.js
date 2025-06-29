@@ -12,6 +12,7 @@ import Dashboard from "./pages/user/Dashboard";
 // import "../../styles/AuthStyles.css"; // outside of directory
  import "./styles/AuthStyles.css";
 import PrivateRoute from "./components/Routes/Private";
+import ForgotPassword from "./pages/Auth/ForgotPassword";
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
         {/* child🐇🐇 - forms pages */}
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
         {/* child🐇🐇 pages - not created */}
         <Route path="*" element={<Pagenotfound />} />
       </Routes>
