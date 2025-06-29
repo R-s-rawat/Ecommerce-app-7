@@ -517,6 +517,8 @@ so removed client= frontend(package.json statement)
  instead of that, we manually added; http://localhost:8080 to each forms- register, login, forgot-password
 ✅ CORS is a backend-only configuration.
 so, we added to main backend file -> both origins(local:3000 and prod:vercel.com..)
+
+error caught: mistakenly  destructuring req.body as an array using [] but req.body is a JSON object, (so values becomes undefined)😬
  ________________________________________________________________________________________
 
  ________________________________________________________________________________________

@@ -146,7 +146,7 @@ export const loginController = async (req, res) => {
 // forgotPasswordController
 export const forgotPasswordController = async (req, res) => {
   try {
-    const [email, answer, newPassword] = req.body;
+    const {email, answer, newPassword} = req.body;
     // now write just any status for server side errors (under https status code rules)
     if (!email) {
       res.status(400).send({ message: "Email is required" });
