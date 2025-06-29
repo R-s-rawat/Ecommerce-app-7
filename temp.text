@@ -492,4 +492,11 @@ ________________________________________________________________________________
 Now, role base authentication 💀💀
 add some secret key in model(i.e userModel) - like question;
 
+create new END-POINT
+authRoute.js
+
+But as per naming conventions and confustion prevention = question->answer... (change that key naming in the user model)
+
+
+
 

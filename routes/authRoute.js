@@ -1,5 +1,6 @@
 import express from "express";
 import {
+  forgotPasswordController,
   loginController,
   registerController,
   testController,
@@ -15,6 +16,9 @@ router.post("/register", registerController); // // test in restApi-client using
 
 // LOGIN || METHOD POST
 router.post("/login", loginController);
+
+// Forgot password || POST
+router.post("/forgot-password", forgotPasswordController);
 
 // protected routes - using authMiddleware(*next)
 // test routes (just for testing)

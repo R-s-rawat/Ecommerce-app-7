@@ -78,6 +78,32 @@ export const registerController = async (req, res) => {
 // // POST LOGIN
 export const loginController = async (req, res) => {
   try {
+    const [email, question, answer] = req.body;
+    // now write just any status for server side errors (under https status code rules)
+    if (!email) {
+      res.status(400).send({ message: "Email is required" });
+    }
+    if (!answer) {
+      res.status(400).send({ message: "Answer is required" });
+    }
+    if (!newPassword) {
+      res.status(400).send({ message: "New Password is required" });
+    }
+    // check user and email (along with answer), then change password as intended
+    // as in both frontend and backend, keys are same so we'nt used email:email && answer:answer
+    const user = await userModel.findOne({ email, answer });
+
+    // validation
+    
+  } catch (newPassword) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      message: "Something went wrong",
+      error,
+    });
+  }
+  try {
     const { email, password } = req.body;
 
     // validation
@@ -135,6 +161,9 @@ export const loginController = async (req, res) => {
     });
   }
 };
+
+// forgotPasswordController
+export const forgotPasswordController = () => {};
 
 // // test controller
 export const testController = async (req, res) => {
