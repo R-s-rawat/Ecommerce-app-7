@@ -514,6 +514,12 @@ ________________________________________________________________________________
 so removed client= frontend(package.json statement)
  "proxy": "http://localhost:8080",
 
+ instead of that, we manually added; http://localhost:8080 to each forms- register, login, forgot-password
+ 
+ ________________________________________________________________________________________
+
+ ________________________________________________________________________________________
+
 
 
 

@@ -6,7 +6,7 @@ import axios from "axios";
 
 export default function PrivateRoute() {
   const API =
-    process.env.NODE_ENV === "production" ? process.env.REACT_APP_API : "";
+    process.env.NODE_ENV === "production" ? process.env.REACT_APP_API : "http://localhost:8080";
 
   const [ok, setOk] = useState(false);
 

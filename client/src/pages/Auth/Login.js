@@ -9,7 +9,7 @@ import { useAuth } from "../../context/auth";
 
 const Login = () => {
   const API =
-    process.env.NODE_ENV === "production" ? process.env.REACT_APP_API : "";
+    process.env.NODE_ENV === "production" ? process.env.REACT_APP_API : "http://localhost:8080";
 
   // useState - 1st getter function, 2nd setter function
   const [email, setEmail] = useState("");

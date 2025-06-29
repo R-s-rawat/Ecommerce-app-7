@@ -9,7 +9,7 @@ import toast from "react-hot-toast";
 
 const ForgotPassword = () => {
   const API =
-    process.env.NODE_ENV === "production" ? process.env.REACT_APP_API : "";
+    process.env.NODE_ENV === "production" ? process.env.REACT_APP_API : "http://localhost:8080";
 
   // useState - 1st getter function, 2nd setter function
   const [email, setEmail] = useState("");
@@ -48,7 +48,7 @@ const ForgotPassword = () => {
         // navigate(location.navigate || "/");
         navigate("/login");
       } else {
-        toast.error(res ? res.data.message : "login");
+        toast.error(res ? res.data.message : "forgot passcode done");
       }
     } catch (error) {
       console.log(error);
