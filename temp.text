@@ -520,11 +520,21 @@ so, we added to main backend file -> both origins(local:3000 and prod:vercel.com
 
 error caught: mistakenly  destructuring req.body as an array using [] but req.body is a JSON object, (so values becomes undefined)😬
 && also another mistake, 1 more cors config below the 0th cors config causing backend crash(i.e app.options("*", cors());),
-key note: keep only 1 cors in backend for preventing unknown issues...
+
+key note: Postman(for e.g using body → raw → JSON) doesn't care about CORS — but browser does(chrome, firefox running R-E-A-C-T)..
+key note: ✅ Ensure backend allows CORS from frontend
+key note: keep only 1 cors in backend for preventing unknown issues...(2 cors = backend crashes, tested)
  ________________________________________________________________________________________
 
  ________________________________________________________________________________________
+ 🔎🔎
+postman running perfect
+https://ecommerce-app-7-q9em.onrender.com/api/v1/auth/forgot-password
 
+but in front-ends (local and prod), getting post 404 not found errors...
+________________________________________________________________________________________
+
+________________________________________________________________________________________
 
 
 

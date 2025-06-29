@@ -20,14 +20,16 @@ connectDB();
 // rest object
 const app = express();
 
+// middlewares
+// app.use(cors())
+
 // ✅ for cors: Allow Both Dev & Prod Origins
 const allowedOrigins = [
   "http://localhost:3000",
   "https://ecommerce-app-7.vercel.app",
 ];
 
-// middlewares
-app.use(cors({
+const corsOptions = {
   origin: (origin, callback) => {
     if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
@@ -35,10 +37,24 @@ app.use(cors({
       callback(new Error("Not allowed by CORS"));
     }
   },
-  credentials: true, //Only useful, when ✅ Only if using cookies/auth are needed
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"],
-})); // ✅ cors - Setup
+  credentials: true,
+};
+
+app.use(cors(corsOptions));
+
+// app.use(cors({
+//   origin: (origin, callback) => {
+//     if (!origin || allowedOrigins.includes(origin)) {
+//       callback(null, true);
+//     } else {
+//       callback(new Error("Not allowed by CORS"));
+//     }
+//   },
+//   credentials: true, //Only useful, when ✅ Only if using cookies/auth are needed
+//   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+//   allowedHeaders: ["Content-Type", "Authorization"],
+// })); 
+// ✅ cors - Setup
 
 // 👇 Handle preflight OPTIONS requests globally
 // app.options("*", cors());  // ✅ cors - preflight but may override earlier settings so, comment it

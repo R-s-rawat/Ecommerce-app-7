@@ -9,7 +9,9 @@ import toast from "react-hot-toast";
 
 const ForgotPassword = () => {
   const API =
-    process.env.NODE_ENV === "production" ? process.env.REACT_APP_API : "http://localhost:8080";
+    process.env.NODE_ENV === "production"
+      ? process.env.REACT_APP_API
+      : "http://localhost:8080";
 
   // useState - 1st getter function, 2nd setter function
   const [email, setEmail] = useState("");
@@ -30,10 +32,11 @@ const ForgotPassword = () => {
     // console.log(name,email,password,phone,address)
     // toast.success('Registered Successfully')
     try {
+      // console.log("API:", API);
       const res = await axios.post(`${API}/api/v1/auth/forgot-password`, {
         email,
         newPassword,
-        answer,
+        answer
       });
       // Now, if (true)
       if (res && res.data.success) {
