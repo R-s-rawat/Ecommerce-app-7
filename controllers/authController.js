@@ -163,7 +163,7 @@ export const forgotPasswordController = async (req, res) => {
 
     // validation
     if (!user) {
-      return res.status({
+      return res.status(404).send({
         success: false,
         message: "Wrong Email or Answer",
       });
