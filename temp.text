@@ -489,7 +489,7 @@ navigate('/') on formSubmit function, it get conditional - checks (some dynamics
 ________________________________________________________________________________________
 
 ________________________________________________________________________________________
-Now, role base authentication 💀💀
+
 // let's create FORGOT-PASSWORD FUNCTIONALITY🎨🎨
 add some secret key in model(i.e userModel) - like question; (question naming is confusing, so finally- answer)
 
@@ -532,9 +532,13 @@ postman running perfect
 https://ecommerce-app-7-q9em.onrender.com/api/v1/auth/forgot-password
 
 but in front-ends (local and prod), getting post 404 not found errors...
+
+Key note: having anything like (res.status(anything).send() e.g anything = 404 ) causes confusion so, even if status code
+// are used without putting brain strain, even keep response.data.message something logical so, one can get illusion
+// 404 not found( but still open up error-> response-> data)✨✨
 ________________________________________________________________________________________
 
 ________________________________________________________________________________________
-
+ role base authentication 💀💀
 
 
