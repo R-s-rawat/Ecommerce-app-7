@@ -519,6 +519,8 @@ so removed client= frontend(package.json statement)
 so, we added to main backend file -> both origins(local:3000 and prod:vercel.com..)
 
 error caught: mistakenly  destructuring req.body as an array using [] but req.body is a JSON object, (so values becomes undefined)😬
+&& also another mistake, 1 more cors config below the 0th cors config causing backend crash(i.e app.options("*", cors());),
+key note: keep only 1 cors in backend for preventing unknown issues...
  ________________________________________________________________________________________
 
  ________________________________________________________________________________________

@@ -41,7 +41,7 @@ app.use(cors({
 })); // ✅ cors - Setup
 
 // 👇 Handle preflight OPTIONS requests globally
-app.options("*", cors());  // ✅ cors - preflight
+// app.options("*", cors());  // ✅ cors - preflight but may override earlier settings so, comment it
 
 app.use(express.json()); // // in request & response, json data transfer (by default feature in express)
 app.use(morgan("dev")); // // for knowing which api getting called/requested (just for local testing) - *Not for prod. (nodeJS -runtime within local setup along Express backend framework)
