@@ -530,12 +530,22 @@ key note: keep only 1 cors in backend for preventing unknown issues...(2 cors = 
  🔎🔎
 postman running perfect
 https://ecommerce-app-7-q9em.onrender.com/api/v1/auth/forgot-password
+http://localhost:8080/api/v1/auth/forgot-password
 
 but in front-ends (local and prod), getting post 404 not found errors...
 
 Key note: having anything like (res.status(anything).send() e.g anything = 404 ) causes confusion so, even if status code
 // are used without putting brain strain, even keep response.data.message something logical so, one can get illusion
 // 404 not found( but still open up error-> response-> data)✨✨
+
+// the following message saved hours, wrong http status code by coders
+  // validation
+    if (!user) {
+      return res.status(404).send({
+        success: false,
+        message: "Wrong Email or Answer",
+      });
+    }
 ________________________________________________________________________________________
 
 ________________________________________________________________________________________

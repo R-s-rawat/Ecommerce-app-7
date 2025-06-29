@@ -8,7 +8,9 @@ import toast from "react-hot-toast";
 
 const Register = () => {
   const API =
-    process.env.NODE_ENV === "production" ? process.env.REACT_APP_API : "http://localhost:8080";
+    process.env.NODE_ENV === "production"
+      ? process.env.REACT_APP_API
+      : "http://localhost:8080";
 
   // useState - 1st getter function, 2nd setter function
   const [name, setName] = useState("");
