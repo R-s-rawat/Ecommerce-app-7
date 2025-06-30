@@ -78,8 +78,43 @@ const Header = () => {
                 </>
               ) : (
                 <>
+                  {/* // role based authentication begins */}
+                  <li className="nav-item dropdown">
+                    <NavLink
+                      className="nav-link dropdown-toggle"
+                      href="#"
+                      role="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      {auth?.user?.name}
+                    </NavLink>
+                    <ul className="dropdown-menu">
+                      {/* for dashboard */}
+                      <li>
+                        <NavLink className="dropdown-item" to={`/dashboard/${auth?.user?.role === 1? 'admin':'user'}`}>
+                          Dashboard
+                        </NavLink>
+                      </li>
+                      {/* for logout */}
+                      <li>
+                        <NavLink
+                          onClick={handleLogout}
+                          to="/login"
+                          // className="nav-link"
+                          className="dropdown-item"
+                        >
+                          Logout
+                        </NavLink>
+                      </li>
+                      {/* <li>
+                        <hr className="dropdown-divider" />
+                      </li> */} 
+                    </ul>
+                  </li>
+                  {/* // role based authentication ends */}
                   {/* //logout */}
-                  <li className="nav-item">
+                  {/* <li className="nav-item">
                     <NavLink
                       onClick={handleLogout}
                       to="/login"
@@ -87,7 +122,7 @@ const Header = () => {
                     >
                       Logout
                     </NavLink>
-                  </li>
+                  </li> */}
                   {/* //logout Ends */}
                   {/*------------------------------------------------------- */}
                 </>

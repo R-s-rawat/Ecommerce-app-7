@@ -80,8 +80,6 @@ export const registerController = async (req, res) => {
   }
 };
 
-// export default {registerController};
-
 // // POST LOGIN
 export const loginController = async (req, res) => {
   try {
@@ -130,6 +128,7 @@ export const loginController = async (req, res) => {
         email: user.email,
         phone: user.phone,
         address: user.address,
+        role: user.role,
       },
       token,
     });

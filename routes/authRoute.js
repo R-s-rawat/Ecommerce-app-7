@@ -26,8 +26,15 @@ router.post("/forgot-password", forgotPasswordController);
 // before controller, you can add multiple middlewares (whatever needed)
 router.get("/test", requireSignIn, isAdmin, testController);
 
-// another protected route auth
+// another protected route auth (user or normal user)
+// Normal User Auth || GET
 router.get("/user-auth", requireSignIn, (req, res) => {
+  res.status(200).send({ ok: true });
+});
+
+// another protected route auth (admin or power user)
+// Poser User Auth || GET
+router.get("/admin-auth", requireSignIn, isAdmin, (req, res) => {
   res.status(200).send({ ok: true });
 });
 

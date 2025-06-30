@@ -549,6 +549,71 @@ Key note: having anything like (res.status(anything).send() e.g anything = 404 )
 ________________________________________________________________________________________
 
 ________________________________________________________________________________________
- role base authentication 💀💀
+✨ 
+role base authentication
+ 💀💀
+for roles, have a dropdown (so get bootstrap)
+ul inside li (i.e <li><ul>...</ul></li>)
+// all basic FUNCTIONALITY🎨🎨 DONE, so we will now keep 2 dashboard - different for each role
+
+// Now, we will work on dashboard
+// 1st user dashboard (private.js)
+// 2nd admin dashboard (also will connect it as same as protected route(private.js) or🎉 will copy Private.js->AdminRoute.js)
+
+// Change role manually (i.e) -> we registered a user named as ADMIN
+// and every user by default role(0)
+
+// so going to mongoDB compass, change 0 to 1;
+// now, create = just like pages -> user -> Dashboard, pages -> admin -> AdminDashboard;
+
+// create route for this(eg. route.get or post(__'/slug or id', handler__) ),, ->authRoute.js(having login, register, normalUser auth...)
+
+// USER = normal user, ADMIN = power user;🐏🐏🎭🎭
+
+so just like(normal user auth) route: router.get("/user-auth", requireSignIn, (req
+create(power user auth)route: router.get("/user-auth", requireSignIn, (req
+
+i.e.
+/////// copy- user
+ <Route path="/dashboard" element={<PrivateRoute />}>
+          <Route path="user" element={<Dashboard />} />
+        </Route>
+
+/////// paste- admin
+ <Route path="/dashboard" element={<AdminRoute />}>
+          <Route path="admin" element={<AdminDashboard />} />
+        </Route>
+
+--------------------------- &&
+[{(Header.js)}] + also pass role during (login.js) form submission 
+
+// based on App.js before & after(paths i.e user and admin) as per role, for routing seamlessly
+// before: 
+<li>
+<NavLink className="dropdown-item" to="/dashboard">
+                          Dashboard
+</NavLink>
+
+// after: 
+<li>
+<NavLink className="dropdown-item" to={`/dashboard/${auth?.user?.role === 1? 'admin':'user'}`}>
+                          Dashboard
+</NavLink>
+---------------------
+// NOW The role based authentication completed----------- Header re-directing on click(Dashboard) based on auth.user.role
+
+// in local live changes,,
+for user(normal user) -> dashboard triggers = http://localhost:3000/dashboard/user
+and for admin(power user) -> dashbord triggers = http://localhost:3000/dashboard/admin
+________________________________________________________________________________________
+
+________________________________________________________________________________________
+🎉🎉🎉🎉
+Now fix spinner, if user edits intentionally the localhost:3000/dashboard/ (from user-> admin), for which role is not permit
+
+// spinner directs to login page, so send path(i.e user/admin) as prop to it, 
+// spinner will now expect (path) and work conditionally, (fixes--)
+
+
 
 
