@@ -612,8 +612,18 @@ ________________________________________________________________________________
 Now fix spinner, if user edits intentionally the localhost:3000/dashboard/ (from user-> admin), for which role is not permit
 
 // spinner directs to login page, so send path(i.e user/admin) as prop to it, 
-// spinner will now expect (path) and work conditionally, (fixes--)
+// spinner will now expect (path as prop, also initiate on the spot with value(login))
+[i.e destructure path and having initial value of key being passed as prop - we done so, 
+because if we not pass any value then it will pass us to login form page] 
+and finally add -path to dependency array, 
+last but not the least pass- path="" (blank path) to private route(i.e component for user) 
+-the users which are editing url manually, 
+to make spinner work conditionally, (fixes--)
 
+Fix done: if user(normal user) trying to do localhost:3000/dashboard/admin instead localhost:3000/dashboard/user (manually), so even after login, the spinner takes them to login page.
+________________________________________________________________________________________
 
+________________________________________________________________________________________
+😐😐 now user dashboard ui - 2 cols
 
 
