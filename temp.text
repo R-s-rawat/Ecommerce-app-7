@@ -558,13 +558,15 @@ ul inside li (i.e <li><ul>...</ul></li>)
 
 // Now, we will work on dashboard
 // 1st user dashboard (private.js)
-// 2nd admin dashboard (also will connect it as same as protected route(private.js) or🎉 will copy Private.js->AdminRoute.js)
+// 2nd admin dashboard (also will connect it as same as protected route(private.js) or🎉 will copy Private.js->AdminRoute.js)- part of 2nd Component(for routing users and admins)
 
 // Change role manually (i.e) -> we registered a user named as ADMIN
 // and every user by default role(0)
 
 // so going to mongoDB compass, change 0 to 1;
-// now, create = just like pages -> user -> Dashboard, pages -> admin -> AdminDashboard;
+
+// now, creat-new one like, since pages -> user(i.e Dashboard.js),
+hence pages -> admin(i.e AdminDashboard.js);
 
 // create route for this(eg. route.get or post(__'/slug or id', handler__) ),, ->authRoute.js(having login, register, normalUser auth...)
 
@@ -625,5 +627,41 @@ ________________________________________________________________________________
 
 ________________________________________________________________________________________
 😐😐 now user dashboard ui - 2 cols
+left side - side bar menu
+right side - Content
+create new component(functional component named AdminMenu.js) and keep it inside Layout directory of components but keeping separate directory is preferred(4th Component)- 
+
+so, we naming it (4th Component - Menu component -> sub-division(Admin_MENU)= AdminMenu.js)
+________________________________________________________________________________________
+
+________________________________________________________________________________________
+📌📌
+AdminMenu.js
+(by helping of list- we design menus) = so, get bootstrap...(#list group)
+
+Definition of list or list group (bootstrap) = List groups are a flexible and powerful component for displaying a series of content...
+Modify and extend them to support just about any content within.
+
+(now, convert html to jsx), also keep entering {CTRL + D}: vs code shortcut, to multiple select all anchor tags automatically,(for NavLink replace)
+
+(for href, the same- keep entering {CTRL + D} for multiple selection, and renaming all href at once)
+(and {CTRL + X} to remove the current line in which cursor is in the coding area...)
+
+Now give routing using the NavLink (to="") in the various list group items - for api's inside dashboard/admin like /users, /create-product, /create-category....
+________________________________________________________________________________________
+
+________________________________________________________________________________________
+Now, AdminDashboard.js 🐐🐐
+use GRID;
+
+{use CTRL + C} to copy current line (cursor is placed to write code)
+
+
+
+
+
+
+
+
 
 
