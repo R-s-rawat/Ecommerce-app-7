@@ -132,6 +132,7 @@ export const loginController = async (req, res) => {
       },
       token,
     });
+
   } catch (error) {
     console.log(error);
     res.status(500).send({
@@ -195,3 +196,4 @@ export const testController = async (req, res) => {
     res.send({ error });
   }
 };
+

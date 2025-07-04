@@ -654,13 +654,29 @@ ________________________________________________________________________________
 Now, AdminDashboard.js 🐐🐐
 use GRID;
 
+
 {use CTRL + C} to copy current line (cursor is placed to write code)
+issue resolved: css issues due to class(keyword) instead of className
+issue not getting: auth?.user?.name from context api,,🤔🤔 
+issue resolution:
+before: const {auth} = useAuth();
+after: const [auth] = useAuth(); 
 
+if we want - const {auth} to work, then use object destructuring, not array destructuring(i.e <AuthContext.Provider value={{ auth, setAuth }}>)
+________________________________________________________________________________________
 
+________________________________________________________________________________________
+create admin dashboard pages, and routing in app.js
 
+it will become:
+ <Route path="/dashboard" element={<AdminRoute />}>
+          <Route path="admin" element={<AdminDashboard />} />
+          <Route path="admin/create-category" element={<CreateCategory />} />
+          <Route path="admin/create-product" element={<CreateProduct />} />/
+           <Route path="admin/users" element={<AdminUsers />} />/
+        </Route>
 
-
-
+// wrap every page with layout component as usual, for styling(headers, nav, footer)
 
 
 
