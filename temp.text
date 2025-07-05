@@ -676,7 +676,12 @@ it will become:
            <Route path="admin/users" element={<AdminUsers />} />/
         </Route>
 
-// wrap every page with layout component as usual, for styling(headers, nav, footer)
+// wrap every page with layout component as usual, for styling(headers, nav, footer) and pass title
+________________________________________________________________________________________
+
+________________________________________________________________________________________
+now, user (normal user) dashboard✨✨
+
 
 
 
