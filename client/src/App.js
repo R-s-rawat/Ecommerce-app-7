@@ -18,6 +18,8 @@ import AdminDashboard from "./pages/Admin/AdminDashboard";
 import CreateCategory from "./pages/Admin/CreateCategory";
 import CreateProduct from "./pages/Admin/CreateProduct";
 import AdminUsers from "./pages/Admin/AdminUsers";
+import Orders from "./pages/user/Orders";
+import Profile from "./pages/user/Profile";
 
 function App() {
   return (
@@ -32,6 +34,8 @@ function App() {
         {/* child🐇🐇 protected pages */}
         <Route path="/dashboard" element={<PrivateRoute />}>
           <Route path="user" element={<Dashboard />} />
+          <Route path="user/orders" element={<Orders />} />
+          <Route path="user/profile" element={<Profile />} />
         </Route>
          <Route path="/dashboard" element={<AdminRoute />}>
           <Route path="admin" element={<AdminDashboard />} />
