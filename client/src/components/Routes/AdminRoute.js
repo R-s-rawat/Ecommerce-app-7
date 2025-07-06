@@ -15,7 +15,7 @@ export default function AdminRoute() {
   // destructuring CONTEXT_API VARIABLES
   const [auth, setAuth] = useAuth();
 
-  // get token to send while making requests
+  // get token to send while making requests (full-proof and more robust then context)
   const authToken = JSON.parse(localStorage.getItem("auth"));
 const token = authToken?.token;
 

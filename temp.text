@@ -705,9 +705,14 @@ isAdmin middleware	✅ Checks user.role === 1 correctly
 AdminRoute frontend	✅ Redirects normal users (role !== 1)
 authCheck()	✅ Uses Axios with correct headers and state logic
 Route protection	✅ admin-auth uses both requireSignIn and isAdmin
+----------------
+normal users "role": 0
+advanced users(admin) "role": 1
+// while 401 is still there, but for admins (on editing url to user manually) also started taking time
+______________________________________________________________________________
 
-
-
-
+______________________________________________________________________________
+carry on, create products->api->fetch->presentation
+🛒🛒
 
 

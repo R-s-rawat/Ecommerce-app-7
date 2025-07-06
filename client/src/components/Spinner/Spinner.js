@@ -1,26 +1,38 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
-const Spinner = ({ path = "login" }) => {
-  const [count, setCount] = useState(3);
+const Spinner = ({ path = "login", duration = 3 }) => {
+  const [count, setCount] = useState(duration);
   const navigate = useNavigate();
   const location = useLocation();
 
   useEffect(() => {
+    let isMounted = true;
+
     const interval = setInterval(() => {
-      setCount((prevValue) => prevValue - 1);
+      if (isMounted) {
+        setCount((prev) => prev - 1);
+      }
     }, 1000);
 
-    return () => clearInterval(interval);
+    return () => {
+      isMounted = false;
+      clearInterval(interval);
+    };
   }, []);
 
-  // 👇 Separate effect to watch `count`
   useEffect(() => {
-    if (count === 0) {
+    let isMounted = true;
+
+    if (count === 0 && isMounted) {
       navigate(`/${path}`, {
         state: location.pathname,
       });
     }
+
+    return () => {
+      isMounted = false;
+    };
   }, [count, navigate, location, path]);
 
   return (

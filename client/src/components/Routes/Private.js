@@ -11,12 +11,20 @@ export default function PrivateRoute() {
       : "http://localhost:8080";
 
   const [ok, setOk] = useState(null); // Track loading state
-  const [auth] = useAuth();
+  // context-api causing some issue, so going with local Storage
+ // const [auth] = useAuth();
+
+   // ✅ Load auth directly from localStorage
+   const auth = JSON.parse(localStorage.getItem("auth"));
 
   useEffect(() => {
     const authCheck = async () => {
       try {
-        const res = await axios.get(`${API}/api/v1/auth/user-auth`);
+        const res = await axios.get(`${API}/api/v1/auth/user-auth`, {
+          headers: {
+            Authorization: `Bearer ${auth?.token}`,
+          },
+        });
         if (res.data.ok && auth?.user?.role === 0) {
           setOk(true);
         } else {
@@ -31,12 +39,19 @@ export default function PrivateRoute() {
     else setOk(false);
   }, [auth?.token, auth?.user]);
 
-  // ⏳ While loading
-  if (ok === null) return <Spinner />;
+  // // ⏳ While loading
+  // if (ok === null) return <Spinner path="" />;
 
-  // ❌ Not a regular user (either unauthenticated or admin)
-  if (!ok) return <Navigate to="/" />;
+  // // ❌ Not a regular user (either unauthenticated or admin)
+  // if (!ok) return <Navigate to="/" />;
 
-  // ✅ Authorized user
-  return <Outlet />;
+  // // ✅ Authorized user
+  // return <Outlet />;
+
+     // ✅ NEW: Prevent admin users from accessing user routes
+  if (ok && auth?.user?.role !== 0) {
+  return <Navigate to="/dashboard/admin" />;
+}
+
+  return ok ? <Outlet /> : <Spinner path="" />;
 }
