@@ -7,19 +7,23 @@ import userModel from "../models/userModel.js";
 // // NEXT keyword _to validate authenticate user && continue code execution (next-keyword in middlewares)
 export const requireSignIn = async (req, res, next) => {
   try {
-    // through this middleware, we can protect routes
-    // JWT verify method takes 2 args.. 1st token, 2nd token-Secret to decrypt token
-    const decode = JWT.verify(
-      req.headers.authorization,
-      process.env.JWT_SECRET
-    );
-    // decrypted token should be consumed
+    const rawToken = req.headers.authorization;
+
+    if (!rawToken) {
+      return res.status(401).send("No token provided");
+    }
+
+    // Extract token (remove "Bearer " if present)
+    const token = rawToken.startsWith("Bearer ")
+      ? rawToken.split(" ")[1]
+      : rawToken;
+
+    const decode = JWT.verify(token, process.env.JWT_SECRET);
     req.user = decode;
     next();
   } catch (error) {
-    // either (invalid token) or (jwt must be provided)..
-    console.log(error);
-    res.send("Error in Require sign-in middleware");
+    console.log("RequireSignIn Error:", error);
+    res.status(401).send("Error in Require sign-in middleware");
   }
 };
 

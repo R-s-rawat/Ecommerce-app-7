@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useAuth } from "../../context/auth";
-import { Outlet } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 import Spinner from "../Spinner/Spinner";
 import axios from "axios";
 
@@ -15,9 +15,18 @@ export default function AdminRoute() {
   // destructuring CONTEXT_API VARIABLES
   const [auth, setAuth] = useAuth();
 
+  // get token to send while making requests
+  const authToken = JSON.parse(localStorage.getItem("auth"));
+const token = authToken?.token;
+
   useEffect(() => {
     const authCheck = async () => {
-      const res = await axios.get(`${API}/api/v1/auth/admin-auth`);
+      console.log(token)
+      const res = await axios.get(`${API}/api/v1/auth/admin-auth`,{
+  headers: {
+    Authorization: `Bearer ${token}`, // token = "your-jwt-token"
+  },
+});
       if (res.data.ok) {
         setOk(true);
       } else {
@@ -25,7 +34,13 @@ export default function AdminRoute() {
       }
     };
     if (auth?.token) authCheck();
+    
   }, [auth?.token]);
 
-  return ok ? <Outlet /> : <Spinner />;
+    // ✅ NEW: Prevent normal users from accessing admin routes
+  if (ok && auth?.user?.role !== 1) {
+  return <Navigate to="/dashboard/user" />;
+}
+
+  return ok ? <Outlet /> : <Spinner path="" />;
 }

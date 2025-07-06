@@ -681,6 +681,31 @@ ________________________________________________________________________________
 
 ________________________________________________________________________________________
 now, user (normal user) dashboard✨✨
+user dashboard - pages will be (profile, orders) - (not/ unlike add admin/create cat./ create prod. )
+______________________________________________________________________________
+
+______________________________________________________________________________
+now, basic ecommerce:
+create products->api->fetch->presentation
+🛒🛒
+
+let's first, correct (manual url issues), 
+the admin route is working fine, routing to homepage if admin manually edit url to user
+
+but user(normal user) on editing url manually gets error then..
+so, 
+1.) middlewares/ → Contains authMiddleware.js (we'll review this first)
+2.) routes/ → Contains authRoute.js (we’ll verify the /admin-auth route)
+3.) controllers/ → Contains authController.js etc.
+
+Token storage	✅ Stored in localStorage as auth.token
+Token sending	✅ Sent in Authorization: Bearer ${token} format
+Middleware updated	✅ requireSignIn now correctly extracts token
+isAdmin middleware	✅ Checks user.role === 1 correctly
+AdminRoute frontend	✅ Redirects normal users (role !== 1)
+authCheck()	✅ Uses Axios with correct headers and state logic
+Route protection	✅ admin-auth uses both requireSignIn and isAdmin
+
 
 
 
