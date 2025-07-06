@@ -714,5 +714,125 @@ ______________________________________________________________________________
 ______________________________________________________________________________
 carry on, create products->api->fetch->presentation
 🛒🛒
+Last  UX enhancement: useLocation hook usage in Spinner.js
+---------------------
+###> User tries to open /dashboard/user (or /dashboard/admin), the normal /dashboard route is homepage redirected...
+But they’re not logged in🚀🚀
+
+You redirect them via <Spinner />, and remember where they came from:
+✅ If a user tries to open /dashboard/user or /dashboard/admin without being logged in, they get redirected to /login, and
+✅ After login, they are sent back to where they originally intended to go.
+ // Redirect based on:
+      // 1. Previous location (anything other than /dashboard routes)
+      // 2. User role fallback
+      if (location.state) {
+        navigate(location.state);
+      } else if (userRole === 1) {
+        navigate("/dashboard/admin");
+      } else {
+        navigate("/dashboard/user");
+      }
+---------------------
+// CREATE new model for category📌📌 
+// models->categoryModel.js(2nd model) (i.e 1st model is userModel- users task is over)
+💾💾
+new package (slugify), we will use hypen/dash instead underscore (package correctly installed in node server)
+------------
+then // routes ->categoryRoute.js (2nd route)
+then // controllers ->categoryController.js (export createCategoryController) (2nd controller)
+
+// Now in SERVER.js (just like done for authRoute, do for categoryRoute)
+--------------------
+import express from "express";
+import dotenv from "dotenv";
+import cors from "cors";
+import connectDB from "./config/db.js";
+import authRoutes from "./routes/authRoute.js";
+
+// routes
+app.use("/api/v1/auth", authRoutes);
+app.use("/api/v1/category", categoryRoutes)
+______________________________________________________________________________
+
+______________________________________________________________________________
+then createCategoryController:
+// mention async, it is callback so req, res
+// 📌keep extensions to files names or it won't work (i.e this will not work - import categoryModel from "../models/categoryModel";)
+
+//📌use forward slash(not backslash/backward slash) in categoryRoute at beginning of url(router.post('create-category', requireSignIn, isAdmin, createCategoryController)) so create-category will become /create-category
+
+// test with rest api client (for e.g postman), use headers, i.e Authorization(admin logged token) along with body (i.e name of category-(body->raw(json), property and value -double quoted))
+// if get instead post, than 404(http://localhost:8080/api/v1/category/create-category)...
+
+new collection will get created(category)
+new documents will get inserted into that collection on each request success(create category) 
+mongoDB done the task...
+______________________________________________________________________________
+
+______________________________________________________________________________
+// in routes-> categoryRoute.js
+//for update category
+use put(neither get nor post) along url pattern '/update-category'
+
+//now, within same file(controller-> categoryController)
+below export createCategoryController, export updateCategoryController🎉🎉
+
+then within function export updateCategoryController🎉🎉(LOGIC)
+destructure name (as usual - from body(req.body))
+but destructure id (from params (url))
+//  const {name} = req.body
+//   const {id} = req.params🎨🎨
+-------------------
+
+// new:true(parameter)⚡⚡ is necessary to update, (it is not defined in model)- 
+// category = await categoryModel.findByIdAndUpdate(id,{name, slug:slugify(name)},{new:true})
+
+// 💀💀as we are dynamically updating category so, in categoryRoute, inside url pattern(:id) is necessary - '/update-category/:id'
+
+// now test using postman(restapi client)
+for e.g put (http://localhost:8080/api/v1/category/update-category/686abbe5734d234b8c202274)
+copy id from mongodb compass for that new collection(category), the previous document(we changed the "mobile phones" to "kids collection")
+
+----------
+// update query is working as intended
+// now, get (all category) route in categoryRoutes (WE WILL NOT include any middleware, as we have to show category even if user is not logged in)
+
+// create new function->allCategoryController in controller->categoryController
+// on success, status of 200(i.e res.status(200) .send({..., category}))
+
+// Note, as in server.js, we used category(app.use("/api/v1/category", categoryRoutes)), so can't use category keyword again in categoryRoute(router.get('/category', allCategoryController))
+
+Now, test with postman, GET(http://localhost:8080/api/v1/category/get-category)
+will showcase all categories list
+______________________________________________________________________________
+
+______________________________________________________________________________
+now, singleCategoryContoller (create) and add routing just like update/create 
+
+// modify QUERY, update-category(used :id), but single-category(will use :slug)
+//while routing, use(colon slug) i.e /single-category/:slug
+
+// test postman (get single category (it will require slug(e.g mobile phones) not id))
+we tested (slug = ear-buds), i.e http://localhost:8080/api/v1/category/single-category/ear-buds
+
+______________________________________________________________________________
+
+______________________________________________________________________________
+now deleteCategoryController (after create, update, read)
+// using '/delete-category' will DELETE EVERYTHING so, use id ('/delete-category/:id')
+
+// so finally res.status(200).send({success: true}) // deleted category
+// test postman,(method=delete) e.g http://localhost:8080/api/v1/category/delete-category/686aca5c41f5df64ee78ed49(along headers(authorization)) -admin logged token
+
+________________________________________________________________________________________
+
+______________________________________________________________________________
+🎃Now same for products (just like categories),
+3rd model(productModel.js) the Model-view-controller....
+then routing(productRoutes.js, each route of crud along with its controller-functions),,, ... functions(for crud in productController.js)
+
+Note: the mandatory route: (specify main route in SERVER.js), just like followings:
+app.use("/api/v1/auth", authRoutes);
+app.use("/api/v1/category", categoryRoutes)
 
 
