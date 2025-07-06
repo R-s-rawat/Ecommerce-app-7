@@ -37,7 +37,7 @@ const token = authToken?.token;
     
   }, [auth?.token]);
 
-    // ✅ NEW: Prevent normal users from accessing admin routes
+    // ✅ NEW: Prevent normal users from accessing admin routes (redirect user back to user)
   if (ok && auth?.user?.role !== 1) {
   return <Navigate to="/dashboard/user" />;
 }
