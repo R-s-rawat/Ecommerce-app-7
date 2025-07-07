@@ -740,6 +740,7 @@ new package (slugify), we will use hypen/dash instead underscore (package correc
 ------------
 then // routes ->categoryRoute.js (2nd route)
 then // controllers ->categoryController.js (export createCategoryController) (2nd controller)
+// we will create 5 functions(controller parts) of/for categoryController...
 
 // Now in SERVER.js (just like done for authRoute, do for categoryRoute)
 --------------------
@@ -756,6 +757,7 @@ ______________________________________________________________________________
 
 ______________________________________________________________________________
 then createCategoryController:
+
 // mention async, it is callback so req, res
 // 📌keep extensions to files names or it won't work (i.e this will not work - import categoryModel from "../models/categoryModel";)
 
@@ -834,5 +836,65 @@ then routing(productRoutes.js, each route of crud along with its controller-func
 Note: the mandatory route: (specify main route in SERVER.js), just like followings:
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/category", categoryRoutes)
+----------
+-------------
+--------------
+(So, after - CATEGORY API, NOW - PRODUCT API🔔🔔)
+---------------
+---------------
+------------------
+// 1.> start with productModel.js(for the very basic - database)
+
+Within productModel.js
+// the category object used in schema will have:
+category: {
+ type: mongoose.ObjectId,
+ ref: "Category",
+
+ // the photo object used in schema will have:
+ // Note: we will not use type: Buffer
+ photo: {
+      data: Buffer,
+      contentType: String,
+---------------------------------------
+
+// 2.> then specify routing/routes for different crud operations(for the very basic - connect controllers) in productRoutes.js
+
+// within create(post) and update(put) routes, we will use Formidable(formidable())as middleware, for parsing incoming form data(the photos🎦(file uploads))...
+
+// i.e used in production, for file stream, 
+// formidable(node.js package) have various versions v1, v2, v3, v4, [ express-formidable is dependent on formidable(formidable with regular updates is core, low level library() which can be used without express.js⚡⚡)]
+
+//express-formidable : The "Parser" Middleware (Parses multipart/form-data)
+
+(as in official npm libraries docs:)
+
+Ques. What are Express, Formidable, and this?
+Ans. Express is a fast, unopinionated, minimalist web framework for Node.js.
+Formidable is a Node.js module for parsing form data, including multipart/form-data file upload.
+So, express-formidable is something like a bridge between them, specifically an Express middleware implementation of Formidable.
+
+-------------------------------
+
+// 3.> then, as specified in routes, create Controller along with functions(controller parts)(for the very basic - crud operation logic- create, update, read, delete) in productController.js
+
+// we will create 6 functions(controller parts) of productController/-
+
+//within productController= we will use fs(Node.js module/LIBRARY), (FOR PHOTOS🎦(file upload))
+// fs/file-system (core node.js module)
+// i.e while create product = products.photo.data = fs.readFileSync(photo.path)
+// i.e and while update product = products.photo.data = fs.readFileSync(photo.path)
+
+// test with postman,
+// add product api to server.js (i.e app.use)
+______________________________________________________________________________
+
+______________________________________________________________________________
+FRONTEND FRONTEND FRONTEND FRONTEND FRONTEND  FRONTEND FRONTEND FRONTEND FRONTEND  FRONTEND FRONTEND  FRONTEND FRONTEND FRONTEND FRONTEND  FRONTEND FRONTEND
+
+Now, we will display category, for everyone(logged or not logged)
+
+
+
 
 

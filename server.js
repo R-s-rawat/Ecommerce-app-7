@@ -12,6 +12,7 @@ import cors from "cors";
 // file extensions are compulsory
 import authRoutes from "./routes/authRoute.js";
 import categoryRoutes from "./routes/categoryRoutes.js"
+import productRoutes from "./routes/productRoutes.js"
 
 // configure env - (as our env file is in root, so no location defining inside config method(i.e. not defining any object in config() as .env is already in root path))
 dotenv.config();
@@ -67,6 +68,7 @@ app.use(morgan("dev")); // // for knowing which api getting called/requested (ju
 // routes
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/category", categoryRoutes)
+app.use("/api/v1/product", productRoutes)
 
 // rest api
 app.get("/", (req, res) => {
