@@ -952,11 +952,73 @@ const { photo } = req.files;
         "__v": 0
 ---------------------------------------------------------------------
 
+// product will get saved to mongoDB (as the structure defined in productModel)...
+// in our example:::
+
+_id = 686c84456f0b3d14343c2e2b (objectId)
+
+name = noise airwave (String)
+
+slug = noise-airwave (String)
+
+description = best neckband from noise (String)
+
+price = 1000 (Int32)
+
+category = 686c84196f0b3d14343c2e28 (ObjectId)
+
+quantity = 1 (Int32)
+
+✅✅photo = Object (Object)
+---------------------------------
+// the object expanded...
+data = Binary.createFromBase64('UklGRixLAABXRUJQVlA4WAoAAAA4AAAA8wEA8wEASUNDUKgBAAAAAAGobGNtcwIQAABtbnRyUkdCIFhZWiAH3AABABkAAwApADlh…', 0) or full one(UklGRixLAABXRUJQVlA4WAoAAAA4AAAA8wEA8wEASUNDUKgBAAAAAAGobGNtcwIQAABtbnRyUkdCIFhZWiAH3AABABkAAwApADlh) (Binary)
+
+contentType = image/webp (String)
+----------------------------------
+
+createdAt = 2025-07-08T02:36:53.403+00:00 (Date)
+
+updatedAt = 2025-07-08T02:36:53.403+00:00 (Date)
+
+__v = 0 (Int32)
+---------------------------------
 // test other renaming 5 functions (just like we tested category-5 functions)
 // now test whole product api, just like category api
 
 // api's testing
+Now, test get product = http://localhost:8080/api/v1/product/get-product
+// no headers && body required,,
 
+"success": true,
+    "counTotal": 1,
+    "message": "ALlProducts ",
+    "products": [
+        {
+            "_id": "686c84456f0b3d14343c2e2b",
+
+// now test get single product (pass product slug(slug...(slug= url slug or just url at end)))
+//get request 
+http://localhost:8080/api/v1/product/get-product/noise-airwave
+
+{
+    "success": true,
+    "message": "Single Product Fetched",
+    "product": {
+        "_id": "686c84456f0b3d14343c2e2b",
+        "name": "noise airwave",
+        "slug": "noise-airwave",
+        "description": "best neckband from noise",
+        "price": 1000,
+        "category": {
+            "_id": "686c84196f0b3d14343c2e28",
+            .....
+
+// 4th function, get product photo (pass product id)-objectId
+// no headers and body, it showcase photo, in preview(in postman or otherwise hex code)
+http://localhost:8080/api/v1/product/product-photo/686c84456f0b3d14343c2e2b
+
+// Update product && delete product will be same (5th and 6th)✍✍
 ______________________________________________________________________________
 
 ______________________________________________________________________________
