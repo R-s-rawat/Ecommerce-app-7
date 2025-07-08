@@ -20,6 +20,7 @@ export const createProductController = async (req, res) => {
         return res.status(500).send({ error: "Category is Required" });
       case !quantity:
         return res.status(500).send({ error: "Quantity is Required" });
+        // size in kb, 1mb ~1000kb, 10mb = 1000* 1000 =1000,000
       case photo && photo.size > 1000000:
         return res
           .status(500)

@@ -852,7 +852,7 @@ category: {
  ref: "Category",
 
  // the photo object used in schema will have:
- // Note: we will not use type: Buffer
+ // Note: we will not use type: Buffer (type never equals to Buffer❌)
  photo: {
       data: Buffer,
       contentType: String,
@@ -887,6 +887,76 @@ So, express-formidable is something like a bridge between them, specifically an 
 
 // test with postman,
 // add product api to server.js (i.e app.use)
+//test all six functions(controller parts)
+
+for create category function in productController;
+// we taken 10 mb size,
+
+test with postman, (use form-data in header as it shows 2 options(text/FILE), not possible in raw)
+// body->form-data (not body->raw), along header(auth -admin token🙏), no params(p.)/query p.(url)
+// fill up, form (along files), the fields which are in createProductController(controller parts)
+// shipping set to (no required) - so, not mandatory
+
+⚡⚡💀 fields differs from files(form-data=text/file)
+try{
+const { name, description, price, category, quantity, shipping } = req.fields;
+const { photo } = req.files;
+
+❌❌postman testing create product got error: (Internal server error-> 500)
+"success": false,
+    "error": {
+        "errors": {
+            "category": {
+                "stringValue": "\"neckband\"",
+                "valueType": "string",
+                "kind": "ObjectId",
+                "value": "neckband",
+                "path": "category",
+                "reason": {},
+                "name": "CastError",
+                "message": "Cast to ObjectId failed for value \"neckband\" (type string) at path \"category\" because of \"BSONError\""
+            }
+        },
+        "_message": "Products validation failed",
+        "name": "ValidationError",
+        "message": "Products validation failed: category: Cast to ObjectId failed for value \"neckband\" (type string) at path \"category\" because of \"BSONError\""
+    },
+    "message": "Error in crearing product"
+
+✅✅ we have to pass category id, not name
+
+// Now 1st ecommerce site- product created successfully (201 - created)
+{
+    "success": true,
+    "message": "Product Created Successfully",
+    "products": {
+        "name": "noise airwave",
+        "slug": "noise-airwave",
+        "description": "best neckband from noise",
+        "price": 1000,
+        "category": "686c84196f0b3d14343c2e28",
+        "quantity": 1,
+        "photo": {
+            "data": {
+                "type": "Buffer",
+                "data": [
+                    82,
+                    73,.................. it goes util 20k lines(20,000)in our system, then
+.....................................            ..................
+                    ........................
+                     "contentType": "image/webp"
+        },
+        "_id": "686c84456f0b3d14343c2e2b",
+        "createdAt": "2025-07-08T02:36:53.403Z",
+        "updatedAt": "2025-07-08T02:36:53.403Z",
+        "__v": 0
+---------------------------------------------------------------------
+
+// test other renaming 5 functions (just like we tested category-5 functions)
+// now test whole product api, just like category api
+
+// api's testing
+
 ______________________________________________________________________________
 
 ______________________________________________________________________________
