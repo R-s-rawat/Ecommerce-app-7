@@ -1064,7 +1064,9 @@ without header(auth- admin-token), error: NO TOKEN PROVIDED
 mock server = A Mock Server in Postman is a fake API server that simulates real API responses — without any backend code actually running.
 
 ?postman - current app -collection(with folders(& requests))'s current state in json:
-https://api.postman.com/collections/26088248-0cd11988-45ad-4626-84e5-2af949792f31?access_key=PMAT-01JZPFPGWST96F099XJ6G7CMVE
+// git not allowing to push secret keys (eg.
+https://api.postman.com/collections/26088248-0cd11988-45ad-4626-84e5-2af949792f31?access_key=...
+)
 ______________________________________________________________________________
 
 ______________________________________________________________________________
