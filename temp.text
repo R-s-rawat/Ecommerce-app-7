@@ -1059,13 +1059,68 @@ without header(auth- admin-token), error: NO TOKEN PROVIDED
     "success": true,
     "message": "Product Deleted successfully"
 // all 6 product functions tested(of product controller) - whole product api
+
+(MAY BE)postman - mock server will be used, if some other api's needed for just testing purposes in frontend:
+mock server = A Mock Server in Postman is a fake API server that simulates real API responses — without any backend code actually running.
+
+?postman - current app -collection(with folders(& requests))'s current state in json:
+https://api.postman.com/collections/26088248-0cd11988-45ad-4626-84e5-2af949792f31?access_key=PMAT-01JZPFPGWST96F099XJ6G7CMVE
 ______________________________________________________________________________
 
 ______________________________________________________________________________
 FRONTEND FRONTEND FRONTEND FRONTEND FRONTEND  FRONTEND FRONTEND FRONTEND FRONTEND  FRONTEND FRONTEND  FRONTEND FRONTEND FRONTEND FRONTEND  FRONTEND FRONTEND
 
-Now, we will display category, for everyone(logged or not logged)
+A recap to current project state:
+✅✅so in frontend src(SRC) folder, we currently have components, context, pages, styles(4 sub-folders)...
+
+// (IN CONTEXT folder) - no sub-folders
+
+// (IN STYLES folder) - no sub-folders
+
+// (IN PAGES FOLDER)pages folder have pages -about/contact/pagenotfound/home/policy...
+ (and 3 main pages folder i.e admin(dashboard with sub-parts), auth(login, register, forgot..), user(dashboard with sub-parts))... 
+
+ // (IN COMPONENTS FOLDER))a component(among currently 4 sub-folders(components)- layout(for header-footer), menu, routes(private/user & adminRoute), spinner,, -------is dedicated to those dashboard pages folders i.e the menu component folder(component) with userMenu, adminMenu... (having NavLink's to different actions/routes...))
+______________________________________________________________________________
+
+______________________________________________________________________________
+Now, we will display category,& perform crud (within admin panel(custom -not as good as wp admin))
 ----------------
+so, in pages(main parent folder), - edit the createCategory.js within(admin child folder)
+// as category crud should only be for admin privileges one...
+
+useEffect, useState(hold effect changes i.e useEffect changes)... (createCategory(admin child-folder sub-page(among other adminDashboard,adminUsers,createProduct..) ))..
+
+// and while getting categories, use notifications to let admin know if there any user in getting categories... by (import toast from "react-hot-toast";)
+
+// then axios(to send network request), and destructure response to get data... and store using useState, then begin initial lifecycle using useEffect (and call function on initial lifecycle-for network-axios function- url pattern.../api/v1/category/get-category)
+
+// for mapping & showcase in FRONTEND, (admin panel)
+use bootstrap, table..
+// bootstrap framework breakthrough...
+classes:
+-----------
+Bootstrap provides 7 main things to developers(to implement designers' design);...
+🎃 The Customize section empowers developers to tailor the framework using Sass variables, global options, color palettes, and CSS variables — making Bootstrap flexible for any brand or theme. 🎃 In Layout, you’ll find tools to build structured, responsive designs using containers, grids, columns, breakpoints, and utilities like z-index and CSS Grid. 🎃 The Content section handles core HTML elements like typography, images, and tables, styled consistently across browsers with Bootstrap’s Reboot.
+
+🎃 Forms provide everything from styled inputs and selects to validation and floating labels, all customizable and accessible. 🎃 The Components library includes UI building blocks like modals, navbars, buttons, alerts, and carousels — designed to work seamlessly out of the box. 🎃 Helpers offer quick tweaks like clearfix, aspect ratios, and text truncation without writing extra CSS. 🎃 Finally, Utilities include powerful, ready-to-use classes for spacing, sizing, colors, flexbox, display, and more, making layout adjustments quick and consistent across your project.
+
+we will use tables.. i.e part of content...
+https://getbootstrap.com/docs/5.3/content/tables/ 
+
+// paste table and convert to jsx
+// show tr <table row> dynamic using map() method... ( in tr there is also th, td..)
+// no columns concept in table,(i.e no tc but there is scope="col"> and scope="row">)
+
+// 1st tr will have two cells( which is inside<thead> wrapping), (th are shown in bold)
+then... tr's in <tbody> are dynamic ones...
+
+// there is error, may be spelling mistake or something out of the box...
+after checking categoryController (we got to know we are having data.category in response) or just check console logs...
+
+
+
+
 
 
 
