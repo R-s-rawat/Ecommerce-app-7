@@ -116,6 +116,7 @@ export const productPhotoController = async (req, res) => {
 //delete product function
 export const deleteProductController = async (req, res) => {
   try {
+    // excluding using "-photo" is beneficial only if- to send response back storing in a var(without photo)...
     await productModel.findByIdAndDelete(req.params.pid).select("-photo");
     res.status(200).send({
       success: true,

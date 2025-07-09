@@ -1019,12 +1019,54 @@ http://localhost:8080/api/v1/product/get-product/noise-airwave
 http://localhost:8080/api/v1/product/product-photo/686c84456f0b3d14343c2e2b
 
 // Update product && delete product will be same (5th and 6th)✍✍
+
+// update product: (pass product id) - created one more product then test done...
+http://localhost:8080/api/v1/product/update-product/686dc726f3d0b484fbeef53b
+{
+    "success": true,
+    "message": "Product Updated Successfully",
+    "products": {
+        "photo": {
+            "data": {
+                "type": "Buffer",
+                "data": [
+                    82,
+                    73, ............ 60k lines
+                  },
+            "contentType": "image/webp"
+        },
+        "_id": "686dc726f3d0b484fbeef53b",
+        "name": "realme Buds Wireless 3 Neo plus",
+        "slug": "realme-Buds-Wireless-3-Neo-plus",
+        "description": "best neckband from realme",
+        "price": 1200,
+        "category": "686c84196f0b3d14343c2e28",
+        "quantity": 1,
+        "createdAt": "2025-07-09T01:34:30.665Z",
+        "updatedAt": "2025-07-09T01:37:22.631Z",
+        "__v": 0
+
+// delete product: (pass product id), if product gets deleted, then that product(or doc) photo also gets deleted...
+// in delete query, we excluded photo, due to following reason..
+❌Deletes the product, including photo= await productModel.findByIdAndDelete(req.params.pid)
+
+✅Same as above, but if you want to use the deleted data afterward (e.g., send as response), you'll get it without the heavy photo = await productModel.findByIdAndDelete(req.params.pid).select("-photo")
+http://localhost:8080/api/v1/product/delete-product/686c84456f0b3d14343c2e2b
+without header(auth- admin-token), error: NO TOKEN PROVIDED
+
+// WITH token : - 200(ok)
+{
+    "success": true,
+    "message": "Product Deleted successfully"
+// all 6 product functions tested(of product controller) - whole product api
 ______________________________________________________________________________
 
 ______________________________________________________________________________
 FRONTEND FRONTEND FRONTEND FRONTEND FRONTEND  FRONTEND FRONTEND FRONTEND FRONTEND  FRONTEND FRONTEND  FRONTEND FRONTEND FRONTEND FRONTEND  FRONTEND FRONTEND
 
 Now, we will display category, for everyone(logged or not logged)
+----------------
+
 
 
 

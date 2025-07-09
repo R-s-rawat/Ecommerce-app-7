@@ -15,7 +15,7 @@ const router = express.Router();
 
 //routes -----------------------
 
-//create product
+//create product - for admin
 router.post(
   "/create-product",
   requireSignIn,
@@ -24,7 +24,7 @@ router.post(
   createProductController
 );
 
-//update product
+//update product - for admin
 router.put(
   "/update-product/:pid",
   requireSignIn,
@@ -42,7 +42,7 @@ router.get("/get-product/:slug", getSingleProductController);
 //get photo
 router.get("/product-photo/:pid", productPhotoController);
 
-//delete product
-router.delete("/product/:pid", deleteProductController);
+//delete product - only for (admin- advanced users) [not users- normal users]
+router.delete("/delete-product/:pid", requireSignIn, isAdmin, deleteProductController);
 
 export default router;
