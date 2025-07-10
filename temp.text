@@ -1120,8 +1120,136 @@ then... tr's in <tbody> are dynamic ones...
 // there is error, may be spelling mistake or something out of the box...
 after checking categoryController (we got to know we are having data.category in response) or just check console logs...
 
+---------------------
+currently the table looks like: (which not working)
+ <table className="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    {categories.map((c) => { ❌
+                      <>
+                        <td key={c._id}>{c.name}</td>
+-------------------------------------------------------
+✅ inside the map method usage, spelling/syntax mistake (using curly braces, which not returns..)
+Now corrected <tbody>, with map method returning (correction done in braces syntax):
+  <tbody>
+                    {categories.map((c) => (
+                      <>
+                      <tr>
+                        <td key={c._id}>{c.name}</td>
+                        <td>
+                          <button className="btn btn-primary">Edit</button>
+                        </td>
+                        </tr>
+                      </>
+                    ))}
+  </tbody>
+---------------------------------
+______________________________________________________________________________
 
+______________________________________________________________________________
+add optional chaining(to prevent errors, and error notifications due to delay):
+so, before:
+ {categories.map((c) => (
 
+After:
+ {categories?.map((c) => (
+
+// set table width to 75('w-75')
+  <h1>Manage category</h1>
+            <div className="w-75">
+              <table className="table">
+                <thead>
+
+// Create Form component (new comp..) - for making buttons(i.e edit) actionable...
+client-> src -> components -> Form -> CategoryForm.js
+
+// use Bootstrap😃 form
+// remove all input element properties(i.e aria-describedby, id..)
+
+// add placeholder to input element along value property (which equals to prop we get)
+
+// NOW, ✨LAST BUT NOT LEAST, add onSubmit event to form 
+i.e  <form onSubmit={handleSubmit}>
+
+// pass every variable(the vars, funcs,) for which we need values(i.e handleSubmit function, value, onChange property's setValue)
+i.e const CategoryForm = ({handleSubmit, value, setValue}) => {
+
+// now, as comp.. expecting values from the page, so:
+NOTE⚡💀💀: change js-> jsx(to make EMMET ABBREVIATION WORK..) FOR making div's by .CLASS_NAME
+
+Note: keep code readable, by placing code in right place(programming standards)..
+i.e inside functional comp.. createCategory(which is hypothetically page(as we are creating react app))
+// at least (refs are exception), 7 should be placed (grouping and ordering logically)
+// there are certain React's rules of hooks like:
+❌ Not Recommended:
+Placing new useState below function declarations or inside conditionals can break React’s Rules of Hooks.
+
+// correct ones ✅
+ // 0. Imports (libraries, components, styles)
+ // 1. Constants (API endpoints, helpers)
+ // 2. State hooks
+ // 3. Refs (if any, using useRef for DOM or mutable values)
+ // 4. useEffect hooks
+ // 5. Event handlers or functions
+ // 6. Return JSX
+
+FOR MORE SECTIONS::✅
+------------------
+// 0. Imports (libraries, components, styles)
+// 1. Constants (API endpoints, environment vars, derived constants)
+// 2. State hooks (useState for managing component state)
+// 3. Refs (if any, using useRef for DOM or mutable values)
+// 4. Derived or memoized values (useMemo/useCallback to optimize calculations or handlers)
+// 5. Contexts (useContext for accessing global/auth/theme/etc. context)
+// 6. useEffect hooks (for side effects like API calls, subscriptions)
+// 7. Event handlers or functions (onClick, onChange, submit handlers, API calls)
+// 8. Conditional render helpers (optional functions that return JSX snippets)
+// 9. Return JSX (final render output)
+
+// For more sections (along ts(TYPESCRIPT))... & every element✅✅
+// 0. Imports (libraries, components, styles)
+// 1. TypeScript interfaces or types (for props, state models, component structure)
+// 2. Constants (API endpoints, environment vars, derived constants)
+// 3. State hooks (useState for managing component state)
+// 4. Refs (if any, using useRef for DOM or mutable values)
+// 5. Derived or memoized values (useMemo/useCallback to optimize calculations or handlers)
+// 6. Contexts (useContext for accessing global/auth/theme/etc. context)
+// 7. Reducers (useReducer if using more complex state management)
+// 8. useEffect hooks (for side effects like API calls, subscriptions)
+// 9. Custom hooks (if you've abstracted reusable logic into separate hooks)
+// 10. Event handlers or functions (onClick, onChange, submit handlers, API calls)
+// 11. Conditional render helpers (optional functions that return JSX snippets)
+// 12. Cleanup logic (within useEffect's return function for timers, subscriptions, sockets, etc.)
+// 13. Return JSX (final render output)
+
+📘📘  What React Docs Emphasize/Focuses, is whatever added later, should be placed later(added later, place later) (like hooks strictly follows react's rule of hooks).. below existing ones, (be it any element declaration in any section), then prettier format 
+
+i.e 🧭 “Added later, placed later” — within the correct section — is the practical standard.
+(states, effects, functions) at bottom of their respective sections...
+
+But expections- ❗“added later → placed later” rule does not strictly apply to imports (IMPORTS)
+// imports have another rule...(another civilization)...
+1. React and core libraries (e.g., react, react-dom)
+2. Third-party packages (e.g., axios, lodash)
+3. Absolute imports (e.g., from '@/components/...')
+4. Relative imports (e.g., './Component', '../utils')
+5. Styles (e.g., './styles.css')
+
+// now coming to category form component && category form page...
+pass prop values from page..
+i.e BEFORE <CategoryForm /> -> AFTER <CategoryForm handleSubmit={handleSubmit} value={name} setValue={setName} />
+
+AND, also call get all category again, after categoryForm submit... for showcasing just added..
+handleSubmit function()...
+ if (data?.success) {
+        toast.success(`${name} is created`);
+        getAllCategory()
 
 
 
