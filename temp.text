@@ -1280,7 +1280,28 @@ notify user, reset values, refresh page content (to show updated categories)...
         setVisible(false)
         getAllCategory()
 
-// 
+// Now delete category... 
+now modify the delete button inside map method
+<button className="btn btn-danger ms-2" onClick={()=>{handleDelete(c._id)}}>
+                            Delete
+                          </button>
 
+// on successful delete, 
+const handleDelete = async (cId) => {
+    try {
+onst { data } = await axios.delete(
+        `${API}/api/v1/category/delete-category/${cId}`,
+        { name: updatedName }
+      );
+if (data.success) {
+        // toast.success(data.message);
+        toast.success('Category deleted successfully');
+        getAllCategory();
+// inform user, and refresh the latest categories
 
+// Now, the crud operations (read, create, update, delete) done for managecategory(in admin panel)
 
+// Now product api showcase in Manage product(admin panel)..
+create separate page, (because categories can be few tens, but product will be hundreds..)
+
+//

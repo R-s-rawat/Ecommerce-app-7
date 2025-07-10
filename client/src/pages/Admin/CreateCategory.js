@@ -67,17 +67,38 @@ const CreateCategory = () => {
       );
       if (data.success) {
         // toast.success(data.message);
-        toast.success(`${updatedName} is updated`)
-        setSelected(null)
-        setUpdatedName("")
-        setVisible(false)
-        getAllCategory()
+        toast.success(`${updatedName} is updated`);
+        setSelected(null);
+        setUpdatedName("");
+        setVisible(false);
+        getAllCategory();
       } else {
         toast.error(data.message);
       }
     } catch (error) {
       console.log(error);
       toast.error("Error while updating category");
+    }
+  };
+
+  // delete category
+  const handleDelete = async (cId) => {
+    try {
+      // console.log(e)
+      const { data } = await axios.delete(
+        `${API}/api/v1/category/delete-category/${cId}`,
+        { name: updatedName }
+      );
+      if (data.success) {
+        // toast.success(data.message);
+        toast.success('Category deleted successfully');
+        getAllCategory();
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("Error while deleting category");
     }
   };
 
@@ -125,12 +146,17 @@ const CreateCategory = () => {
                             onClick={() => {
                               setVisible(true);
                               setUpdatedName(c.name);
-                              setSelected(c)
+                              setSelected(c);
                             }}
                           >
                             Edit
                           </button>
-                          <button className="btn btn-danger ms-2">
+                          <button
+                            className="btn btn-danger ms-2"
+                            onClick={() => {
+                              handleDelete(c._id);
+                            }}
+                          >
                             Delete
                           </button>
                         </td>
