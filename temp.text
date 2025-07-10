@@ -1193,7 +1193,7 @@ Placing new useState below function declarations or inside conditionals can brea
 // correct ones ✅
  // 0. Imports (libraries, components, styles)
  // 1. Constants (API endpoints, helpers)
- // 2. State hooks
+ // 2. State hooks (i.e any no. of useState hooks should always be placed upside of a useEffect)
  // 3. Refs (if any, using useRef for DOM or mutable values)
  // 4. useEffect hooks
  // 5. Event handlers or functions
@@ -1251,9 +1251,36 @@ handleSubmit function()...
         toast.success(`${name} is created`);
         getAllCategory()
 
+// ⚡⚡⚡For edit functionality(in Manage category, of admin panel), we will use ANT-DESIGN..
 
+npm install antd and npm install antd --save (SAME)
+❓❓
+Before npm 5: npm install antd would only install the package, while npm install antd --save would install it and add it to package.json.
 
+Since npm 5 (and current versions): npm install antd automatically includes the --save behavior. So, npm install antd --save is redundant because --save is the default.
+----------------------
+//now, ant-design re-usable components...
+import ant design,, then
+// ant-design 5 (currently it's v.5), navigate to feedback -> Modal
 
+Modal -  visible={ } deprecated, use open={ } instead, as of v.5 (antd)..
+if one function to call (using onClick event) =  onClick={() => setVisible(true)}
+if two or more func.. to call =   onClick={()=>{setVisible(true); setUpdatedName(c.name)}}
+
+// now in updateForm function (invocable) will have:/cat/update-cat/:id(dynamically)...
+await axios.put(
+        `${API}/api/v1/category/update-category/${selected._id}`,{name:updatedName})
+
+// on successful category updation, do:
+notify user, reset values, refresh page content (to show updated categories)...
+ if (data.success) {
+        toast.success(data.message);
+        setSelected(null)
+        setUpdatedName("")
+        setVisible(false)
+        getAllCategory()
+
+// 
 
 
 
