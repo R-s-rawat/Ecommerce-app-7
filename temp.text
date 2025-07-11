@@ -1301,7 +1301,33 @@ if (data.success) {
 
 // Now, the crud operations (read, create, update, delete) done for managecategory(in admin panel)
 
+// so, category FRONTEND (admin's FRONTEND i.e manage - category) done...
+
 // Now product api showcase in Manage product(admin panel)..
 create separate page, (because categories can be few tens, but product will be hundreds..)
 
-//
+// now, product FRONTEND (admin's FRONTEND i.e manage - product)..
+
+// ⭐🌟✨ firstly, present the products for management, crud-management, - useState, useEffect
+// we need to get everything from product model
+// so createProduct(the manage product interface) will have:
+const [categories, setCategories] = useState([])
+const [photo, setPhoto] = useState("").. same for name/desc../price/quantity/shipping
+
+// copy getAllCategory function from createCategory( the manage category interface) 
+
+// copy useEffect hook of createCategory( for invoking that copied function)
+// copy imports to be used..
+
+NOTE: something getting response takes time, so, ALWAYS ENSURE OPTIONAL CHAINING e.g data?.key
+
+// now, in createProduct(the product crud interface(manage)).. add dropdown...
+import { Select } from "antd";
+const {Option} = Select;
+
+// add Select (from antd) and add click event along the prop(value) provided by antd(not react)
+
+// now, finally add <Option> within map method inside Select, with key and value
+
+// now product interface(admin panel) will show dropdown having categories, and option to search for various categories and select any of them..✅
+// current state of product management is(only first state(storage) is used i.e categories..)
