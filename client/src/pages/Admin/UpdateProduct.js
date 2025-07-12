@@ -4,45 +4,70 @@ import AdminMenu from "../../components/Menu/AdminMenu";
 import toast from "react-hot-toast";
 import axios from "axios";
 import { Select } from "antd";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const { Option } = Select;
 
-const CreateProduct = () => {
+const UpdateProduct = () => {
+  // ───────────────────────────────── API URL
   const API =
     process.env.NODE_ENV === "production"
       ? process.env.REACT_APP_API
       : "http://localhost:8080";
 
   const navigate = useNavigate();
+  const { slug } = useParams();              
 
+  /* ─────────── component state ─────────── */
   const [categories, setCategories] = useState([]);
   const [photo, setPhoto] = useState(null);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
-  const [category, setCategory] = useState("");
+  const [category, setCategory] = useState("");   // 🔄 _id string
   const [quantity, setQuantity] = useState("");
   const [shipping, setShipping] = useState(false);
+  const [id, setId] = useState("");               // product _id
 
-  /* ─────────── Fetch categories ─────────── */
+  /* ─────────── initial data fetch (both endpoints) ─────────── */
   useEffect(() => {
-    (async () => {
+    const fetchInitialData = async () => {
       try {
-        const { data } = await axios.get(`${API}/api/v1/category/get-category`);
-        if (data?.success) setCategories(data.category);
-        else toast.error(data?.message || "Couldn’t load categories");
+        const [catRes, prodRes] = await Promise.all([
+          axios.get(`${API}/api/v1/category/get-category`),
+          axios.get(`${API}/api/v1/product/get-product/${slug}`),
+        ]);
+
+        /* categories */
+        if (catRes.data?.success) {
+          setCategories(catRes.data.category);
+        } else {
+          toast.error(catRes.data?.message || "Couldn’t load categories");
+        }
+
+        /* single product */
+        const product = prodRes.data?.product;
+        if (product) {
+          setName(product.name);
+          setId(product._id);
+          setDescription(product.description);
+          setPrice(product.price);
+          setQuantity(product.quantity);
+          setShipping(product.shipping);
+          setCategory(product.category?._id || "");  // 🔄 only the ID
+        }
       } catch (err) {
         console.error(err);
-        toast.error("Error loading categories");
+        toast.error("Error loading data");
       }
-    })();
-  }, []);
+    };
 
-  /* ─────────── Create product ─────────── */
-  const handleCreate = async (e) => {
+    fetchInitialData();
+  }, [API, slug]);
+
+  /* ─────────── update product ─────────── */
+  const handleUpdate = async (e) => {
     e.preventDefault();
-
     if (!category) return toast.error("Please choose a category");
 
     try {
@@ -52,45 +77,47 @@ const CreateProduct = () => {
       form.append("price", price);
       form.append("quantity", quantity);
       if (photo) form.append("photo", photo);
-      form.append("category", category);          // <- now a valid _id
-      form.append("shipping", shipping);          // boolean
+      form.append("category", category);    // now a valid _id
+      form.append("shipping", shipping);
 
-      const { data } = await axios.post(
-        `${API}/api/v1/product/create-product`,
+      const { data } = await axios.put(
+        `${API}/api/v1/product/update-product/${id}`,
         form,
         { headers: { "Content-Type": "multipart/form-data" } }
       );
 
-      if (data?.success) {
-        toast.success("Product created");
+      if (data.success) {
+        toast.success("Product updated");
         navigate("/dashboard/admin/products");
       } else {
-        toast.error(data?.message || "Something went wrong");
+        toast.error(data.message || "Something went wrong");
       }
     } catch (err) {
-    //  console.error(err.response.data.error); // that's the catch
-      //  toast.error(err.message ) // Request failed with status code 500
-    toast.error(err?.response?.data?.error);
+      toast.error(err?.response?.data?.error || "Update failed");
+      console.error(err);
     }
   };
 
   return (
-    <Layout title="Dashboard - Create Product">
+    <Layout title="Dashboard - Update Product">
       <div className="container-fluid m-3 p-3">
         <div className="row">
-          <div className="col-md-3"><AdminMenu /></div>
+          <div className="col-md-3">
+            <AdminMenu />
+          </div>
 
           <div className="col-md-9">
-            <h1>Create product</h1>
+            <h1>Update product</h1>
             <div className="m-1 w-75">
+
+              {/* ---------- Category ---------- */}
               <Select
-                bordered={false}
                 placeholder="Select a category"
                 size="large"
-                showSearch
                 className="form-select mb-3"
-                // onChange={(value)=>setCategory(value)}
-                 onChange={setCategory}
+                value={category}              // 🔄 string _id
+                onChange={setCategory}
+                showSearch
               >
                 {categories.map((c) => (
                   <Option key={c._id} value={c._id}>
@@ -99,6 +126,7 @@ const CreateProduct = () => {
                 ))}
               </Select>
 
+              {/* ---------- Photo upload ---------- */}
               <div className="mb-3">
                 <label className="btn btn-outline-secondary col-md-12">
                   {photo ? photo.name : "Upload photo"}
@@ -111,19 +139,28 @@ const CreateProduct = () => {
                 </label>
               </div>
 
-              <div class="mb-3">
-                {photo && (
-                  <div className="mb-3 text-center">
+              {/* ---------- Photo preview ---------- */}
+              <div className="mb-3 text-center">
+                {photo ? (
+                  <img
+                    src={URL.createObjectURL(photo)}
+                    alt="preview"
+                    height={200}
+                    className="img img-responsive"
+                  />
+                ) : (
+                  id && (
                     <img
-                      src={URL.createObjectURL(photo)}
+                      src={`${API}/api/v1/product/product-photo/${id}`}
                       alt="preview"
                       height={200}
                       className="img img-responsive"
                     />
-                  </div>
+                  )
                 )}
               </div>
 
+              {/* ---------- Text inputs ---------- */}
               <input
                 type="text"
                 value={name}
@@ -155,19 +192,20 @@ const CreateProduct = () => {
                 onChange={(e) => setQuantity(e.target.value)}
               />
 
+              {/* ---------- Shipping ---------- */}
               <Select
-                bordered={false}
                 placeholder="Select shipping"
                 size="large"
                 className="form-select mb-3"
-                onChange={(val) => setShipping(val)}
+                value={shipping}                // 🔄 boolean
+                onChange={setShipping}
               >
                 <Option value={false}>No</Option>
                 <Option value={true}>Yes</Option>
               </Select>
 
-              <button className="btn btn-primary" onClick={handleCreate}>
-                CREATE PRODUCT
+              <button className="btn btn-primary" onClick={handleUpdate}>
+                UPDATE PRODUCT
               </button>
             </div>
           </div>
@@ -177,4 +215,4 @@ const CreateProduct = () => {
   );
 };
 
-export default CreateProduct;
+export default UpdateProduct;

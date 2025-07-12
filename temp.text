@@ -1459,11 +1459,52 @@ so, each product LINK to that slug,,
 ADD UpdateProduct.js 🏏🏏 to admin..
 
 COPY createProduct input fields (along whole layout) to updateProduct...
-// have imports hand in hand(side by side)
 
+COPY createProduct functions to updateProduct...
 
+COPY createProduct imports to updateProduct...
 
+// before editing updateProduct.js (add it to App.js) hand in hand/ side by side..
+  <Route path="/dashboard" element={<AdminRoute />}>
+          <Route path="admin" element={<AdminDashboard />} />
+          <Route path="admin/create-category" element={<CreateCategory />} />
+          <Route path="admin/create-product" element={<CreateProduct />} />/
+          <Route path="admin/product/:slug" element={<UpdateProduct />} />/ // <-HERE🔥🔥 also, add slug
+          <Route path="admin/users" element={<AdminUsers />} />/
+          <Route path="admin/products" element={<Products />} />/
+        </Route>
+// debug and show the errors like toast (for e.g if photo>1 mb) on catch( toast.error(err?.response?.data?.error))
 
+// not confirm of the docs, but useEffect should above all functions.. (useEffect is good to below states(storages))
 
+// now add useParams (to get url)
+so, params = useParams()
 
+// populate all fields with data(of the product) which we are editing... (from the destructured data)
+// add second(2nd) useEffect, updateProduct, (first for getting cats.., second for getting data of prod..(and populate))
+
+// category, and shipping having issues(in getting populated by data in database)...
+FIX✅ add value property to form fields element (.ie value={category}, value={shipping}) [📌states are already populated..]
+
+// NOTE⚡💀💀 
+use trim() method, before sending form fields data to BACKEND(mongo in our case).. Avoid validation issues (e.g., backend rejecting a string that's technically not empty but only has spaces). (and remove whitespaces)
+
+// now for photo, 
+// paste src of Products.js when showcasing {products? (): (HERE🔥🔥)}
+
+// now the button, handleCreate will become handleUpdate... so the api,,
+// and change METHOD TYPE to put...
+
+// getting error while product updation, so change the form(form = formData()'s setCategory(data.product.category._id🔥🔥))
+// while updating that state, change the input field's value too, ie. (from category.name to category)
+
+[object Object]
+🔥🔥NOTE🔥🔥 
+onChange={(value)=>setCategory(value)}
+ ---------- same as --------------------
+onChange={setCategory}
+
+⚡💀⚡⚡❔ onChange={(value) => setCategory(value)} is explicit and useful if you plan to modify it later,,
+or if value needs some changes .ie(onChange={(value) => setCategory(value.trim())}),, 
+or if multiple param needed (onChange={(value, option) => setCategory(value)})
 
