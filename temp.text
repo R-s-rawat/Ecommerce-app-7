@@ -1411,5 +1411,59 @@ just for checking(routing on success or not),
 
 // Product create done (also routing, re-directing)✅
 
+ADD NEW PAGE(comp) to admin -Products.js, besides (AdminDashboard,CreateCategory,CreateProduct,AdminUsers)
+// NOTE: VS CODE shortcut -> while on opening tag (PRESS f2)🔥🔥 to change both opening + closing tag (same time)..
 
-//
+// Now add this,(i.e PAGE(or comp)) to App.js 
+  <Route path="/dashboard" element={<AdminRoute />}>
+          <Route path="admin" element={<AdminDashboard />} />
+          <Route path="admin/create-category" element={<CreateCategory />} />
+          <Route path="admin/create-product" element={<CreateProduct />} />/
+           <Route path="admin/users" element={<AdminUsers />} />/
+           <Route path="admin/prooducts" element={<Products />} />/
+        </Route>
+
+// Now add this to Admin - Menu...(along with navLink like others one)
+
+// as we have getAllProduct already in ProductController, so now represent products - frontend(admin panel)
+
+now withing Products.js (admin panel), add destructure the data from network request(i.e {data} = await axios.get(``))
+
+after that,
+// USE LIFECYCLE METHOD, i.e useEffect(for invoking function to get product(s))
+
+// NOTE⚡💀💀: check in advance (if getting products or not) in FIREFOX -> dev tools -> network->(click on request)->304(get)->response (structure like json, products array...)
+
+// copy CARD from bootstrap... (components-> card)
+now map products in the card...
+
+// not getting photo, hit another api (of Product API), to get photo(s)
+
+NOW, FOR EVERY SINGLE PRODUCT, use link (from react router dom)
+
+// as in firefox(dev tools), network tab showcasing (slug) in response in get request
+so, each product LINK to that slug,,
+// re-design later, but also prevent errors like (same slug)
+
+// not add ${API}(the backend url)[LINK to={}] (as navigation happening in frontent) i.e not a net request..
+// but add ${API}(the backend url) for network request, i.e to get product image [IMG src={}] (NO NEED AXIOS HERE🔥🔥..)
+ <div className="d-flex">
+             {products?.map((p) => (
+                <Link key={p?._id} to={`/dashboard/admin/product/${p?.slug}` } className="product-link">
+                   <div className="card m-2" style={{ width: "18rem" }} >
+              <img src={`${API}/api/v1/product/product-photo/${p?._id}`} className="card-img-top" alt={p?.name} />
+              <div className="card-body">
+                <h5 className="card-title">{p?.name}</h5>
+
+// Now just like Products.js, 
+ADD UpdateProduct.js 🏏🏏 to admin..
+
+COPY createProduct input fields (along whole layout) to updateProduct...
+// have imports hand in hand(side by side)
+
+
+
+
+
+
+
