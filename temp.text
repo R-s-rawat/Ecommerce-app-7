@@ -1,4 +1,11 @@
 📌📌
+vite = 5173
+
+ express = 5000
+
+ optionalProxy = 8080 (Optional/Configurable)
+
+ cra = 3000 	(CRA or Legacy Projects)
 ________________________________________________________________________________________
 http://localhost:8080/ 😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎
 // BACKEND BACKEND  BACKEND BACKEND BACKEND BACKEND BACKEND BACKEND BACKEND BACKEND BACKEND BACKEND BACKEND BACKEND BACKEND BACKEND BACKEND BACKEND BACKEND BACKEND BACKEND BACKEND  BACKEND BACKEND BACKEND BACKEND BACKEND BACKEND BACKEND BACKEND BACKEND BACKEND BACKEND BACKEND BACKEND BACKEND BACKEND BACKEND BACKEND BACKEND 
@@ -1331,3 +1338,78 @@ const {Option} = Select;
 
 // now product interface(admin panel) will show dropdown having categories, and option to search for various categories and select any of them..✅
 // current state of product management is(only first state(storage) is used i.e categories..)
+
+// now difficult part to make category (DIRECTLY PROPORTIONAL) to products, (as joining their logic have conditioning..)..
+
+// add upload photo functionality.. (div container element...)
+            <div className="mb-3">
+                <label className="btn btn-outline-secondary col-md-12">
+                  {photo ? photo.name : "Upload photo"}
+                  <input
+                    type="file"
+                    name="photo"
+                    accept="image/*"
+                    onChange={(e) => setPhoto(e.target.files[0])}
+                    hidden
+                  />
+                </label>
+              </div>
+
+// Now, to show selected image( Browser😃 also have some properties)
+
+// this will not work:
+<div className="mb-3">
+                {photo && (
+                  <div className="text-center">
+                    <img src={photo} alt="" />
+                  </div>
+                )}
+              </div>
+
+// to make image preview work, (A NORMAL Browser😃 PROPERTY USE-CASE, package can be used if needed)
+             <div className="mb-3">
+                {photo && (
+                  <div className="text-center">
+                    <img
+                      src={URL.createObjectURL(photo)}
+                      alt="product_photo"
+                      height={"200px"}
+                      className="img img-responsive"
+                    />
+                  </div>
+                )}
+              </div>
+
+// now, input fields for product(after image)
+//add input
+//along onChange(bind onChange values with states (e.target.value))
+
+// use inputs, textarea, select(along with options) and then normal button with onClick event
+
+// new function handling the inputs sent by button, 
+// use form data while destructuring (i.e const {data}= axios.post) or
+ INSTEAD WRAP [INPUTS, TEXTAREA(DESCRIPTION),SELECT] TAGS WITH [FORM TAG] AND TRIGGER SUBMSSION ON {FORM - onSubmit}
+
+// so, if all the product's inputs (photo, name, desc, shipping...) with <FORM> tag and use its onSubmit.. (YOU NOT HAVE TO GO THROUGH MANUAL FORM-DATA BEFORE  destructuring i.e)
+ const productData = new FormData()
+      productData.append('name', name)
+      productData.append('description', description)
+      productData.append('price', price)
+      productData.append('quantity', quantity)
+      productData.append('photo', photo)
+      productData.append('category', category)
+       productData.append('shipping', shipping) {/*necessary*/}
+      const { data } = axios.post
+
+// using optional chaining for fallback during delay(ie. data?.success) or Use data && data.success
+navigation route not created yet, 
+just for checking(routing on success or not),
+ i.e if(data?.sucess) navigate('dashboard/admin/products')
+
+// NOTE - FACT: add semicolon(;) in b/w code and comments (for example - the following statement) 
+  productData.append('shipping', shipping); {/*necessary*/}
+
+// Product create done (also routing, re-directing)✅
+
+
+//
