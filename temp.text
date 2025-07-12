@@ -1508,3 +1508,43 @@ onChange={setCategory}
 or if value needs some changes .ie(onChange={(value) => setCategory(value.trim())}),, 
 or if multiple param needed (onChange={(value, option) => setCategory(value)})
 
+// now add handleDelete to same updateProduct (later we redesign)...
+
+so, just hit the endpoint ...  
+const {data} = axios.delete(`${API}/api/v1/product/delete-product/${id}`)
+
+but add deletion confirmation prompt (i.e window.prompt)
+
+let answer = window.prompt('Do you want to delete product?') (BUT Recommended = WINDOW.CONFIRM(USER NOT HAVE TO CODE))
+        if(!answer) return;
+        const {data} = axios.delete(`${API}/api/v1/product/delete-product/${id}`)
+
+// 📝duplicate slug issue is still with us, (causing to open product which get created first in database);
+
+// before that slug issue, and users(in admin panel) - begin with HomePage
+
+.. Frontend// FRONTEND ..
+😎😎😎😎😎
+// FRONTEND FRONTEND FRONTEND FRONTEND  FRONTEND FRONTEND FRONTEND FRONTEND  FRONTEND FRONTEND FRONTEND FRONTEND  FRONTEND FRONTEND FRONTEND FRONTEND  FRONTEND FRONTEND FRONTEND FRONTEND  FRONTEND FRONTEND FRONTEND FRONTEND  FRONTEND FRONTEND 
+
+show products (along filters for sorting and others)... HomePage.js (-- jsx code)
+<Layout>
+//STEP 1 =  .row mt-3 (ROW)
+//STEP 2 = (various columns, for now) .col-md-3 && .col-md-9 (COLUMNS)
+//STEP 3 = useState-products/categories, lifecycle-method(useEffect)
+
+//STEP 4 = HAVE .col-md-3(with h4, Filter by category) and .col-md-9(with h1, all Products)
+//STEP 5(last) = .d-flex flex-wrap(within .col-md-9, all products)
+----------FIRST FUNCTIONALITY🎨🎨, THEN RE-DESIGN🌈🌈
+........... present the products to all.. users(normal users), admin(advanced users)
+
+// COPY products(of admin) to homepage, to products showcase, 
+// add (add to cart /more details) button -> as of now, copy styling... Bootstrap😃
+
+// now display categories
+// user can select multiple category📌📌
+// as of now, styling... Ant-Design(antd)..
+
+// there will also other filters like price(styline will be done later on)...
+
+
