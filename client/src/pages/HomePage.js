@@ -3,6 +3,7 @@ import Layout from "../components/Layout/Layout";
 //  custom hook import created for CONTEXT API
 import { useAuth } from "../context/auth";
 import axios from "axios";
+import {Checkbox} from 'antd';
 
 const HomePage = () => {
   const API =
@@ -24,10 +25,30 @@ const HomePage = () => {
       console.log(error);
     }
   };
-  // Lifecycle method
+
+// get all categories
+  const getAllCategory = async () => {
+    try {
+      const { data } = await axios.get(`${API}/api/v1/category/get-category`);
+      console.log(data);
+      if (data?.success) {
+        setCategories(data?.category);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // Lifecycle method - products || get
   useEffect(() => {
     getAllProducts();
   }, []);
+
+   // Lifecycle method - categories || get
+  useEffect(() => {
+    getAllCategory();
+  }, []);
+
 
   {
     /* -------------------------------- return jsx ------------------ */
@@ -39,6 +60,11 @@ const HomePage = () => {
       <div className="row mt-3">
         <div className="col-md-3">
           <h4 className="text-center">Filter by category</h4>
+          {categories?.map(c =>(
+            <Checkbox key={c._id} onChange={(e)=>console.log(e)}>
+              {c.name}
+            </Checkbox>
+          ))}
         </div>
         <div className="col-md-9">
           <h1 className="text-center">All products</h1>

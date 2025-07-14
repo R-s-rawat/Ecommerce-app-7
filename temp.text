@@ -5,7 +5,7 @@ vite = 5173
 
  optionalProxy = 8080 (Optional/Configurable)
 
- cra = 3000 	(CRA or Legacy Projects)
+ cra = 3000 	(CRA or Legacy Projects) (Mostly not Mandatory)
 ________________________________________________________________________________________
 http://localhost:8080/ 😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎
 // BACKEND BACKEND  BACKEND BACKEND BACKEND BACKEND BACKEND BACKEND BACKEND BACKEND BACKEND BACKEND BACKEND BACKEND BACKEND BACKEND BACKEND BACKEND BACKEND BACKEND BACKEND BACKEND  BACKEND BACKEND BACKEND BACKEND BACKEND BACKEND BACKEND BACKEND BACKEND BACKEND BACKEND BACKEND BACKEND BACKEND BACKEND BACKEND BACKEND BACKEND 
@@ -1546,5 +1546,11 @@ show products (along filters for sorting and others)... HomePage.js (-- jsx code
 // as of now, styling... Ant-Design(antd)..
 
 // there will also other filters like price(styline will be done later on)...
+
+// in Homepage, on basis of checkbox, we will get categories(just like in ecommerce apps), & no toast notifications should be get implemented, for categories error...
+
+
+
+
 
 
