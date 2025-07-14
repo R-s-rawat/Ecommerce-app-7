@@ -1549,8 +1549,24 @@ show products (along filters for sorting and others)... HomePage.js (-- jsx code
 
 // in Homepage, on basis of checkbox, we will get categories(just like in ecommerce apps), & no toast notifications should be get implemented, for categories error...
 
+// for multiple categories select/check(have state[ ])
 
+// on checkbox(s) (of categories), -onChange -invoked function will take 2 params🎨🎨 (state-what checked[] and those cat id's..) i.e val,id
 
+// e.g handleFilter, (val,id)...
 
+USE SPREAD OPERATOR(...) TO STORE ALL CATEGORIES ..i.e 
+ let all =  [...checked ]
+-----------------------------
+example of handleFilter...
+----------------------------
+ let all =  [...checked] ;
+    if (value) {
+      all.push(id);
+    } else {
+      all = all.filter((c) => c !== id);
+    }
+    setChecked(all);
 
+not test on the go in frontend, using JSON.stringify(checked, null, 4), 
 
