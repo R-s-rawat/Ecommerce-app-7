@@ -39,7 +39,7 @@ const HomePage = () => {
   };
 
   // handle filter
-  const handleFilter = (value, id) => {
+  const handleCatFilter = (value, id) => {
     let all = [...checked];
     if (value) {
       all.push(id);
@@ -57,7 +57,7 @@ const HomePage = () => {
         `${API}/api/v1/product/product-filters`,
         { checked, radio }
       );
-      console.log(products)
+      console.log(data?.products)
       setProducts(data?.products);
     } catch (error) {
       console.log(error);
@@ -96,7 +96,7 @@ const HomePage = () => {
             {categories?.map((c) => (
               <Checkbox
                 key={c._id}
-                onChange={(e) => handleFilter(e.target.checked, c._id)}
+                onChange={(e) => handleCatFilter(e.target.checked, c._id)}
               >
                 {c.name}
               </Checkbox>

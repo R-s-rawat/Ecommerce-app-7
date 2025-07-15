@@ -184,7 +184,7 @@ export const updateProductController = async (req, res) => {
 // filters
 export const productFiltersController = async (req, res) => {
   try {
-    const [checked, radio] = req.body;
+   const { checked, radio } = req.body;
     let args = {};
     // maybe user want both category filter &  price filter (or just single)
     // so if multiple, then multiple (else single)

@@ -1553,7 +1553,7 @@ show products (along filters for sorting and others)... HomePage.js (-- jsx code
  {categories?.map((c) => (
               <Checkbox
                 key={c._id}
-                onChange={(e) => handleFilter(e.target.checked, c._id)}
+                onChange={(e) => handleCatFilter(e.target.checked, c._id)}
               >
                 {c.name}
 
@@ -1561,12 +1561,12 @@ show products (along filters for sorting and others)... HomePage.js (-- jsx code
 
 // on checkbox(s) (of categories), -onChange -invoked function will take 2 params🎨🎨 (state-what checked[] and those cat id's..) i.e val,id
 
-// e.g handleFilter, (val,id)...
+// e.g handleCatFilter, (val,id)...
 
 USE SPREAD OPERATOR(...) TO STORE ALL CATEGORIES ..i.e 
  let all =  [...checked ]
 -----------------------------
-example of handleFilter...
+example of handleCatFilter...
 ----------------------------
  let all =  [...checked] ;
     if (value) {
@@ -1730,3 +1730,17 @@ ______________________________________________________________________________
 
 🔥🔥NOTE🔥🔥 we are having conditional at the very beginning in map method(i.e anything?.map) then within that block we need very less conditionals as we have something in that anything(is assured)
 
+// corrected an issue;
+💥 Problem:
+Your frontend sends an object: { checked, radio }
+
+But your backend is trying to destructure it as an array: [checked, radio].
+
+✅ Solution:(backend)
+const [checked, radio] = req.body; 👉 To: const { checked, radio } = req.body;
+//Now checked and radio will be properly pulled from the object sent by the frontend.
+
+🔁 type safety, that's why type-script is preferred///
+_______________________________________________________________________________
+
+______________________________________________________________________________
