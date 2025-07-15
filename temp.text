@@ -1549,7 +1549,15 @@ show products (along filters for sorting and others)... HomePage.js (-- jsx code
 
 // in Homepage, on basis of checkbox, we will get categories(just like in ecommerce apps), & no toast notifications should be get implemented, for categories error...
 
-// for multiple categories select/check(have state[ ])
+{ /* ------- category filter --------- */ }
+ {categories?.map((c) => (
+              <Checkbox
+                key={c._id}
+                onChange={(e) => handleFilter(e.target.checked, c._id)}
+              >
+                {c.name}
+
+// for multiple categories select/check(have state[ ]) i.e [checked, setChecked] = useState([ ])
 
 // on checkbox(s) (of categories), -onChange -invoked function will take 2 params🎨🎨 (state-what checked[] and those cat id's..) i.e val,id
 
@@ -1569,4 +1577,156 @@ example of handleFilter...
     setChecked(all);
 
 not test on the go in frontend, using JSON.stringify(checked, null, 4), 
+// after ensuring, filter operation is performing successfully, now
+
+// Now, NEW📌 component (PRICE'S BASED FILTER)
+
+currently, we created new directory inside components i.e (Filters)
+inside which,, we created Prices.js⚡⚡
+
+EXPORT IT AS = ARRAY OF OBJECT'S😅
+
+create various prices filters.... 🧠
+Example =
+
+export const Prices = [
+    {
+        _id:0,
+        name:'$0 to 19',
+        array:[0,19]
+    },
+    {
+        _id:1,
+        name:'$20 to 39',
+        array:[20,39]
+    },
+......
+At the end of the ARRAY OF OBJECT's
+we can use...
+   {
+        _id:5,
+        name:'$100 or more',
+        array:[100,9999]
+    },
+______________________________________________________________________________
+
+______________________________________________________________________________
+Now a utility like file is created (Src->Components->Filters->Prices.js) with help of which we will create filter
+
+We have done already,,i.e Filter by category
+
+Now, add newly created,,i.e Filter by price
+// so in homepage, we will show prices ------------by map method on the utility/component
+i.e export array of objects, Prices.js⚡⚡ 
+prices =[{},{}]
+
+use radio button from ant-design..
+just like [checked, setChecked] have, [radio, setRadio] to have same categories like state (same to same) products ([])
+
+example of the products filter for homepage being applied...
+{ /* ------- price filter -------- */ }
+ <Radio.Group onChange={(e)=>setRadio(e.target.value)}>
+              {Prices.map((p) => (
+                <div key={p._id}>
+                <Radio value={p.array}>{p.name}</Radio>
+
+______________________________________________________________________________
+
+______________________________________________________________________________
+😎😎😎😎😎😎😎😎😎
+// BACKEND BACKEND  BACKEND BACKEND BACKEND BACKEND BACKEND BACKEND BACKEND BACKEND BACKEND BACKEND BACKEND BACKEND BACKEND BACKEND BACKEND BACKEND BACKEND BACKEND BACKEND BACKEND  BACKEND BACKEND BACKEND
+
+Efficient BACKEND, 
+if we create filter functionality to each product in frontend, then it will get complex, so we will add it in the backend, for the efficiency
+
+.....
+Now let's use the (category filter) and (price filter)... in the ecommerce application/-
+
+filter operation...
+new function in backend,
+
+new request for Filters(get)
+----------------------------------
+so, in backend🔥🔥
+route, controller(filters)
+
+within productRoutes.js
+router.get('/product-filters', productFiltersController)
+
+within productController.js
+new export function productFiltersController)
+
+ try {
+  ------------------------
+  } catch (error) {
+    console.log(error);
+    res.status(400).send({
+      success:false,
+      message:'Error while filtering products',
+  {/* pass error as it is */}
+      error
+    })
+... 
+
+logic - get checkBox and radioButton...
+// now two ways..
+
+write direct query and pass it to function
+
+or have a variable storing the query (like usually seen inside functions..)
+----
+so as there are multiple queries (work on checkBox, work on radioButton)
+// maybe user want both category filter &  price filter (or just single)
+    // so if multiple, then multiple (else single)
+    // checked initial value is 0 (in frontend), and also value of produt radioButton (in fronend) -- so fulfill
+
+    // maybe user want both category filter &  price filter (or just single)
+    // so if multiple, then multiple (else single)
+    
+-----
+try{
+  ------------
+
+ const [checked, radio] = req.body
+    let args = {}
+    // maybe user want both category filter &  price filter (or just single)
+    // so if multiple, then multiple (else single)
+    // checked initial value is 0 (in frontend), and also value of produt radioButton (in fronend) -- so fulfill
+    if(checked.length > 0) args.category = checked
+    // as array have two values,so use mongo queries that are <,>(so first get index, then filter),i.eLTE(less than equal to)
+    // lte and gte will get 0th position and 1st position i.e ARRAY[0,1]
+    if(radio.length) args.price = {$gte: radio[0], $lte:radio[1]}
+    const filteredProducts = await productModel.find(args)
+    res.status(200).send({
+      success:true,
+      filteredProducts
+    })
+
+  -----------
+}
+
+✅✅✅NOTE: as we are passing values, so it will be post request...
+post = passing values..
+
+so values possible passing = POST(frontend/backend🔥🔥)
+// pass checked, radio..
+// checked for categories, radio for price...
+✅So, if frontend sending params... whatever any data like a post-master sending letters than post-method...
+______________________________________________________________________________
+
+______________________________________________________________________________
+// getAllCategory 1st lifecycle method is just for getting categories...
+
+// modify 2nd lifecycle method ( of getAllProducts )
+ useEffect(() => {
+    if(!checked.length || !radio.length) getAllProducts();
+  }, []);
+
+// add+ one more lifecycle method(3rd)
+  // Lifecycle method , getAllProducts is running only in initial (and only if no filter(cat,price) being used)
+  useEffect(() => {
+    if(checked.length || radio.length) getFilteredProducts()
+  }, [checked, radio]);
+
+🔥🔥NOTE🔥🔥 we are having conditional at the very beginning in map method(i.e anything?.map) then within that block we need very less conditionals as we have something in that anything(is assured)
 

@@ -20,7 +20,7 @@ export const createProductController = async (req, res) => {
         return res.status(500).send({ error: "Category is Required" });
       case !quantity:
         return res.status(500).send({ error: "Quantity is Required" });
-        // size in kb, 1mb ~1000kb, 10mb = 1000* 1000 =1000,000
+      // size in kb, 1mb ~1000kb, 10mb = 1000* 1000 =1000,000
       case photo && photo.size > 1000000:
         return res
           .status(500)
@@ -177,6 +177,33 @@ export const updateProductController = async (req, res) => {
       success: false,
       error,
       message: "Error in Updte product",
+    });
+  }
+};
+
+// filters
+export const productFiltersController = async (req, res) => {
+  try {
+    const [checked, radio] = req.body;
+    let args = {};
+    // maybe user want both category filter &  price filter (or just single)
+    // so if multiple, then multiple (else single)
+    // checked initial value is 0 (in frontend), and also value of produt radioButton (in fronend) -- so fulfill
+    if (checked.length > 0) args.category = checked;
+    // as array have two values, so use mongo queries that are <,> (so first get index, then filter),i.eLTE(less than equal to)
+    // lte and gte will get 0th position and 1st position i.e ARRAY[0,1]
+    if (radio.length) args.price = { $gte: radio[0], $lte: radio[1] };
+    const filteredProducts = await productModel.find(args);
+    res.status(200).send({
+      success: true,
+      filteredProducts,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(400).send({
+      success: false,
+      message: "Error while filtering products",
+      error,
     });
   }
 };
