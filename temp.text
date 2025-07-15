@@ -1741,6 +1741,9 @@ const [checked, radio] = req.body; 👉 To: const { checked, radio } = req.body;
 //Now checked and radio will be properly pulled from the object sent by the frontend.
 
 🔁 type safety, that's why type-script is preferred///
+🔁 graphql api's are good for ecommerce like sites, as sends only data needed specifically (eg. name - firstname only)
+
+// postman /product/product-filters testing done
 _______________________________________________________________________________
 
 ______________________________________________________________________________
