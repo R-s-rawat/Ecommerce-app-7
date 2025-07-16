@@ -53,18 +53,19 @@ const HomePage = () => {
   const getFilteredProducts = async () => {
     try {
       // pass values to the network request (as we are passing(values), so post... request)
+      console.log("Sending filters to backend:", { checked, radio });
       const { data } = await axios.post(
         `${API}/api/v1/product/product-filters`,
         { checked, radio }
       );
-      console.log(data?.products)
-      setProducts(data?.products);
+       //console.log(data.products)
+      setProducts(data?.filteredProducts);
     } catch (error) {
       console.log(error);
     }
   };
 
-  // Lifecycle method - categories || get
+  // Lifecycle method - categories || get (fetch all categories on initial load to save categories - for listing in ui)
   useEffect(() => {
     getAllCategory();
   }, []);
@@ -73,14 +74,23 @@ const HomePage = () => {
   // useEffect(() => {
   //   getAllProducts();
   // }, []);
-  useEffect(() => {
+  {/*useEffect(() => {
     if (!checked.length || !radio.length) getAllProducts();
-  }, [checked.length, radio.length]);
+  }, [checked.length, radio.length]);*/}
 
    // Lifecycle method , getAllProducts is running only in initial (and only if no filter(cat,price) being used)
-  useEffect(() => {
-    if(checked.length || radio.length) getFilteredProducts()
-  }, [checked, radio]);
+  // useEffect(() => {
+  //   if(checked.length || radio.length) getFilteredProducts()
+  // }, [checked, radio]);
+
+  // Load all products only if no filters are applied
+useEffect(() => {
+  if (!checked.length && !radio.length) {
+    getAllProducts();
+  } else {
+    getFilteredProducts();
+  }
+}, [checked, radio]);
   {
     /* -------------------------------- return jsx ------------------ */
   }
@@ -121,7 +131,7 @@ const HomePage = () => {
           <div className="d-flex flex-wrap">
             {/* <h1>Products</h1> */}
             {products?.map((p) => (
-              <div className="card m-2" style={{ width: "18rem" }}>
+              <div  className="card m-2" style={{ width: "18rem" }}>
                 <img
                   src={`${API}/api/v1/product/product-photo/${p?._id}`}
                   className="card-img-top"
@@ -131,8 +141,8 @@ const HomePage = () => {
                   <h5 className="card-title">{p.name}</h5>
                   <p className="card-text">{p.description.substring(0, 30)}</p>
                   <p className="card-text"> $ {p.price}</p>
-                  <button class="btn btn-primary ms-1">More details</button>
-                  <button class="btn btn-secondary ms-1">Add to cart</button>
+                  <button className="btn btn-primary ms-1">More details</button>
+                  <button className="btn btn-secondary ms-1">Add to cart</button>
                 </div>
               </div>
             ))}

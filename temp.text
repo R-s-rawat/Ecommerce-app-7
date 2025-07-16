@@ -1747,3 +1747,37 @@ const [checked, radio] = req.body; 👉 To: const { checked, radio } = req.body;
 _______________________________________________________________________________
 
 ______________________________________________________________________________
+filtered products not proper in ui///
+
+DEBUG: ,, log what you are sending...
+Eg. if only 1 category selected without price filter
+Sending filters to backend: 
+Object
+checked : ['686acf148df25869cbd8c891']
+radio : []
+[[Prototype]] : Object
+-------
+
+✅ Problem
+The backend is returning:
+___________________________
+res.status(200).send({
+  success: true,
+  filteredProducts,
+});
+
+The frontend is expecting:
+____________________________
+setProducts(data?.products); // i.e. data.products
+
+⚠️ Mismatch in key name:
+__________________________
+Backend sends → filteredProducts
+
+Frontend expects → products
+____________________________
+
+Also, logging also providing undefined...(as the key in not in the response)
+Correction made..\\
+
+
