@@ -47,13 +47,13 @@ const Products = () => {
                 to={`/dashboard/admin/product/${p?.slug}`}
                 className="product-link"
               >
-                <div className="card m-2" style={{ width: "18rem" }}>
+                <div className="card m-2 product-card" style={{ width: "18rem" }}>
                   <img
                     src={`${API}/api/v1/product/product-photo/${p?._id}`}
-                    className="card-img-top"
+                    className="card-img-top product-img"
                     alt={p?.name}
                   />
-                  <div className="card-body">
+                  <div className="card-body ">
                     <h5 className="card-title">{p?.name}</h5>
                     <p className="card-text">{p?.description}</p>
                   </div>

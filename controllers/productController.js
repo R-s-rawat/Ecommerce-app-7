@@ -1,6 +1,7 @@
 import productModel from "../models/productModel.js";
 import fs from "fs";
 import slugify from "slugify";
+import { generateUniqueSlug } from "../helpers/slugifyUnique.js";
 
 // create product function
 export const createProductController = async (req, res) => {
@@ -27,16 +28,19 @@ export const createProductController = async (req, res) => {
           .send({ error: "photo is Required and should be less then 1mb" });
     }
 
-    const products = new productModel({ ...req.fields, slug: slugify(name) });
+
+    const uniqueSlug = await generateUniqueSlug(name);
+
+    const product = new productModel({ ...req.fields, slug: uniqueSlug });
     if (photo) {
-      products.photo.data = fs.readFileSync(photo.path);
-      products.photo.contentType = photo.type;
+      product.photo.data = fs.readFileSync(photo.path);
+      product.photo.contentType = photo.type;
     }
-    await products.save();
+    await product.save();
     res.status(201).send({
       success: true,
       message: "Product Created Successfully",
-      products,
+      product,
     });
   } catch (error) {
     console.log(error);
@@ -156,20 +160,33 @@ export const updateProductController = async (req, res) => {
           .send({ error: "photo is Required and should be less then 1mb" });
     }
 
-    const products = await productModel.findByIdAndUpdate(
-      req.params.pid,
-      { ...req.fields, slug: slugify(name) },
-      { new: true }
-    );
+    const slug = await generateUniqueSlug(name);
+
+    // only regenerate slug if name is changed
+const existing = await productModel.findById(req.params.pid);
+if (existing.name !== name) {
+  req.fields.slug = slug;
+}
+
+const product = await productModel.findByIdAndUpdate(
+  req.params.pid,
+  req.fields,
+  { new: true }
+);
+    // const product = await productModel.findByIdAndUpdate(
+    //   req.params.pid,
+    //   { ...req.fields, slug: slugify(name) },
+    //   { new: true }
+    // );
     if (photo) {
-      products.photo.data = fs.readFileSync(photo.path);
-      products.photo.contentType = photo.type;
+      product.photo.data = fs.readFileSync(photo.path);
+      product.photo.contentType = photo.type;
     }
-    await products.save();
+    await product.save();
     res.status(201).send({
       success: true,
       message: "Product Updated Successfully",
-      products,
+      product,
     });
   } catch (error) {
     console.log(error);
