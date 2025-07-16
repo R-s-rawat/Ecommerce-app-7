@@ -119,4 +119,12 @@
   color: black !important;
 }
   
+.product-card {
+  width: 18rem;
+  height: 32rem;
+}
 
+.product-img {
+  height: 200px;
+  object-fit: cover;
+}

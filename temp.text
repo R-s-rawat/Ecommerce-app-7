@@ -1815,9 +1815,29 @@ Ensure efficiency...
 ✅ 2. Update Radio.Group to use string IDs
 ✅ 3. Update getFilteredProducts to convert ID to array
 ✅ 4. Update useEffect dependency logic for products
+ux improvement(reset price range radio button done..)
 ______________________________________________________________________________
 
 ______________________________________________________________________________
+now ui improvement, (for products card, mix up bootstrap with custom css)
+++ index.css
+__________________________
+.product-card {
+  width: 18rem;
+  height: 32rem;
+}
 
+.product-img {
+  height: 200px;
+  object-fit: cover;
+}
+___________________________
+   {products?.map((p) => (
+              <div className="card m-2 product-card" style={{ width: "18rem" }}>
+                <img
+                  src={`${API}/api/v1/product/product-photo/${p?._id}`}
+                  className="card-img-top product-img"
+
+// products not get covered fix, not height (non-properly)
 
 
