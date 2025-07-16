@@ -1780,4 +1780,44 @@ ____________________________
 Also, logging also providing undefined...(as the key in not in the response)
 Correction made..\\
 
+O...AI logo
+Oops, an error occurred!
+Route Error (500 ): {
+  "isTrusted": true
+}
+
+O...AI logo
+Oops, an error occurred!
+Operation timed out
+
+O...AI logo
+Oops, an error occurred!
+Route Error (409 ): {
+  "error": {
+    "message": "Invalid client. Please start over.",
+    "type": "invalid_request_error",
+    "param": null,
+    "code": "invalid_state"
+  }
+}
+
+// so backend🔥🔥 will be updated as needed...
+user will send requests typically involving sending JSON payloads containing the user's input.. or whatever variables we want to pass in payload (and as discussed before, whenever there is a payload/passing then POST method)
+
+// adding price range(RESET functionality)
+We need to store "all" as the selected value when resetting, 
+instead of resetting to []
+
+Then, inside the backend call logic, treat "all" as no price filter.
+// issue: After once reset price radio move to some price range, then after selecting again the reset price radio not showing blue dot
+Ensure efficiency...
+✅ 1. Update radio state initialization
+✅ 2. Update Radio.Group to use string IDs
+✅ 3. Update getFilteredProducts to convert ID to array
+✅ 4. Update useEffect dependency logic for products
+______________________________________________________________________________
+
+______________________________________________________________________________
+
+
 
