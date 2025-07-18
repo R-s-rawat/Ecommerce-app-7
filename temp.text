@@ -1860,5 +1860,5 @@ ______________________________________________________________________________
 Be inspired ...
 // now the products are bit ok in frontend homepage, and also ok while during admin panel product creation, listings and updation,,
 
-
+//  NOW PAGINATION, WE CAN'T SHOW EVERY PROJECT IN 1 GO (DUE TO future API LOAD) && a tiny reset button (below filters🙏)
 
