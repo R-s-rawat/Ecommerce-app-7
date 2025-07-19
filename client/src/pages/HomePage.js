@@ -17,14 +17,23 @@ const HomePage = () => {
   // pagination states
   const [total, setTotal] =useState(0);
   const [page, setPage] =useState(1);
+  // for pagination loader logic
+  const [loading, setLoading] = useState(false);
 
   // GET ALL PRODUCTS
   const getAllProducts = async () => {
     try {
-      const { data } = await axios.get(`${API}/api/v1/product/get-product`);
+      setLoading(true)
+      // const { data } = await axios.get(`${API}/api/v1/product/get-product`);
+       const { data } = await axios.get(`${API}/api/v1/product/product-list/${page}`);
+      // remove the products pagination loader - begin
+      setLoading(false)
+      // remove the products pagination loader - end
       setProducts(data.products);
     } catch (error) {
       console.log(error);
+      // pagination loader logic - (as try block set the loader to true)
+      setLoading(false);
     }
   };
 
@@ -198,8 +207,19 @@ getTotalCreatedProductsCount();
               </div>
             ))}
           </div>
-          <div>
-            {total}
+          <div className="m-2 p-3">
+            {/* {total} */}
+            {products && products.length < total && (
+              <button
+              className="btn btn-warning"
+              onClick={(e)=>{
+                e.preventDefault();
+                setPage(page +1);
+              }}
+              >
+                {loading? "Loading..." : "Load more"}
+              </button>
+            ) }
           </div>
         </div>
       </div>

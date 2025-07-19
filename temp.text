@@ -1906,5 +1906,26 @@ example:
  </div>
  // the total showcase (Total Created Products Count)
 
- 
+// Now replacing (<div>{total}</div>) with pagination...
+// WE WILL KEEP ADDING PRODUCTS AFTER(EVERY 6 PRODUCTS(I.E PAGINATE)), 6 IS SET ON backend🔥🔥
+
+// so, for {total} replacement(showing total created products count)
+ {products && products.length < total && (
+              <button className="btn btn-warning"
+                onClick={(e)=>{
+                e.preventDefault();
+                setPage(page +1); // ✅ page INCREMENT 
+                }}
+              >
+                {loading? "Loading..." : "Load more"}
+              </button>
+  ) }
+
+// NOW CHANGE PRE-EXISTING FUNCTION(i.e // GET ALL PRODUCTS), and set states inside it, named setLoading (T/F)
+// developers - disaster (un-utilize/un-learn = await axios.get(`${API}/api/v1/product/get-product`);)
+
+// now GET ALL PRODUCT will hit another api endpoint, i.e axios.get(`${API}/api/v1/product/product-list/${page}`);
+
+WHATSOEVER
+// now the load more button show (only if total created products(i.e total ) > 6)
 
