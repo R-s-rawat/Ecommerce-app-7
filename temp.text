@@ -1875,9 +1875,36 @@ Explicitly provide the checked state✅ to each checkbox and the value✅ to eac
     >
 
 // removed default radio button (i.e all prices for now)...
-// ++ added reset filters button (just previously removed the default (all prices radio button) which looks odd)
+( removed the default (all prices radio button) which looks odd)
 
+// ++ added reset filters button 
 
 // moved prices.js(a constant) from components to new directory(i.e data)...
 
+// pagination (show limited products)...(client side or server side both can be done(we going for backend side))
+
+// for total products count = name the endpoint whatever(we chosen product-count, then assign a controller logic)
+
+productRoutes -> '/product-count',productController
+productController -> productCountController (send resonse i.e await productModel.find({}).estimatedDocumentCount())
+
+// for products per page = again name the endpoint whatever(we chosen product-list, then assign a controller logic)
+Note📌📌: use mongoose queries (to perform operations) with responsibility..
+
+productRoutes -> '/product-list/:page',productListController
+ const page = req.params.page ? req.params.page : 1;
+🧠-> (send response i.e productModel.find({}).select('-photo').skip((page-1) * perPage).limit(perPage).sort({createdAt:-1}))
+
+// pagination logic in frontend..
+create new state in homepage(where we are working on the products showcase(along all prices, categories...))
+
+// having functions and lifecycle methods for that..
+print and check (for debugging, hand to hand)...
+example: 
+ <div>
+            {total}
+ </div>
+ // the total showcase (Total Created Products Count)
+
+ 
 

@@ -28,7 +28,6 @@ export const createProductController = async (req, res) => {
           .send({ error: "photo is Required and should be less then 1mb" });
     }
 
-
     const uniqueSlug = await generateUniqueSlug(name);
 
     const product = new productModel({ ...req.fields, slug: uniqueSlug });
@@ -163,16 +162,16 @@ export const updateProductController = async (req, res) => {
     const slug = await generateUniqueSlug(name);
 
     // only regenerate slug if name is changed
-const existing = await productModel.findById(req.params.pid);
-if (existing.name !== name) {
-  req.fields.slug = slug;
-}
+    const existing = await productModel.findById(req.params.pid);
+    if (existing.name !== name) {
+      req.fields.slug = slug;
+    }
 
-const product = await productModel.findByIdAndUpdate(
-  req.params.pid,
-  req.fields,
-  { new: true }
-);
+    const product = await productModel.findByIdAndUpdate(
+      req.params.pid,
+      req.fields,
+      { new: true }
+    );
     // const product = await productModel.findByIdAndUpdate(
     //   req.params.pid,
     //   { ...req.fields, slug: slugify(name) },
@@ -201,7 +200,7 @@ const product = await productModel.findByIdAndUpdate(
 // filters
 export const productFiltersController = async (req, res) => {
   try {
-   const { checked, radio } = req.body;
+    const { checked, radio } = req.body;
     let args = {};
     // maybe user want both category filter &  price filter (or just single)
     // so if multiple, then multiple (else single)
@@ -220,6 +219,46 @@ export const productFiltersController = async (req, res) => {
     res.status(400).send({
       success: false,
       message: "Error while filtering products",
+      error,
+    });
+  }
+};
+
+// products count
+export const productCountController = async (req, res) => {
+  try {
+    // logic/approach can be different here(go for best approach you find suitable with)
+    const total = await productModel.find({}).estimatedDocumentCount();
+    res.status(200).send({
+      success: true,
+      total,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(400).send({
+      success: false,
+      message: "Error in product count",
+      error,
+    });
+  }
+};
+
+// products list (based on page i.e pagination logic)
+export const productListController = async (req, res) => {
+  try {
+    const perPage = 6;
+    // we are dynamically access'ing page(so get that)
+    const page = req.params.page ? req.params.page : 1;
+    const products = await productModel.find({}).select('-photo').skip((page-1) * perPage).limit(perPage).sort({createdAt:-1})
+    res.status(200).send({
+      success:true,
+      products
+    })
+  } catch (error) {
+    console.log(error);
+    res.status(400).send({
+      success: false,
+      message: "Error in per page ctrl(controller)",
       error,
     });
   }

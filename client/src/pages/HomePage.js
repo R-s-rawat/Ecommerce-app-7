@@ -14,6 +14,9 @@ const HomePage = () => {
   const [categories, setCategories] = useState([]);
   const [checked, setChecked] = useState([]);
   const [radio, setRadio] = useState([]);
+  // pagination states
+  const [total, setTotal] =useState(0);
+  const [page, setPage] =useState(1);
 
   // GET ALL PRODUCTS
   const getAllProducts = async () => {
@@ -25,7 +28,7 @@ const HomePage = () => {
     }
   };
 
-  // get all categories
+  // GET ALL CATEGORIES
   const getAllCategory = async () => {
     try {
       const { data } = await axios.get(`${API}/api/v1/category/get-category`);
@@ -38,7 +41,7 @@ const HomePage = () => {
     }
   };
 
-  // handle filter
+  // Handle Category filter(due to multiple categories, push categories) - much of a utility function
   const handleCatFilter = (value, id) => {
     let all = [...checked];
     if (value) {
@@ -49,7 +52,7 @@ const HomePage = () => {
     setChecked(all);
   };
 
-  // get filtered products
+  // Get filtered products (utilizing both (price,cats))
   const getFilteredProducts = async () => {
     try {
       // pass values to the network request (as we are passing(values), so post... request)
@@ -65,6 +68,16 @@ const HomePage = () => {
     }
   };
 
+// Get total created products count 
+const getTotalCreatedProductsCount = async() => {
+  try {
+    const {data} = await axios.get(`${API}/api/v1/product/product-count`)
+    setTotal(data?.total)
+  } catch (error) {
+    console.log(error)
+  }
+}
+
   // Lifecycle method - categories || get (fetch all categories on initial load to save categories - for listing in ui)
   useEffect(() => {
     getAllCategory();
@@ -74,6 +87,7 @@ const HomePage = () => {
   // useEffect(() => {
   //   getAllProducts();
   // }, []);
+
   {
     /*useEffect(() => {
     if (!checked.length || !radio.length) getAllProducts();
@@ -85,7 +99,7 @@ const HomePage = () => {
   //   if(checked.length || radio.length) getFilteredProducts()
   // }, [checked, radio]);
 
-  // Load all products only if no filters are applied
+  //Lifecycle method - Load all products only if no filters are applied (else get filtered products)
   useEffect(() => {
     if (!checked.length && !radio.length) {
       getAllProducts();
@@ -93,6 +107,12 @@ const HomePage = () => {
       getFilteredProducts();
     }
   }, [checked, radio]);
+
+// Lifecycle method - get Total Created Products Count
+useEffect(()=>{
+getTotalCreatedProductsCount();
+},[])
+
   {
     /* -------------------------------- return jsx ------------------ */
   }
@@ -177,6 +197,9 @@ const HomePage = () => {
                 </div>
               </div>
             ))}
+          </div>
+          <div>
+            {total}
           </div>
         </div>
       </div>
