@@ -1922,10 +1922,12 @@ example:
   ) }
 
 // NOW CHANGE PRE-EXISTING FUNCTION(i.e // GET ALL PRODUCTS), and set states inside it, named setLoading (T/F)
-// developers - disaster (un-utilize/un-learn = await axios.get(`${API}/api/v1/product/get-product`);)
+
+// developers - disaster (un-utilize/un-learn = await axios.get(`${API}/api/v1/product/get-product`);) - beneficial as now the backend not query all products using that api, so backend resources(eg CPU) get saved/not spike...
 
 // now GET ALL PRODUCT will hit another api endpoint, i.e axios.get(`${API}/api/v1/product/product-list/${page}`);
 
 WHATSOEVER
 // now the load more button show (only if total created products(i.e total ) > 6)
 
+// work on (LOAD MORE) functionality...

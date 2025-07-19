@@ -26,6 +26,7 @@ const HomePage = () => {
       setLoading(true)
       // const { data } = await axios.get(`${API}/api/v1/product/get-product`);
        const { data } = await axios.get(`${API}/api/v1/product/product-list/${page}`);
+       console.log('products on first fetch',data)
       // remove the products pagination loader - begin
       setLoading(false)
       // remove the products pagination loader - end
@@ -41,7 +42,7 @@ const HomePage = () => {
   const getAllCategory = async () => {
     try {
       const { data } = await axios.get(`${API}/api/v1/category/get-category`);
-      console.log(data);
+      // console.log(data);
       if (data?.success) {
         setCategories(data?.category);
       }
@@ -81,9 +82,27 @@ const HomePage = () => {
 const getTotalCreatedProductsCount = async() => {
   try {
     const {data} = await axios.get(`${API}/api/v1/product/product-count`)
+    console.log('total created products count in db', data);
     setTotal(data?.total)
   } catch (error) {
     console.log(error)
+  }
+}
+
+// load more(for loading more products on button press) - much of a utility function(not a network request(res) function)
+const loadMore = async() => {
+  try {
+    setLoading(true);
+    const {data} = await axios.get(`${API}/api/v1/product/product-list/${page}`);
+     console.log('products after initial fetch on load more',data)
+     // remove the products pagination loader - begin
+    setLoading(false);
+     // remove the products pagination loader - end
+    setProducts([...products, ...data?.products])
+  } catch (error) {
+    console.log(error)
+    // pagination loader logic - (as try block set the loader to true)
+    setLoading(false)
   }
 }
 
@@ -121,6 +140,12 @@ const getTotalCreatedProductsCount = async() => {
 useEffect(()=>{
 getTotalCreatedProductsCount();
 },[])
+
+// Lifecycle method - Load more (based on all products) - if page > 1;
+useEffect(()=>{
+ if (page === 1) return;
+ loadMore();
+},[page])
 
   {
     /* -------------------------------- return jsx ------------------ */
