@@ -13,8 +13,7 @@ const HomePage = () => {
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [checked, setChecked] = useState([]);
-  // const [radio, setRadio] = useState([]);
-  const [radio, setRadio] = useState("all"); // default to 'all' (no price filter)
+  const [radio, setRadio] = useState([]);
 
   // GET ALL PRODUCTS
   const getAllProducts = async () => {
@@ -39,7 +38,7 @@ const HomePage = () => {
     }
   };
 
-  // handle cat filter
+  // handle filter
   const handleCatFilter = (value, id) => {
     let all = [...checked];
     if (value) {
@@ -50,35 +49,16 @@ const HomePage = () => {
     setChecked(all);
   };
 
-  // handle price filter
-  const handlePriceChange = (e) => {
-    const value = e.target.value;
-    // “all” (or any sentinel you like) means “no price filter”
-    if (value === "all") {
-      setRadio([]); // <— resets the price range
-    } else {
-      setRadio(value); // <— keeps the chosen range
-    }
-  };
-
-  // get filtered products (based on HANDLE cat filter && HANDLE price filter)
+  // get filtered products
   const getFilteredProducts = async () => {
     try {
-      // pass values to the network request (as we are passing(values), so post... request(i.e payload))
-      
-       let selectedPriceRange = [];
-
-    if (radio !== "all") {
-      const match = Prices.find((p) => p._id === radio);
-      if (match) selectedPriceRange = match.array;
-    }
-      // console.log("Sending filters to backend:", { checked, radio });
-      console.log("Sending filters to backend:", { checked, selectedPriceRange });
+      // pass values to the network request (as we are passing(values), so post... request)
+      console.log("Sending filters to backend:", { checked, radio });
       const { data } = await axios.post(
         `${API}/api/v1/product/product-filters`,
-        { checked, radio: selectedPriceRange }
+        { checked, radio }
       );
-      //console.log(data.products)
+       //console.log(data.products)
       setProducts(data?.filteredProducts);
     } catch (error) {
       console.log(error);
@@ -94,37 +74,23 @@ const HomePage = () => {
   // useEffect(() => {
   //   getAllProducts();
   // }, []);
-  {
-    /*useEffect(() => {
+  {/*useEffect(() => {
     if (!checked.length || !radio.length) getAllProducts();
-  }, [checked.length, radio.length]);*/
-  }
+  }, [checked.length, radio.length]);*/}
 
-  // Lifecycle method , getAllProducts is running only in initial (and only if no filter(cat,price) being used)
+   // Lifecycle method , getAllProducts is running only in initial (and only if no filter(cat,price) being used)
   // useEffect(() => {
   //   if(checked.length || radio.length) getFilteredProducts()
   // }, [checked, radio]);
 
   // Load all products only if no filters are applied
-  {
-    /*useEffect(() => {
-    if (!checked.length && !radio.length) {
-      getAllProducts();
-    } else {
-      getFilteredProducts();
-    }
-  }, [checked, radio]);
-  */
+useEffect(() => {
+  if (!checked.length && !radio.length) {
+    getAllProducts();
+  } else {
+    getFilteredProducts();
   }
-  useEffect(() => {
-    const hasCategory = checked.length;
-    const hasPrice = radio !== "all"; // use string comparison for checking price range
-    if (!hasCategory && !hasPrice) {
-      getAllProducts();
-    } else {
-      getFilteredProducts();
-    }
-  }, [checked, radio]);
+}, [checked, radio]);
   {
     /* -------------------------------- return jsx ------------------ */
   }
@@ -149,27 +115,23 @@ const HomePage = () => {
           {/* price filter */}
           <h4 className="text-center mt-4">Filter by price</h4>
           <div className="d-flex flex-column">
-            <Radio.Group
-              onChange={(e) => setRadio(e.target.value)}
-              value={radio}
-            >
-              <Radio value="all">All prices</Radio>
+            <Radio.Group onChange={(e) => setRadio(e.target.value)}>
               {Prices.map((p) => (
                 <div key={p._id}>
-                  <Radio value={p._id}>{p.name}</Radio>
+                  <Radio value={p.array}>{p.name}</Radio>
                 </div>
               ))}
             </Radio.Group>
           </div>
         </div>
         <div className="col-md-9">
-          {/* {JSON.stringify(checked, null, 4)}
-          {JSON.stringify(radio, null, 4)} */}
+          {JSON.stringify(checked, null, 4)}
+          {JSON.stringify(radio, null, 4)}
           <h1 className="text-center">All products</h1>
           <div className="d-flex flex-wrap">
             {/* <h1>Products</h1> */}
             {products?.map((p) => (
-              <div className="card m-2 product-card" style={{ width: "18rem" }}>
+                 <div className="card m-2 product-card" style={{ width: "18rem" }}>
                 <img
                   src={`${API}/api/v1/product/product-photo/${p?._id}`}
                   className="card-img-top product-img"
@@ -180,9 +142,7 @@ const HomePage = () => {
                   <p className="card-text">{p.description.substring(0, 30)}</p>
                   <p className="card-text"> $ {p.price}</p>
                   <button className="btn btn-primary ms-1">More details</button>
-                  <button className="btn btn-secondary ms-1">
-                    Add to cart
-                  </button>
+                  <button className="btn btn-secondary ms-1">Add to cart</button>
                 </div>
               </div>
             ))}

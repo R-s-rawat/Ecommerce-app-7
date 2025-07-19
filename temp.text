@@ -1862,3 +1862,15 @@ Be inspired ...
 
 //  NOW PAGINATION, WE CAN'T SHOW EVERY PROJECT IN 1 GO (DUE TO future API LOAD) && a tiny reset button (below filters🙏)
 
+for reset button, 🙏Make the filters fully "controlled" inputs (price range done already), make the categories too..
+
+// FULLY CONTROLLED INPUTS means:
+Explicitly provide the checked state✅ to each checkbox and the value✅ to each radio group
+
+ {categories?.map((c) => (
+    <Checkbox
+      key={c._id}
+      onChange={(e) => handleCatFilter(e.target.checked, c._id)}
+      checked={checked.includes(c._id)} // <- Control the checked state⚡⚡
+    >
+
