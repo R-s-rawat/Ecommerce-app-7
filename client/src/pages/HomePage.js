@@ -90,21 +90,47 @@ const getTotalCreatedProductsCount = async() => {
 }
 
 // load more(for loading more products on button press) - much of a utility function(not a network request(res) function)
-const loadMore = async() => {
+// const loadMore = async() => {
+//   try {
+//     setLoading(true);
+//     const {data} = await axios.get(`${API}/api/v1/product/product-list/${page}`);
+//      console.log('products after initial fetch on load more',data)
+//      // remove the products pagination loader - begin
+//     setLoading(false);
+//      // remove the products pagination loader - end
+//     setProducts([...products, ...data?.products])
+//   } catch (error) {
+//     console.log(error)
+//     // pagination loader logic - (as try block set the loader to true)
+//     setLoading(false)
+//   }
+// }
+
+const loadMore = async () => {
   try {
     setLoading(true);
-    const {data} = await axios.get(`${API}/api/v1/product/product-list/${page}`);
-     console.log('products after initial fetch on load more',data)
-     // remove the products pagination loader - begin
+
+    if (checked.length || radio.length) {
+      // If filters are active, send them with pagination
+      const { data } = await axios.post(`${API}/api/v1/product/product-filters`, {
+        checked,
+        radio,
+        page,
+      });
+      setProducts([...products, ...data.filteredProducts]);
+    } else {
+      // No filters? Load next page normally
+      const { data } = await axios.get(`${API}/api/v1/product/product-list/${page}`);
+      setProducts([...products, ...data.products]);
+    }
+
     setLoading(false);
-     // remove the products pagination loader - end
-    setProducts([...products, ...data?.products])
   } catch (error) {
-    console.log(error)
-    // pagination loader logic - (as try block set the loader to true)
-    setLoading(false)
+    console.log(error);
+    setLoading(false);
   }
-}
+};
+
 
   // Lifecycle method - categories || get (fetch all categories on initial load to save categories - for listing in ui)
   useEffect(() => {
