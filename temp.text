@@ -1871,6 +1871,13 @@ Explicitly provide the checked state✅ to each checkbox and the value✅ to eac
     <Checkbox
       key={c._id}
       onChange={(e) => handleCatFilter(e.target.checked, c._id)}
-      checked={checked.includes(c._id)} // <- Control the checked state⚡⚡
+      
     >
+
+// removed default radio button (i.e all prices for now)...
+// ++ added reset filters button (just previously removed the default (all prices radio button) which looks odd)
+
+
+// moved prices.js(a constant) from components to new directory(i.e data)...
+
 
