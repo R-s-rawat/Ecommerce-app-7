@@ -1931,3 +1931,15 @@ WHATSOEVER
 // now the load more button show (only if total created products(i.e total ) > 6)
 
 // work on (LOAD MORE) functionality...
+
+// we can also add search based filters(so, for execute in existing queries.. KEYWORD state needed)
+
+🔥🔥context api - keyword(for search functionality)🔥🔥
+//before that keyword state✅, have route in backend for searchig procedure execution
+
+// for search product = name the endpoint whatever(we chosen search-product, then assign a controller logic)
+
+productRoutes -> '/search-product',searchProductController
+productController -> searchProductController (send resonse i.e )
+
+so, search product (will be based on (kEYWORD)), just as (/product-list/:page(product list is now based on page))
