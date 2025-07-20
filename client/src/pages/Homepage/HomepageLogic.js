@@ -68,19 +68,21 @@ export const useHomepageLogic = () => {
       // }
 
       if (append) {
-        // const newProducts = Array.isArray(data?.products) ? data.products : [];
-        const newProducts = Array.isArray(data?.filteredProducts) ? data.filteredProducts : [];
-        console.log("Products from backend:", data?.products);
-        console.log("Append:", append);
+        console.log("Append:", append); // If append = true (correct) && // Load more → Add to old list
+        const newProducts = Array.isArray(data?.filteredProducts)
+          ? data.filteredProducts
+          : [];
         setProducts((prev) => [...prev, ...newProducts]);
       } else {
-        console.log("Products from backend:", data?.products);
-        console.log("Append:", append);
-        // setProducts(Array.isArray(data?.products) ? data.products : []);
-        setProducts(Array.isArray(data?.filteredProducts) ? data.filteredProducts : []);
+        console.log("Append:", append); // If append = false (correct) && // Filters/sort changed → New list
+        setProducts(
+          Array.isArray(data?.filteredProducts) ? data.filteredProducts : []
+        );
       }
 
-      if (setFilteredTotal) setFilteredTotal(data?.filteredTotal || 0);
+      if (setFilteredTotal) {
+        setFilteredTotal(data?.filteredTotal || 0);
+      }
       setLoading(false);
     } catch (err) {
       console.error("Error fetching filtered products:", err);

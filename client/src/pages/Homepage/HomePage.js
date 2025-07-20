@@ -12,12 +12,14 @@ const sortType = [
 ];
 
 const HomePage = () => {
+  
   const API =
     process.env.NODE_ENV === "production"
       ? process.env.REACT_APP_API
       : "http://localhost:8080";
 
   const navigate = useNavigate();
+
   const {
     products,
     categories,
@@ -50,28 +52,56 @@ const HomePage = () => {
     getTotalCreatedProductsCount(setTotal);
   }, []);
 
-  useEffect(() => {
-    if (page === 1) return;
-    getFilteredProducts({
-      checked,
-      radio,
-      page,
-      sortRef,
-      setProducts,
-      append: true,
-    });
-  }, [page]);
+//   useEffect(() => {
+//   const isInitialLoad = page === 1 && !checked.length && !radio.length; //it's ought to be false, as dependencies changed 👌
+//   getFilteredProducts({
+//     checked,
+//     radio,
+//     page,
+//     sortRef,
+//     setProducts,
+//     setFilteredTotal,
+//     append: !isInitialLoad, // Append if it's not first load (append to the product list, not overwrite. i.e !isInitalLoad='T')
+//   });
+// }, [checked, radio, page]);
 
-  useEffect(() => {
-    getFilteredProducts({
-      checked,
-      radio,
-      page: 1,
-      sortRef,
-      setProducts,
-      setFilteredTotal,
-    });
-  }, [checked, radio]);
+useEffect(() => {
+  const append = page !== 1; // Append only when page > 1 ("Load More")
+  getFilteredProducts({
+    checked,
+    radio,
+    page,
+    sortRef,
+    setProducts,
+    setFilteredTotal,
+    append,
+  });
+}, [checked, radio, sortRef, page]);
+
+  // useEffect(() => {
+  //   if (page === 1) return;
+  //   getFilteredProducts({
+  //     checked,
+  //     radio,
+  //     page,
+  //     sortRef,
+  //     setProducts,
+  //     append: true,
+  //   });
+  // }, [page]);
+
+/* a multi line comment */
+
+  // useEffect(() => {
+  //   getFilteredProducts({
+  //     checked,
+  //     radio,
+  //     page: 1,
+  //     sortRef,
+  //     setProducts,
+  //     setFilteredTotal,
+  //   });
+  // }, [checked, radio]);
 
   return (
     <Layout title="Home - Ecommerce">
