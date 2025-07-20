@@ -206,18 +206,17 @@ export const productFiltersController = async (req, res) => {
 
     if (checked.length > 0) args.category = checked;
     if (radio.length) args.price = { $gte: radio[0], $lte: radio[1] };
-console.log(req.body.sortingObject)
+    console.log(req.body.sortingObject);
     const filteredProducts = await productModel
       .find(args)
       .select("-photo")
       .skip((page - 1) * perPage)
       .limit(perPage)
-      .sort(req.body.sortingObject );
+      .sort(req.body.sortingObject);
 
     res.status(200).send({
       success: true,
       filteredProducts,
-      
     });
   } catch (error) {
     console.log(error);
@@ -280,13 +279,39 @@ export const productSortController = async (req, res) => {
     res.status(200).send({
       success: true,
       message: "Products sorted successfully",
-      req
-    })
+      req,
+    });
   } catch (error) {
     console.log(error);
     res.status(400).send({
       success: false,
       message: "Error in sort product ctrl(controller)",
+      error,
+    });
+  }
+};
+
+// search
+export const productSearchController = async (req, res) => {
+  try {
+    // expect keyword as/from params(i.e keyword)
+    // destructure should be from const {keyword} =req.params(object) , not the const {keyword} =req.params.keyword(string)
+    const { keyword } = req.params;
+    const result = await productModel.find({
+      $or: [
+        // search both name and description
+        // and ensure to make keyword searching case-insensitive(i.e options:'i')
+        { name: { $regex: keyword, $options: "i" } },
+        { description: { $regex: keyword, $options: "i" } }
+      ],
+    }).select('-photo');
+    // send the very bare minimal response
+    res.json(result);
+  } catch (error) {
+    console.log(error);
+    res.status(400).send({
+      success: false,
+      message: "Error in searching product",
       error,
     });
   }

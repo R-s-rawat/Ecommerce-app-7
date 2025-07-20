@@ -12,7 +12,6 @@ const sortType = [
 ];
 
 const HomePage = () => {
-  
   const API =
     process.env.NODE_ENV === "production"
       ? process.env.REACT_APP_API
@@ -52,31 +51,31 @@ const HomePage = () => {
     getTotalCreatedProductsCount(setTotal);
   }, []);
 
-//   useEffect(() => {
-//   const isInitialLoad = page === 1 && !checked.length && !radio.length; //it's ought to be false, as dependencies changed 👌
-//   getFilteredProducts({
-//     checked,
-//     radio,
-//     page,
-//     sortRef,
-//     setProducts,
-//     setFilteredTotal,
-//     append: !isInitialLoad, // Append if it's not first load (append to the product list, not overwrite. i.e !isInitalLoad='T')
-//   });
-// }, [checked, radio, page]);
+  //   useEffect(() => {
+  //   const isInitialLoad = page === 1 && !checked.length && !radio.length; //it's ought to be false, as dependencies changed
+  //   getFilteredProducts({
+  //     checked,
+  //     radio,
+  //     page,
+  //     sortRef,
+  //     setProducts,
+  //     setFilteredTotal,
+  //     append: !isInitialLoad, // Append if it's not first load (append to the product list, not overwrite. i.e !isInitalLoad='T')
+  //   });
+  // }, [checked, radio, page]);
 
-useEffect(() => {
-  const append = page !== 1; // Append only when page > 1 ("Load More")
-  getFilteredProducts({
-    checked,
-    radio,
-    page,
-    sortRef,
-    setProducts,
-    setFilteredTotal,
-    append,
-  });
-}, [checked, radio, page]);
+  useEffect(() => {
+    const append = page !== 1; // Append only when page > 1 ("Load More") 👌
+    getFilteredProducts({
+      checked,
+      radio,
+      page,
+      sortRef,
+      setProducts,
+      setFilteredTotal,
+      append,
+    });
+  }, [checked, radio, page]);
 
   // useEffect(() => {
   //   if (page === 1) return;
@@ -90,7 +89,7 @@ useEffect(() => {
   //   });
   // }, [page]);
 
-/* a multi line comment */
+  /* a multi line comment */
 
   // useEffect(() => {
   //   getFilteredProducts({
@@ -159,7 +158,7 @@ useEffect(() => {
                 // ✅ Reset page to 1
                 setPage(1);
                 getFilteredProducts({
-                // ✅ Fetch fresh sorted products from page 1
+                  // ✅ Fetch fresh sorted products from page 1
                   checked,
                   radio,
                   page: 1,
@@ -200,7 +199,7 @@ useEffect(() => {
               </div>
             ))}
           </div>
-{/* {console.log(filteredTotal)} */}
+          {/* {console.log(filteredTotal)} */}
           {(checked.length || radio.length
             ? products.length < filteredTotal
             : products.length < total) && (
