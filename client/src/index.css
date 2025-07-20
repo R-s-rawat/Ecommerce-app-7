@@ -121,7 +121,7 @@
   
 .product-card {
   width: 18rem;
-  height: 32rem;
+  /* remove height here */
 }
 
 .product-img {
