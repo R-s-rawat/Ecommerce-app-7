@@ -2432,6 +2432,43 @@ Graph DB (Neo4j) for highly connected data like social networks.)
     res.json(result);
 
 -----------------------
+🤣🤣with ai code, debug time doubles,so don't keep just debugging
+// first reduce cluttering in brain, wisdom with code...
+
+// so typing is good.. not go prejudice(प्रबल नापसंदगी या अविश्‍वास/bias )
 ++ add new contextApi (i.e search.js) to index.js
 
+// lets now add new form ->SearchbarInputForm
+and import that in Header.js
 
+// issues while testing through ui(not found)
+// POSTMAN testing...
+
+http://localhost:8080/api/v1/product/product-search/tablet (not working)
+http://localhost:8080/api/v1/product/product-search/search?keyword=tablet (even params/query params not working)
+
+404 issue (which was caused by using GET with a body, or missing param)
+resolved, the method mismatch.. get/post..
+
+// since, getting response(we have to show them), hence, new page Search.js
+// and then add that route to app.js
+
+  <>
+      <Routes>
+        {/* main page - Parent👿👿 */}
+        <Route path="/" element={<HomePage />} />
+
+        {/* child🐇🐇 pages */}
+        <Route path="/search" element={<Search />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/policy" element={<Policy />} />
+
+        {/* child🐇🐇 protected user dashboard pages */}
+        <Route path="/dashboard" element={<PrivateRoute />}>
+          <Route path="user" element={<Dashboard />} />
+          <Route path="user/orders" element={<Orders />} />
+          <Route path="user/profile" element={<Profile />} />
+        </Route>
+
+// Search page working correctly, now more details page...

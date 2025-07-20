@@ -68,6 +68,17 @@ router.get("/product-list/:page", productListController);
 router.post("/product-sort", productSortController);
 
 // search product
-router.post("/product-search/:keyword", productSearchController);
+router.get("/product-search/:keyword", productSearchController);
+
+// router.get('/product-search', (req, res) => {
+//   const keyword = req.query.keyword;
+//   res.send({ keyword });
+// });
+
+// // http://localhost:8080/api/v1/product/debug-test
+// router.get('/debug-test', (req, res) => {
+//   console.log("✅ /debug-test route hit"); // for backend
+//   res.send("✅ /debug-test route hit"); // for frontend
+// });
 
 export default router;

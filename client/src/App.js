@@ -22,6 +22,7 @@ import Orders from "./pages/user/Orders";
 import Profile from "./pages/user/Profile";
 import Products from "./pages/Admin/Products";
 import UpdateProduct from "./pages/Admin/UpdateProduct";
+import Search from "./pages/Search";
 
 function App() {
   return (
@@ -29,16 +30,29 @@ function App() {
       <Routes>
         {/* main page - Parent👿👿 */}
         <Route path="/" element={<HomePage />} />
+
         {/* child🐇🐇 pages */}
+        <Route path="/search" element={<Search />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/policy" element={<Policy />} />
-        {/* child🐇🐇 protected pages */}
+
+        {/* child🐇🐇 - forms pages */}
+        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+
+        {/* child🐇🐇 pages - not created */}
+        <Route path="*" element={<Pagenotfound />} />
+
+        {/* child🐇🐇 protected user dashboard pages */}
         <Route path="/dashboard" element={<PrivateRoute />}>
           <Route path="user" element={<Dashboard />} />
           <Route path="user/orders" element={<Orders />} />
           <Route path="user/profile" element={<Profile />} />
         </Route>
+
+        {/* child🐇🐇 protected admin dashboard pages */}
         <Route path="/dashboard" element={<AdminRoute />}>
           <Route path="admin" element={<AdminDashboard />} />
           <Route path="admin/create-category" element={<CreateCategory />} />
@@ -47,12 +61,6 @@ function App() {
           <Route path="admin/users" element={<AdminUsers />} />/
           <Route path="admin/products" element={<Products />} />/
         </Route>
-        {/* child🐇🐇 - forms pages */}
-        <Route path="/register" element={<Register />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/forgot-password" element={<ForgotPassword />} />
-        {/* child🐇🐇 pages - not created */}
-        <Route path="*" element={<Pagenotfound />} />
       </Routes>
     </>
   );

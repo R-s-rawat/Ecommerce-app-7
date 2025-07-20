@@ -293,23 +293,29 @@ export const productSortController = async (req, res) => {
 
 // search
 export const productSearchController = async (req, res) => {
+  //  const { keyword } = req.params;
   try {
+    console.log("Search endpoint hit ✅");
     // expect keyword as/from params(i.e keyword)
     // destructure should be from const {keyword} =req.params(object) , not the const {keyword} =req.params.keyword(string)
+    //  const { keyword } = req.query;
     const { keyword } = req.params;
-    const result = await productModel.find({
-      $or: [
-        // search both name and description
-        // and ensure to make keyword searching case-insensitive(i.e options:'i')
-        { name: { $regex: keyword, $options: "i" } },
-        { description: { $regex: keyword, $options: "i" } }
-      ],
-    }).select('-photo');
-    // send the very bare minimal response
-    res.json(result);
+    const result = await productModel
+      .find({
+        $or: [
+          // search both name and description
+          // and ensure to make keyword searching case-insensitive(i.e options:'i')
+          { name: { $regex: keyword, $options: "i" } },
+          { description: { $regex: keyword, $options: "i" } },
+        ],
+      })
+      .select("-photo");
+    // send the very bare minimal response (but only 1 response at a time, or crash,,)
+    res.json(result); // ✅ This sends response and ends request
+    // res.send("Test route is working");                  // ❌ This tries to send again = crash
   } catch (error) {
     console.log(error);
-    res.status(400).send({
+    res.status(410).send({
       success: false,
       message: "Error in searching product",
       error,
