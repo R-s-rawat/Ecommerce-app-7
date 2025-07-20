@@ -2053,6 +2053,9 @@ router.get("/get-product/:slug", getProductController);
 router.get("/product-photo/:pid", getProductPhotoController);
 router.get("/product-count", getTotalProductsCountController);
 
+// in terms of efficiency, 
+if, else if, else if (is performant)
+as compared to if, if, if
 
 
 

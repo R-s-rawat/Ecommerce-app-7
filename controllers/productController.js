@@ -206,17 +206,18 @@ export const productFiltersController = async (req, res) => {
 
     if (checked.length > 0) args.category = checked;
     if (radio.length) args.price = { $gte: radio[0], $lte: radio[1] };
-
+console.log(req.body.sortingObject)
     const filteredProducts = await productModel
       .find(args)
       .select("-photo")
       .skip((page - 1) * perPage)
       .limit(perPage)
-      .sort({ createdAt: -1 });
+      .sort(req.body.sortingObject );
 
     res.status(200).send({
       success: true,
       filteredProducts,
+      
     });
   } catch (error) {
     console.log(error);
@@ -268,6 +269,24 @@ export const productListController = async (req, res) => {
     res.status(400).send({
       success: false,
       message: "Error in per page ctrl(controller)",
+      error,
+    });
+  }
+};
+
+// sorting
+export const productSortController = async (req, res) => {
+  try {
+    res.status(200).send({
+      success: true,
+      message: "Products sorted successfully",
+      req
+    })
+  } catch (error) {
+    console.log(error);
+    res.status(400).send({
+      success: false,
+      message: "Error in sort product ctrl(controller)",
       error,
     });
   }

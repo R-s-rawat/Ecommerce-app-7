@@ -8,6 +8,7 @@ import {
   productFiltersController,
   productListController,
   productPhotoController,
+  productSortController,
   updateProductController,
 } from "../controllers/productController.js";
 import { isAdmin, requireSignIn } from "../middlewares/authMiddleware.js";
@@ -61,5 +62,8 @@ router.get("/product-count", productCountController);
 
 // product per page
 router.get("/product-list/:page", productListController);
+
+// sort product
+router.post("/product-sort", productSortController);
 
 export default router;

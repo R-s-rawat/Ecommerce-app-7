@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Layout from "../components/Layout/Layout";
 import axios from "axios";
 import { Checkbox, Radio } from "antd";
@@ -26,21 +26,23 @@ const HomePage = () => {
   const [sortPriceRadio, setSortPriceRadio] = useState("newest first");
   const sortType = [
     {
-      _id: 1,
-      name: "Asc",
-      type: "asc"
+      _id: 'pricelowtohigh',
+      name: "Price -- Low to High",
+      type: "price low to high",
     },
     {
-      _id: 2,
-      name: "Desc",
-      type: "desc"
+      _id: 'pricehightolow',
+      name: "Price -- High to Low",
+      type: "price high to low",
     },
     {
-      _id: 3,
+      _id: 'newestfirst',
       name: "Newest first",
-      type: "newest first"
-    }
+      type: "newest first",
+    },
   ];
+
+  const sortRef = useRef(null);
 
   // GET ALL PRODUCTS
   const getAllProducts = async () => {
@@ -94,12 +96,33 @@ const HomePage = () => {
   // Get filtered products (utilizing both (price,cats))
   const getFilteredProducts = async () => {
     try {
+       let sortingObject = {
+        createdAt: -1
+      }
+      if(sortRef.current == 'pricehightolow') {
+          sortingObject = {
+        price:-1
+      }
+      }else if(sortRef.current=='pricelowtohigh'){
+          sortingObject = {
+        price:1
+      }
+      }else if(sortRef.current=='newestfirst'){
+          sortingObject = {
+        createdAt: -1
+      }
+      }
+      // const sortingObject = {
+        
+      // }
+      console.log(sortRef.current)
       const { data } = await axios.post(
         `${API}/api/v1/product/product-filters`,
         {
           checked,
           radio,
           page,
+          sortingObject,
         }
       );
 
@@ -174,22 +197,17 @@ const HomePage = () => {
   };
 
   // sort-ing function - network request not utility
-  const sorting = async() =>{
-    try {
-      const { data } = await axios.post(
-          `${API}/api/v1/product/product-filters`,
-          {
-            checked,
-            radio,
-            page,
-          }
-        );
-    } catch (error) {
-      console.log(error)
-    }
-  }
+  // const sorting = async () => {
+  //   try {
+  //     const { data } = await axios.post(`${API}/api/v1/product/product-sort`, {
+  //       sortPriceRadio,
+  //     });
+  //     console.log(data)
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
- 
   // Lifecycle method - categories || get (fetch all categories on initial load to save categories - for listing in ui)
   useEffect(() => {
     getAllCategory();
@@ -290,17 +308,20 @@ const HomePage = () => {
           {JSON.stringify(radio, null, 4)} */}
           <div className="d-flex flex-row">
             <h4 className="text-center">Sort by</h4>
-            <Radio.Group 
-            className="d-flex flex-row"
-            value={sortPriceRadio}
-            onChange={(e) => {
-              setSortPriceRadio(e.target.value);
-              // console.log(e.target.value)
-            }}
+            <Radio.Group
+              className="d-flex flex-row"
+              value={sortPriceRadio}
+              onChange={(e) => {
+                setSortPriceRadio(e.target.value);
+                sortRef.current = e.target.value;
+                // sorting()
+                getFilteredProducts();
+                // console.log(e.target.value)
+              }}
             >
               {sortType.map((t) => (
-                <div key={t._id}>
-                  <Radio value={t.type}>{t.name}</Radio>
+                <div key={t.type}>
+                  <Radio value={t._id}>{t.name}</Radio>
                 </div>
               ))}
             </Radio.Group>
