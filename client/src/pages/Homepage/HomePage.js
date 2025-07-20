@@ -76,7 +76,7 @@ useEffect(() => {
     setFilteredTotal,
     append,
   });
-}, [checked, radio, sortRef, page]);
+}, [checked, radio, page]);
 
   // useEffect(() => {
   //   if (page === 1) return;
@@ -200,7 +200,7 @@ useEffect(() => {
               </div>
             ))}
           </div>
-
+{/* {console.log(filteredTotal)} */}
           {(checked.length || radio.length
             ? products.length < filteredTotal
             : products.length < total) && (

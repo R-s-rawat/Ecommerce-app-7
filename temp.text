@@ -2342,7 +2342,12 @@ Separate useEffects => two overlapping API calls💀 |||❄|||| Combined version
     setFilteredTotal,
     append,
   });
-}, [checked, radio, sortRef🔥, page]);
+}, [checked, radio, page]);
+
+This is straightforward:💀💀
+
+If you're loading page 1     → overwrite (append: false)💀💀
+If you're loading page > 1   → append (append: true)💀💀
 
 ✅ 2. Update HomepageLogic.js
 = async({..., append = false, }) => {
@@ -2386,7 +2391,7 @@ checked = []
 radio = []
 
 So when component mounts:
-useEffect([checked,radio,page]) fires once BECAUSE it sees VALUES. (&& isInitialLoad becomes 'T' hence,append='F')
+useEffect([checked,radio,page]) fires once BECAUSE it sees VALUES.
 
 Recap: 🔁  all useEffect hooks runs once on mount, no matter the dependencies.(BUT without array, on every RENDER )
 useEffect(() => { ... }) — No dependency array
