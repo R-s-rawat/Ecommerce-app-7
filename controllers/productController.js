@@ -200,16 +200,20 @@ export const updateProductController = async (req, res) => {
 // filters
 export const productFiltersController = async (req, res) => {
   try {
-    const { checked, radio } = req.body;
+    const { checked, radio, page = 1 } = req.body;
+    const perPage = 6;
     let args = {};
-    // maybe user want both category filter &  price filter (or just single)
-    // so if multiple, then multiple (else single)
-    // checked initial value is 0 (in frontend), and also value of produt radioButton (in fronend) -- so fulfill
+
     if (checked.length > 0) args.category = checked;
-    // as array have two values, so use mongo queries that are <,> (so first get index, then filter),i.eLTE(less than equal to)
-    // lte and gte will get 0th position and 1st position i.e ARRAY[0,1]
     if (radio.length) args.price = { $gte: radio[0], $lte: radio[1] };
-    const filteredProducts = await productModel.find(args);
+
+    const filteredProducts = await productModel
+      .find(args)
+      .select("-photo")
+      .skip((page - 1) * perPage)
+      .limit(perPage)
+      .sort({ createdAt: -1 });
+
     res.status(200).send({
       success: true,
       filteredProducts,
