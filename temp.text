@@ -2477,5 +2477,15 @@ create new page(ProductDetails.js) and-> add to App.js⚡⚡
 
 // While productDetails show that specific product as per p.slug!,,
 
-created /related-products in backend
+created "/related-products" in backend..
+Have both productid and categoryid while creating route (for the product)
+router.get("/related-product/:pid/:cid", ...
+
+  // get things from params not body
+    const {pid, cid} = req.params; 
+  // use ne function (i.e not use it..) // for preventing the current opened product to show up in related products..
+
+// 
+
+
 

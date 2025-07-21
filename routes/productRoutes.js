@@ -10,6 +10,7 @@ import {
   productPhotoController,
   productSearchController,
   productSortController,
+  relatedProductController,
   updateProductController,
 } from "../controllers/productController.js";
 import { isAdmin, requireSignIn } from "../middlewares/authMiddleware.js";
@@ -70,15 +71,7 @@ router.post("/product-sort", productSortController);
 // search product
 router.get("/product-search/:keyword", productSearchController);
 
-// router.get('/product-search', (req, res) => {
-//   const keyword = req.query.keyword;
-//   res.send({ keyword });
-// });
-
-// // http://localhost:8080/api/v1/product/debug-test
-// router.get('/debug-test', (req, res) => {
-//   console.log("✅ /debug-test route hit"); // for backend
-//   res.send("✅ /debug-test route hit"); // for frontend
-// });
+// related products
+router.get("/related-product/:pid/:cid", relatedProductController);
 
 export default router;
