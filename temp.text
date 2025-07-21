@@ -2422,7 +2422,7 @@ Graph DB (Neo4j) for highly connected data like social networks.)
 // send the response (the rare kind but used one)
   const result = await productModel.find({
       $or: [
-        // search both name and description
+        // search both name and description✅✅✅
         // and ensure to make keyword searching case-insensitive(i.e options:'i')
         { name: { $regex: keyword, $options: "i" } },
         { description: { $regex: keyword, $options: "i" } }
@@ -2472,3 +2472,10 @@ resolved, the method mismatch.. get/post..
         </Route>
 
 // Search page working correctly, now more details page...
+
+create new page(ProductDetails.js) and-> add to App.js⚡⚡
+
+// While productDetails show that specific product as per p.slug!,,
+
+created /related-products in backend
+

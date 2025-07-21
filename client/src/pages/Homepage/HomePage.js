@@ -12,6 +12,7 @@ const sortType = [
 ];
 
 const HomePage = () => {
+
   const API =
     process.env.NODE_ENV === "production"
       ? process.env.REACT_APP_API
@@ -182,7 +183,7 @@ const HomePage = () => {
               <div
                 key={p._id}
                 className="card m-2 product-card"
-                onClick={() => navigate(`/product/${p.slug}`)}
+                // onClick={() => navigate(`/product/${p.slug}`)}
               >
                 <img
                   src={`${API}/api/v1/product/product-photo/${p._id}`}
@@ -195,6 +196,12 @@ const HomePage = () => {
                     {p.description.substring(0, 30)}...
                   </p>
                   <p className="card-text">₹ {p.price}</p>
+                  <button className="btn btn-primary ms-1"
+                  onClick={() => navigate(`/product/${p.slug}`)}
+                  >
+                    More Details
+                  </button>
+                  <button className="btn btn-secondary ms-1">ADD TO CART</button>
                 </div>
               </div>
             ))}
