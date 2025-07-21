@@ -2485,7 +2485,16 @@ router.get("/related-product/:pid/:cid", ...
     const {pid, cid} = req.params; 
   // use ne function (i.e not use it..) // for preventing the current opened product to show up in related products..
 
-// 
+// Ensure more details button will show (along with add to card) only in homepage..
+// in productDetails page, remove more details button, from the opened product, and related products too..
+
+
+
+
+
+
+
+
 
 
 
