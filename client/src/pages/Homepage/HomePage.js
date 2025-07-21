@@ -4,6 +4,7 @@ import { Checkbox, Radio } from "antd";
 import { Prices } from "../../data/Prices";
 import { useHomepageLogic } from "./HomepageLogic";
 import { useNavigate } from "react-router-dom";
+import useCategory from "../../hooks/useCategory";
 
 const sortType = [
   { name: "Newest First", _id: "newestfirst" },
@@ -20,9 +21,12 @@ const HomePage = () => {
 
   const navigate = useNavigate();
 
+  //extract categories state
+  const categories = useCategory();
+
   const {
     products,
-    categories,
+    // categories,
     checked,
     radio,
     page,
@@ -31,7 +35,7 @@ const HomePage = () => {
     filteredTotal,
     sortPriceRadio,
     sortRef,
-    setCategories,
+    // setCategories,
     setChecked,
     setRadio,
     setPage,
@@ -41,14 +45,14 @@ const HomePage = () => {
     handleCatFilter,
     loadMore,
     resetSort,
-    getAllCategories,
+    // getAllCategories,
     getTotalCreatedProductsCount,
     getFilteredProducts,
     setTotal,
   } = useHomepageLogic();
 
   useEffect(() => {
-    getAllCategories(setCategories);
+    // getAllCategories(setCategories);
     getTotalCreatedProductsCount(setTotal);
   }, []);
 

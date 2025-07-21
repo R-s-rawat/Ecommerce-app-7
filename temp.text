@@ -2488,13 +2488,67 @@ router.get("/related-product/:pid/:cid", ...
 // Ensure more details button will show (along with add to card) only in homepage..
 // in productDetails page, remove more details button, from the opened product, and related products too..
 
+// now we will work on CATEGORY PAGE( along dropdown )
+// and also, we will work on custom hook 
 
+// before dropdown with categories (we will create new folder - hooks (for useCategory)),
+// hooks folder/dir will store custom hooks (expect context api ones)..
 
+// ✔☑✅ our home-page-logic is also a customHook (prefix use..)
 
+// created the 2nd custom hook (useCategory), and now homePage using hooks - useCategory✍ && useHomepageLogic✍
 
+// custom hooks runs just like(useEffect), so useCategory will run on initial render, working...
 
+// now use that useCategory also in header from showing in dropdown besides the homepage...
+______________________________________________________________________________
 
+______________________________________________________________________________
+Note📌📌 we seen different type of imports for the custom Hook
 
+import { useHomepageLogic } from "./HomepageLogic";
+import useCategory from "../../hooks/useCategory";
 
+🔹 1. Named Export ({ useHomepageLogic })
+
+// HomepageLogic.js
+export const useHomepageLogic = () => { ... };
+
+// HomePage.js
+import { useHomepageLogic } from "./HomepageLogic";
+✅ Here you're using a named export. You must import it with the exact same name in curly braces.
+
+If you try to do:
+import useHomepageLogic from './HomepageLogic'; // ❌ will throw error
+…it won’t work unless you change the export to a default export.
+------------------------------------------------------------------------------------
+🔹 2. Default Export (useCategory)
+// useCategory.js
+export default function useCategory() { ... }
+
+// HomePage.js
+import useCategory from "../../hooks/useCategory";
+✅ This is a default export, meaning you can import it with any name you want, like:
+
+import useCategory from "..."; // 👍
+import myCategoryHook from "..."; // also valid
+But in your case, you're importing it using its actual function name, which is good practice.
+
+-----------------------------------
+
+// A issue fixed: React needs the unique key on the outermost element returned from .map()
+{categories?.map((c) => (
+  <ul className="dropdown-menu">      // ❌ THIS is being repeated in the map (ul is being repeated,& outermost so key)
+    <li key={c.slug}>                 // ✅ key is on li
+      <Link className="dropdown-item" to={"/"}>
+        {c.name}
+      </Link>
+    </li>
+  </ul>
+))}
+
+// and all categories showing in dropdown as intended, we will later on add designing (like scrolling in categories)...
+
+// now create (All categories) && (Single categories) pages...
 
 

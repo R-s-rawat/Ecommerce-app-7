@@ -3,9 +3,13 @@ import { NavLink, Link } from "react-router-dom";
 import { useAuth } from "../../context/auth";
 import { toast } from "react-hot-toast";
 import SearchbarInputForm from "../Form/SearchbarInputForm";
+import useCategory from "../../hooks/useCategory";
 
 const Header = () => {
   const [auth, setAuth] = useAuth();
+
+  //extract categories state
+  const categories = useCategory();
 
   const handleLogout = () => {
     setAuth({
@@ -37,10 +41,33 @@ const Header = () => {
             <Link to="/" className="navbar-brand">
               🛒 Ecommerce App
             </Link>
+            {/* <li className="nav-item dropdown">
+              <a
+                className="nav-link dropdown-toggle"
+                href="#"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Dropdown link
+              </a>
+              {categories?.map((c) => (
+                <ul className="dropdown-menu">
+                  <li>
+                    <a className="dropdown-item" href="#">
+                      {c.name}
+                    </a>
+                  </li>
+                </ul>
+              ))}
+            </li> */}
+
             {/* // BS-5 utility classes  (ME)margin-end: auto && (MS)margin-start: auto*/}
             <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
-              <SearchbarInputForm/>
-              {/* // Home */}
+              {" "}
+              {/* nav-bar is a ul,, and shows many li*/}
+              <SearchbarInputForm />
+              {/* // Home - 1st list-item-navbar */}
               <li className="nav-item">
                 <NavLink to="/" className="nav-link">
                   Home
@@ -48,11 +75,33 @@ const Header = () => {
               </li>
               {/* // Home Ends */}
               {/*------------------------------------------------------- */}
-              {/* // Category */}
-              <li className="nav-item">
-                <NavLink to="/category" className="nav-link">
-                  Category
-                </NavLink>
+              {/* // Category - 2nd list-item-navbar */}
+             
+                <li className="nav-item dropdown">
+                <Link
+                  className="nav-link dropdown-toggle"
+                  to={"/categories"}
+                  data-bs-toggle="dropdown"
+                >
+                  Categories
+                </Link>
+                <ul className="dropdown-menu">
+                  <li>
+                    <Link className="dropdown-item" to={"/categories"}>
+                      All Categories
+                    </Link>
+                  </li>
+                  {categories?.map((c) => (
+                    <li>
+                      <Link
+                        className="dropdown-item"
+                        to={`/category/${c.slug}`}
+                      >
+                        {c.name}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
               </li>
               {/* //Category Ends */}
               {/*------------------------------------------------------- */}
@@ -61,7 +110,7 @@ const Header = () => {
               }
               {!auth.user ? (
                 <>
-                  {/* //Register */}
+                  {/* //Register -  list-item-navbar(auth based) */}
                   <li className="nav-item">
                     <NavLink to="/register" className="nav-link">
                       Register
@@ -69,7 +118,7 @@ const Header = () => {
                   </li>
                   {/* //Register Ends */}
                   {/*------------------------------------------------------- */}
-                  {/* //Login */}
+                  {/* //Login -  list-item-navbar(auth based)*/}
                   <li className="nav-item">
                     <NavLink to="/login" className="nav-link">
                       Login
@@ -80,7 +129,7 @@ const Header = () => {
                 </>
               ) : (
                 <>
-                  {/* // role based authentication begins */}
+                  {/* // role based authentication begins -  list-item-navbar(auth based) */}
                   <li className="nav-item dropdown">
                     <NavLink
                       className="nav-link dropdown-toggle"
@@ -94,7 +143,12 @@ const Header = () => {
                     <ul className="dropdown-menu">
                       {/* for dashboard */}
                       <li>
-                        <NavLink className="dropdown-item" to={`/dashboard/${auth?.user?.role === 1? 'admin':'user'}`}>
+                        <NavLink
+                          className="dropdown-item"
+                          to={`/dashboard/${
+                            auth?.user?.role === 1 ? "admin" : "user"
+                          }`}
+                        >
                           Dashboard
                         </NavLink>
                       </li>
@@ -111,7 +165,7 @@ const Header = () => {
                       </li>
                       {/* <li>
                         <hr className="dropdown-divider" />
-                      </li> */} 
+                      </li> */}
                     </ul>
                   </li>
                   {/* // role based authentication ends */}
@@ -129,7 +183,7 @@ const Header = () => {
                   {/*------------------------------------------------------- */}
                 </>
               )}
-              {/* // Cart */}
+              {/* // Cart -  list-item-navbar */}
               <li className="nav-item">
                 <NavLink to="/cart" className="nav-link">
                   Cart (0)

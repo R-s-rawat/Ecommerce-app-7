@@ -8,7 +8,7 @@ export const useHomepageLogic = () => {
       : "http://localhost:8080";
 
   const [products, setProducts] = useState([]);
-  const [categories, setCategories] = useState([]);
+  // const [categories, setCategories] = useState([]);
   const [checked, setChecked] = useState([]);
   const [radio, setRadio] = useState([]);
   const [page, setPage] = useState(1);
@@ -18,14 +18,14 @@ export const useHomepageLogic = () => {
   const [sortPriceRadio, setSortPriceRadio] = useState("newestfirst");
   const sortRef = useRef("newestfirst");
 
-  const getAllCategories = async (setCategories) => {
-    try {
-      const { data } = await axios.get(`${API}/api/v1/category/get-category`);
-      setCategories(data?.category || []);
-    } catch (err) {
-      console.error("Error loading categories:", err);
-    }
-  };
+  // const getAllCategories = async (setCategories) => {
+  //   try {
+  //     const { data } = await axios.get(`${API}/api/v1/category/get-category`);
+  //     setCategories(data?.category || []);
+  //   } catch (err) {
+  //     console.error("Error loading categories:", err);
+  //   }
+  // };
 
   const getTotalCreatedProductsCount = async (setTotal) => {
     try {
@@ -108,7 +108,7 @@ export const useHomepageLogic = () => {
 
   return {
     products,
-    categories,
+    // categories,
     checked,
     radio,
     page,
@@ -117,7 +117,7 @@ export const useHomepageLogic = () => {
     filteredTotal,
     sortPriceRadio,
     sortRef,
-    setCategories,
+    // setCategories,
     setChecked,
     setRadio,
     setPage,
@@ -127,7 +127,7 @@ export const useHomepageLogic = () => {
     handleCatFilter,
     loadMore,
     resetSort,
-    getAllCategories,
+    // getAllCategories,
     getTotalCreatedProductsCount,
     getFilteredProducts,
     setTotal,
