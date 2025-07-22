@@ -2641,5 +2641,12 @@ make a new context, i.e cart.js⚡⚡
 // have that cart variable in cart context hook..
 const [cart, setCart] = useState([]);
 
+// encountered an issue, 
+✅ Problem Summary
+After clicking Load More, you increment the page and the merged useEffect fetches additional products correctly. But when a user then changes the price filter, the UI doesn't re-fetch from page 1, so the filter is applied only to the current page, and not from scratch — causing incorrect or partial results.
 
+✅ Fix
+Force page = 1 when any filter (checked, radio, or sortRef) changes.
 
+// avoid relying on useEffect for these cases.
+// and 1 homepage change, split that Logical useEffect with dependencies into again two...

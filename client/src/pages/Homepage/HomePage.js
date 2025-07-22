@@ -69,18 +69,38 @@ const HomePage = () => {
   //   });
   // }, [checked, radio, page]);
 
-  useEffect(() => {
-    const append = page !== 1; // Append only when page > 1 ("Load More") 👌
-    getFilteredProducts({
-      checked,
-      radio,
-      page,
-      sortRef,
-      setProducts,
-      setFilteredTotal,
-      append,
-    });
-  }, [checked, radio, page]);
+  // useEffect(() => {
+  //   const append = page !== 1; // Append only when page > 1 ("Load More") 👌
+  //   getFilteredProducts({
+  //     checked,
+  //     radio,
+  //     page,
+  //     sortRef,
+  //     setProducts,
+  //     setFilteredTotal,
+  //     append,
+  //   });
+  // }, [checked, radio, page]);
+
+  // 🟢 Trigger fresh fetch on checked or radio change
+useEffect(() => {
+  setPage(1); // Reset page first!
+}, [checked, radio]);
+
+// 🟢 Trigger fetch on page change
+useEffect(() => {
+  const append = page > 1; // Only append if Load More
+  getFilteredProducts({
+    checked,
+    radio,
+    page,
+    sortRef,
+    setProducts,
+    setFilteredTotal,
+    append,
+  });
+}, [page, checked, radio]);
+
 
   // useEffect(() => {
   //   if (page === 1) return;
