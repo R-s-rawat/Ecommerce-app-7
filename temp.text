@@ -2633,7 +2633,13 @@ so,, backend🔥🔥 category wise product (NEW ROUTE ALONG CTRL)
 // Most of the project (ecommerce app) is done..
 // now we will work on CART functionality (along with other features) later on... and some re-design too...
 
+// Context hook, new CONTEXT for cart (globally needed cart variable..) and will show cart {indices}/value in nav...
 
+// cart and...
+make a new context, i.e cart.js⚡⚡
+
+// have that cart variable in cart context hook..
+const [cart, setCart] = useState([]);
 
 
 
