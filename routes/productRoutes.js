@@ -4,6 +4,7 @@ import {
   deleteProductController,
   getProductController,
   getSingleProductController,
+  productCategoryController,
   productCountController,
   productFiltersController,
   productListController,
@@ -73,5 +74,8 @@ router.get("/product-search/:keyword", productSearchController);
 
 // related products
 router.get("/related-product/:pid/:cid", relatedProductController);
+
+// category wise product
+router.get("/product-category/:slug", productCategoryController);
 
 export default router;
