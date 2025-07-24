@@ -2650,3 +2650,19 @@ Force page = 1 when any filter (checked, radio, or sortRef) changes.
 
 // avoid relying on useEffect for these cases.
 // and 1 homepage change, split that Logical useEffect with dependencies into again two...
+
+// Programmer doing Automated testing for web app - (after try to remove banner and workarounds, i figured out issue..)
+
+// Google chrome cft(not regular chrome), shows transparency by showing banner(this is testing chrome, download chrome instead)
+
+| Method                            | Permanently Removes Banner | Risk        | Difficulty |
+| --------------------------------- | -------------------------- | ----------- | ---------- |
+| Chrome options in Selenium        | ❌                          | Low         | Easy       |
+| Patch Chromium source             | ✅                          | Medium      | Hard       |
+| Use modded Chromium               | ⚠️ Depends                 | Medium–High | Medium     |
+| Disable automation flag in source | ✅                          | Medium      | Very Hard  |
+
+
+
+
+
