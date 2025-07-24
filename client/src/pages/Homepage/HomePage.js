@@ -102,30 +102,30 @@ useEffect(() => {
 }, [page, checked, radio]);
 
 
-  // useEffect(() => {
-  //   if (page === 1) return;
-  //   getFilteredProducts({
-  //     checked,
-  //     radio,
-  //     page,
-  //     sortRef,
-  //     setProducts,
-  //     append: true,
-  //   });
-  // }, [page]);
+  // // useEffect(() => {
+  // //   if (page === 1) return;
+  // //   getFilteredProducts({
+  // //     checked,
+  // //     radio,
+  // //     page,
+  // //     sortRef,
+  // //     setProducts,
+  // //     append: true,
+  // //   });
+  // // }, [page]);
 
-  /* a multi line comment */
+  // /* a multi line comment */
 
-  // useEffect(() => {
-  //   getFilteredProducts({
-  //     checked,
-  //     radio,
-  //     page: 1,
-  //     sortRef,
-  //     setProducts,
-  //     setFilteredTotal,
-  //   });
-  // }, [checked, radio]);
+  // // useEffect(() => {
+  // //   getFilteredProducts({
+  // //     checked,
+  // //     radio,
+  // //     page: 1,
+  // //     sortRef,
+  // //     setProducts,
+  // //     setFilteredTotal,
+  // //   });
+  // // }, [checked, radio]);
 
   return (
     <Layout title="Home - Ecommerce">
