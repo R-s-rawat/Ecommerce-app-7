@@ -5,6 +5,8 @@ import { Prices } from "../../data/Prices";
 import { useHomepageLogic } from "./HomepageLogic";
 import { useNavigate } from "react-router-dom";
 import useCategory from "../../hooks/useCategory";
+import { useCart } from "../../context/cart";
+import toast from "react-hot-toast";
 
 const sortType = [
   { name: "Newest First", _id: "newestfirst" },
@@ -13,7 +15,6 @@ const sortType = [
 ];
 
 const HomePage = () => {
-
   const API =
     process.env.NODE_ENV === "production"
       ? process.env.REACT_APP_API
@@ -23,6 +24,9 @@ const HomePage = () => {
 
   //extract categories state
   const categories = useCategory();
+
+  // getters, setters (implement cart provider)
+  const [cart, setCart] = useCart();
 
   const {
     products,
@@ -83,24 +87,23 @@ const HomePage = () => {
   // }, [checked, radio, page]);
 
   // 🟢 Trigger fresh fetch on checked or radio change
-useEffect(() => {
-  setPage(1); // Reset page first!
-}, [checked, radio]);
+  useEffect(() => {
+    setPage(1); // Reset page first!
+  }, [checked, radio]);
 
-// 🟢 Trigger fetch on page change
-useEffect(() => {
-  const append = page > 1; // Only append if Load More
-  getFilteredProducts({
-    checked,
-    radio,
-    page,
-    sortRef,
-    setProducts,
-    setFilteredTotal,
-    append,
-  });
-}, [page, checked, radio]);
-
+  // 🟢 Trigger fetch on page change
+  useEffect(() => {
+    const append = page > 1; // Only append if Load More
+    getFilteredProducts({
+      checked,
+      radio,
+      page,
+      sortRef,
+      setProducts,
+      setFilteredTotal,
+      append,
+    });
+  }, [page, checked, radio]);
 
   // // useEffect(() => {
   // //   if (page === 1) return;
@@ -220,12 +223,22 @@ useEffect(() => {
                     {p.description.substring(0, 30)}...
                   </p>
                   <p className="card-text">₹ {p.price}</p>
-                  <button className="btn btn-primary ms-1"
-                  onClick={() => navigate(`/product/${p.slug}`)}
+                  <button
+                    className="btn btn-primary ms-1"
+                    onClick={() => navigate(`/product/${p.slug}`)}
                   >
                     More Details
                   </button>
-                  <button className="btn btn-secondary ms-1">ADD TO CART</button>
+                  <button
+                    className="btn btn-secondary ms-1"
+                    // cart is array in the provider, so 1st keep the value of carts as it is(spread), then add whatever data in p to that cart
+                    onClick={() => {
+                    setCart([...cart, p])
+                    toast.success('Item added to cart')
+                    }}
+                  >
+                    ADD TO CART
+                  </button>
                 </div>
               </div>
             ))}

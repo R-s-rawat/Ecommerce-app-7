@@ -4,12 +4,17 @@ import { useAuth } from "../../context/auth";
 import { toast } from "react-hot-toast";
 import SearchbarInputForm from "../Form/SearchbarInputForm";
 import useCategory from "../../hooks/useCategory";
+import { useCart } from "../../context/cart";
+import { Badge } from "antd";
 
 const Header = () => {
   const [auth, setAuth] = useAuth();
 
   //extract categories state
   const categories = useCategory();
+
+  // show cart, useCart hook (providers data should show), so only destructure cart state's context(the getter)
+  const [cart] = useCart();
 
   const handleLogout = () => {
     setAuth({
@@ -185,9 +190,15 @@ const Header = () => {
               )}
               {/* // Cart -  list-item-navbar */}
               <li className="nav-item">
-                <NavLink to="/cart" className="nav-link">
-                  Cart (0)
-                </NavLink>
+                {/* <NavLink to="/cart" className="nav-link">
+                  Cart {cart?.length}
+                </NavLink> */}
+                <Badge count={cart?.length} showZero>
+                  <NavLink to='/cart' className='nav-link'>
+                  {/* Cart {cart?.length} */}
+                  Cart
+                  </NavLink>
+                </Badge>
               </li>
               {/* // Cart Ends */}
             </ul>
