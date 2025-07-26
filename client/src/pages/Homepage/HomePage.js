@@ -233,8 +233,9 @@ const HomePage = () => {
                     className="btn btn-secondary ms-1"
                     // cart is array in the provider, so 1st keep the value of carts as it is(spread), then add whatever data in p to that cart
                     onClick={() => {
-                    setCart([...cart, p])
-                    toast.success('Item added to cart')
+                    setCart([...cart, p]);
+                    toast.success('Item added to cart');
+                    localStorage.setItem('cart', JSON.stringify([...cart, p]))
                     }}
                   >
                     ADD TO CART

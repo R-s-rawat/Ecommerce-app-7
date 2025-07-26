@@ -2928,6 +2928,21 @@ like header, to show cart length... (we will use ant-Design to show items in car
 // Now we will persist cart data ( on refresh ), so that user cart data keeps safe until he/she want to edit data... (WE HAVE TO STORE IT SOMEWHERE, SO localstorage, the out of box)
 
 // we will store cart items locally, not on backend🔥
+so use localstorage, wherever needed - for set,get the localstorage - cart;
+
+like, homepage (btn -add to cart) - localstorage.setItem('car', JSON.stringify([...cart, p]))
+
+ <button
+                    className="btn btn-secondary ms-1"
+                    // cart is array in the provider, so 1st keep the value of carts as it is(spread), then add whatever data in p to that cart
+                    onClick={() => {
+                    setCart([...cart, p])
+                    toast.success('Item added to cart')
+                    localStorage.setItem('cart', JSON.stringify([...cart, p])) //⏪⬅💲👈Here
+                    }}
+                  >
+                    ADD TO CART
+// 
 
 
 
