@@ -3005,9 +3005,115 @@ ______________________________________________________________________________
 // Before checkout we will work on U-S-E-R __ P-R-O-F-I-L-E...
 
 // so, on Update address.. redirect💲
-/dashboard/user/profile... (copy/paste the register.js form)
+/dashboard/user/profile... (copy/paste the register.js form),,->->->
 
+// SO OPEN THE PROFILE(FOR THE ROUTE OF PROFILE,,), I.E CLIENT/SRC/PAGES/USER/PROFILE.js🔥
 
+paste the states(from register.js to profile.js)
 
+now, import useAuth hook( for user profile purpose..)
+and destructure it...
+
+//so, it will look like
+//////////////////////////
+
+ //state
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [phone, setPhone] = useState("");
+  const [address, setAddress] = useState("");
+  const [answer, setAnswer] = useState("");
+
+  // context
+  const [auth, setAuth] = useAuth();
+
+/////////////////////////
+
+#################now copy the form function..(i.e handle submit) and have that too..
+
+//import/paste variable as requested, (update registerd user...) 
+remove the answer input field
+
+// now get values (the initial time), for showing the previous data, when user registered..
+// have useEffect...
+
+// now for getting the data, we have auth, (SO GET USER FROM USER AUTH)
+
+// the provider/context-provider, will provide us data,(no network calls)
+
+// get user data
+  useEffect(() => {
+    const { email, name, phone, address } = auth?.user;
+    setName(name);
+    setPhone(phone);
+    setEmail(email);
+    setAddress(address);
+  }, [auth?.user]);
+
+// NOW WE WORK ON UPDATE HANDLER, CREATING (backend🔥) ROUTE, CONTROLLER...AND BIND..
+
+//  before backend, disable the user email field... ⏪👈
+  {/* for email */}
+                <div className="mb-3">
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="form-control"
+                    id="exampleInputPassword1"
+                    placeholder="Enter your Email"
+                    required
+                    disabled //⏪👈
+                  />
+                </div>
+
+// so, in backend (we have 3 routes, authRoute, categoryRoutes, productRoutes)
+// have the update, as per the route purpose(authRoute), no new creation here..
+
+/// so create route+controller for userProfile(in backend)
+
+// upgrade authRoute..
+// upgrade authController... (previously only -register, -login, -updatePass) +updateProfile
+
+// so, in authController(run query - userModel)
+
+// update profile
+export const updateProfileController = async(req,res) =>{
+  try {
+    const {name, email, password, address, phone} = req.body;
+    const user = await userModel.findById(req.user._id);
+
+// UNDEFINED👈 should be used, if user not updates password 
+
+ //password (if we get password, then hash it) - have if/else or ternary can work too..
+    const hashedPassword = password ? await hashPassword(password) : undefined👈 
+
+// after getting updatedUser (or response), consume in Profile.js(for showing new data)
+______________________________________________________________________________
+
+______________________________________________________________________________
+so, for profile, (after network request - axios)
+consume response after errors check..
+
+// check for errors then consume response
+      if(data?.error){
+        toast.error(data?.error)
+      }else{
+        setAuth({...auth, user:data?.updatedUser})//👈 context api will store user
+        // also store in LOCAL-STORAGE,, but firstly parse data, as we have two objects
+      }
+
+NOTE:✍✍✅✅ the JSON (.parse/.stringify) -- (the interface)
+----------------------------------------------------------------
+it is different from the json middleware(inbuilt express middleware - useful for only the parsing of json PAYLOAD in REQUESTS..)
+ &&
+it is also different what we get - json PAYLOAD in RESPONSE,, (return res.json({error:'Password is required and 6 characters long'}))
+
+// 💀💀🎃🧿🚀, make sure the data types(undefined, null) or SERVER NOT FOUND(DEVELOPERS)..
+
+////////////////////////////////////////////////////////////////////////////////////////////
+// ensure to remove required (which is necessary only registration time) ///////////////    
+/////////////////////////////////////////////////////////////////////////////////////////////
 
 

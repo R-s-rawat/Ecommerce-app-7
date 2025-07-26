@@ -184,7 +184,7 @@ export const forgotPasswordController = async (req, res) => {
   }
 };
 
-// // test controller
+// // test controller (ONLY FOR TESTING PURPOSES)
 export const testController = async (req, res) => {
   try {
     // will console message in nodeJS environment cli
@@ -196,4 +196,41 @@ export const testController = async (req, res) => {
     res.send({ error });
   }
 };
+
+// update profile
+export const updateProfileController = async(req,res) =>{
+  try {
+    const {name, email, password, address, phone} = req.body;
+    // for getting previous data(data saved while during registration)
+    const user = await userModel.findById(req.user._id);
+    //password (format for proper password), or alert user updating password..
+    if(! password && password.length <6){
+      return res.json({error:'Password is required and 6 characters long'})
+    }
+    //password (if we get password, then hash it) - have if/else or ternary can work too..
+    const hashedPassword = password ? await hashPassword(password) : undefined 
+    // for find-by-id-and-update, we need here at least three(3) objects
+    const updatedUser = await userModel.findByIdAndUpdate(req.user._id,{
+      // use conditions for check if we get form req.body after de-structuring then update(1st condition) else keep pre-existing using =  OR
+      // so cross-check if changes then update or else keep previous..
+      name: name || user.name,
+      password: password || user.password,
+      phone: phone || user.phone,
+      address: address || user.address,
+    },{new:true})
+
+    res.status(200).send({
+      success:true,
+      message:'User updated successfully',
+      updatedUser
+    })
+  } catch (error) {
+    console.log(error);
+    res.status(400).send({
+      success:false,
+      message:'Error while update profile',
+      error
+    })
+  }
+}
 

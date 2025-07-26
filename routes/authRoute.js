@@ -4,6 +4,7 @@ import {
   loginController,
   registerController,
   testController,
+  updateProfileController,
 } from "../controllers/authController.js";
 import { isAdmin, requireSignIn } from "../middlewares/authMiddleware.js";
 // router object
@@ -24,6 +25,7 @@ router.post("/forgot-password", forgotPasswordController);
 // test routes (just for testing)
 // if jsonwebtoken not sent along, then error so, restapi client key- authorization(in header not body) along with jsonwebtoken
 // before controller, you can add multiple middlewares (whatever needed)
+
 router.get("/test", requireSignIn, isAdmin, testController);
 
 // another protected route auth (user or normal user)
@@ -33,9 +35,12 @@ router.get("/user-auth", requireSignIn, (req, res) => {
 });
 
 // another protected route auth (admin or power user)
-// Poser User Auth || GET
+// Power User Auth || GET
 router.get("/admin-auth", requireSignIn, isAdmin, (req, res) => {
   res.status(200).send({ ok: true });
 });
+
+// update auth
+router.put("/profile", requireSignIn, updateProfileController);
 
 export default router;
