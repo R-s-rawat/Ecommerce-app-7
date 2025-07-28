@@ -27,7 +27,7 @@ export const useHomepageLogic = () => {
     }
   };
 
-  const getFilteredProducts = async ({
+ const getFilteredProducts = async ({
   checked,
   radio,
   page,
@@ -35,19 +35,32 @@ export const useHomepageLogic = () => {
   setProducts,
   setFilteredTotal,
   append = false,
+  setLoading,
+  setError,
 }) => {
-  setError(null);
-  setLoading(true);
+  const controller = new AbortController();
 
-  let finished = false;
+  const API =
+    process.env.NODE_ENV === "production"
+      ? process.env.REACT_APP_API
+      : "http://localhost:8080";
 
-  const delay = new Promise((resolve) => setTimeout(resolve, 60000)); // 1 minute
-  
-  const apiCall = axios
-    .post(`${API}/api/v1/product/product-filters`, {
-      checked,
-      radio,
-      page,
+  if (setLoading) setLoading(true);
+  if (setError) setError(false);
+
+  try {
+    const timeout = setTimeout(() => {
+      controller.abort();
+    }, 60000); // 1 minute
+
+    // let sortingObject = { createdAt: -1 };
+      // if (sortRef.current === "pricehightolow") sortingObject = { price: -1 };
+      // if (sortRef.current === "pricelowtohigh") sortingObject = { price: 1 };
+
+    const { data } = await axios.post(
+      `${API}/api/v1/product/filtered-products`,
+      { checked, radio, page, 
+      // // sort: sortRef.current 
       // let sortingObject = { createdAt: -1 };
       // if (sortRef.current === "pricehightolow") sortingObject = { price: -1 };
       // if (sortRef.current === "pricelowtohigh") sortingObject = { price: 1 };
@@ -55,41 +68,31 @@ export const useHomepageLogic = () => {
         sortRef.current === "pricehightolow"   ? { price: -1 }
           : sortRef.current === "pricelowtohigh" ? { price: 1 }
           : { createdAt: -1 },
-    })
-    .then(({ data }) => {
-      if (append) {
-        setProducts((prev) => [
-          ...prev,
-          ...(Array.isArray(data?.filteredProducts) ? data.filteredProducts : []),
-        ]);
-      } else {
-        setProducts(
-          Array.isArray(data?.filteredProducts) ? data.filteredProducts : []
-        );
-      }
+      },
+      { signal: controller.signal }
+    );
 
-      if (setFilteredTotal) {
-        setFilteredTotal(data?.filteredTotal || 0);
-      }
+    clearTimeout(timeout);
 
-      finished = true;
-    })
-    .catch((err) => {
-      console.error("Error fetching filtered products:", err);
-      setError("⚠️ Failed to load products. Please try again.");
-    });
+    if (append) {
+      setProducts((prev) => [...prev, ...data.products]);
+    } else {
+      setProducts(data.products);
+    }
 
-  // Wait for both API call and delay
-  await Promise.all([delay, apiCall]);
-
-  // Only turn off loading after delay + api finishes
-  setLoading(false);
-
-  // Optional: if nothing loaded, set error
-  if (!finished && products.length === 0) {
-    setError("⚠️ Failed to load products. Please try again.");
+    setFilteredTotal(data.total || 0);
+  } catch (err) {
+    if (err.name === "CanceledError" || err.code === "ERR_CANCELED") {
+      console.warn("⚠️ Product fetch aborted due to timeout.");
+    } else {
+      console.error("❌ Error fetching products:", err);
+      if (setError) setError(true);
+    }
+  } finally {
+    if (setLoading) setLoading(false);
   }
 };
+
 
 
   const handleCatFilter = (checkedValue, id, checked, setChecked) => {

@@ -3265,3 +3265,6 @@ Will ensures even if backend sends { category: null } or malformed response, it 
 
 // so, fact: for better dx and debugging, always ensure = Guarantee that your code will always return an array to the component, no matter what goes wrong.✍👈
 
+// Revision NOTE: If you're seeing CORS errors❌, the fix is 99% on the backend,, ---Frontend can't bypass CORS, because browsers enforce it at network level.
+
+// 
