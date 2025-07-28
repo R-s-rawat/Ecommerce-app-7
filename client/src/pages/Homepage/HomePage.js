@@ -145,11 +145,13 @@ const HomePage = () => {
                 const selected = e.target.value;
                 setSortPriceRadio(selected);
                 sortRef.current = selected;
+                // ✅ Reset page to 1
                 setPage(1);
                 getFilteredProducts({
                   checked,
                   radio,
-                  page,
+                  // ✅ Fetch fresh sorted products from page 1
+                  page: 1,
                   sortRef,
                   setProducts,
                   setFilteredTotal,
