@@ -203,8 +203,9 @@ export const updateProfileController = async(req,res) =>{
     const {name, email, password, address, phone} = req.body;
     // for getting previous data(data saved while during registration)
     const user = await userModel.findById(req.user._id);
-    //password (format for proper password), or alert user updating password..
-    if(! password && password.length <6){
+    //password (format for proper password), for alert user updating password wrongfully..
+    // not enforce password fill (not good for user experience, even not show in ui too..)
+    if( password && password.length <6){
       return res.json({error:'Password is required and 6 characters long'})
     }
     //password (if we get password, then hash it) - have if/else or ternary can work too..
@@ -214,7 +215,7 @@ export const updateProfileController = async(req,res) =>{
       // use conditions for check if we get form req.body after de-structuring then update(1st condition) else keep pre-existing using =  OR
       // so cross-check if changes then update or else keep previous..
       name: name || user.name,
-      password: password || user.password,
+      password: hashedPassword || user.password,
       phone: phone || user.phone,
       address: address || user.address,
     },{new:true})

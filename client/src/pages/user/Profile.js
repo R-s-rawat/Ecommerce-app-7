@@ -18,7 +18,7 @@ const Profile = () => {
   const [password, setPassword] = useState("");
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
-  const [answer, setAnswer] = useState("");
+  // const [answer, setAnswer] = useState("");
 
   // context
   const [auth, setAuth] = useAuth();
@@ -30,6 +30,9 @@ const Profile = () => {
     setPhone(phone);
     setEmail(email);
     setAddress(address);
+    setPassword(password);
+    //✅ This works only if auth?.user is always truthy.
+    //❗ If auth.user is null or still loading, destructuring will throw an error.
   }, [auth?.user]);
 
   // handle submit
@@ -37,7 +40,7 @@ const Profile = () => {
     e.preventDefault();
     try {
       // const res = await axios.post(`${API}/api/v1/auth/register`, {
-        const {data} = await axios.put(`${API}/api/v1/auth/profile`, {
+      const { data } = await axios.put(`${API}/api/v1/auth/profile`, {
         name,
         email,
         password,
@@ -46,16 +49,16 @@ const Profile = () => {
         //answer,
       });
       // check for errors then consume response
-      if(data?.error){
-        toast.error(data?.error)
-      }else{
-        setAuth({...auth, user:data?.updatedUser})//👈 context api will store user
+      if (data?.error) {
+        toast.error(data?.error);
+      } else {
+        setAuth({ ...auth, user: data?.updatedUser }); //👈 context api will store user
         //also store in LOCAL-STORAGE,, but firstly parse data, as we have two objects
-        let ls = localStorage.getItem('auth');
+        let ls = localStorage.getItem("auth");
         ls = JSON.parse(ls);
         ls.user = data.updatedUser;
-        localStorage.setItem("auth",JSON.stringify(ls))
-        toast.success('Profile udpated successfully')
+        localStorage.setItem("auth", JSON.stringify(ls));
+        toast.success("Profile udpated successfully");
       }
       // Now, if (true)
       // if (res && res.data.success) {
@@ -93,9 +96,7 @@ const Profile = () => {
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     className="form-control"
-                    id="exampleInputEmail1"
                     placeholder="Enter your Name"
-                    required
                   />
                 </div>
                 {/* for email */}
@@ -105,9 +106,7 @@ const Profile = () => {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     className="form-control"
-                    id="exampleInputPassword1"
                     placeholder="Enter your Email"
-                    required
                     disabled
                   />
                 </div>
@@ -118,21 +117,17 @@ const Profile = () => {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     className="form-control"
-                    id="exampleInputEmail1"
                     placeholder="Enter your Password"
-                    required
                   />
                 </div>
                 {/* for phone number */}
                 <div className="mb-3">
                   <input
-                    type="text"
+                    type="numeric"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
                     className="form-control"
-                    id="exampleInputEmail1"
                     placeholder="Enter your Phone"
-                    required
                   />
                 </div>
                 {/* for address */}
@@ -142,21 +137,9 @@ const Profile = () => {
                     value={address}
                     onChange={(e) => setAddress(e.target.value)}
                     className="form-control"
-                    id="exampleInputEmail1"
                     placeholder="Enter your Address"
-                    required
                   />
                 </div>
-                {/* <div className="mb-3 form-check">
-            <input
-              type="checkbox"
-              className="form-check-input"
-              id="exampleCheck1"
-            />
-            <label className="form-check-label" htmlFor="exampleCheck1">
-              Check me out
-            </label>
-          </div> */}
                 <button type="submit" className="btn btn-primary">
                   UPDATE
                 </button>

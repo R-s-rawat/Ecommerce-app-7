@@ -22,7 +22,8 @@ const userSchema = new mongoose.Schema(
       required: true,
     },
     address: {
-      type: String,
+      // if we will use textarea then type:string not save multi lines string
+      type: {},
       required: true,
     },
     answer: {

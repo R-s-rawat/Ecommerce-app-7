@@ -3116,4 +3116,52 @@ it is also different what we get - json PAYLOAD in RESPONSE,, (return res.json({
 // ensure to remove required (which is necessary only registration time) ///////////////    
 /////////////////////////////////////////////////////////////////////////////////////////////
 
+// ❗ HTML5 spec says disabled inputs are excluded from form submission
+
+// ✅ Maked password optional. Sending it to backend only (if filled).
+
+// Maked every input fields optional. Send only (if filled).
+
+// 🔥🔥NOTE🔥🔥: type:String && type:{} for models..
+
+// | Scenario                                          | Use `String`   | Use `Object` |
+| ---------------------------------------------------- | ------------   | ------------ |
+| Just display/save raw address from textarea          | ✅            | ❌            |
+| Want structured, queryable, validated data           | ❌            | ✅            |
+| Admin fills minimal data manually                    | ✅            | ❌            |
+| You expect long-term growth or international support | ❌            | ✅            |
+
+// But if address is used as type:{} -object then, schema will have sub-schema
+✅ We are using Mongoose schema like this:
+const userSchema = new mongoose.Schema({
+  name: String,
+  email: String,
+  // ...
+});
+
+This defines a Mongoose Schema, which maps to a MongoDB collection (users in this case).
+
+🧠 What's a Sub-Schema?
+A sub-schema is just a nested schema inside another schema.
+
+const userSchema = new mongoose.Schema({
+  name: { type: String, required: true },
+  // other fields...
+  address: { type: addressSchema, required: true },
+});
+
+// so, for now - just for learning purposes, and memory, using object without any nested one
+address: {
+  type: Object, // or just {}
+  required: true,
+}
+
+// Now update working properly, Profile.js is working as intended..
+_______________________________________________________________________________
+
+______________________________________________________________________________
+// Now the checkout functionality...
+
+
+
 
