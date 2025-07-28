@@ -3162,6 +3162,54 @@ _______________________________________________________________________________
 ______________________________________________________________________________
 // Now the checkout functionality...
 
+so, we already have - in cart page -- if true(show -update address,along with current), else/,, the thing of importance is that ''update address is general'' one, but the ''please login to checkout'' is difference in context as we are also passing state..
+ {auth?.user?.address ? () : ()}
+
+// so, if we not get, show the "please login" button instead of "update address"
+ navigate("/login", {
+        state: "/cart",
+
+// the state will redirect from where user comes (i.e cart page -> login -> cart page)⚡
+______________________________________________________________________________
+
+______________________________________________________________________________
+// NOTE: For testing, devs should use a password everywhere to get rid of memorizig, eg. 1234
+
+// Now, for the checkout, we will integrate payment gateway...
+
+// for payment gateway, we will integrate(brain tree(which also provides paypal support by default))... and we can do transactions from any debit/credit card...
+
+// we will use dummy paypal (provided by braintree), not original paypal a/c..
+
+// or if little paypal hands on.. then paypal developer a/c...
+______________________________________________________________________________
+
+
+______________________________________________________________________________
+🔥Add keys to the .env 
+// install braintree(package) in our node server...
+
+// so, if both frontend & backend in same folder, then install braintree in root...
+
+// along with braintree, install braintree(package) - Braintree web drop-in-react (for prebuilt UI)
+
+// so then, in backend - we will first create a gateway... in logical controllers(eg. product controller - with prices tag)
+
+// then add, route for that gateway(payment gateway)... (so, routes of payment) will take token.. and link the route to a (controller for token logic - along the product sub-controllers)...
+
+// Note:🔥🔥 payment gateway api will have 2 parts.. (2 controller in productController)...
+
+// then second(and last controller) for payments( 1st being token)
+
+// and 2nd route for that payment controller (sub- product - controller)..
+______________________________________________________________________________
+
+______________________________________________________________________________
+// For the controllers(token and payment), we will await for (orderModel),,,
+
+// The built in braintree Ui - (the package), that will save (1 hour or maybe) more of manual braintree ui development, and works great with braintree..
+
+
 
 
 
