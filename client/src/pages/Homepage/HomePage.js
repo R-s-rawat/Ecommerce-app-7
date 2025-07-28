@@ -87,7 +87,7 @@ const HomePage = () => {
   <div className="text-center my-3 text-muted">No categories found.</div>
 ) : (
   <div className="d-flex flex-column">
-    {categories.map((c) => (
+    {categories?.map((c) => (
       <Checkbox
         key={c._id}
         onChange={(e) =>
@@ -182,7 +182,7 @@ const HomePage = () => {
             </div>
           ) : (
             <div className="d-flex flex-wrap">
-              {products.map((p) => (
+              {products?.map((p) => (
                 <div key={p._id} className="card m-2 product-card">
                   <img
                     src={`${API}/api/v1/product/product-photo/${p._id}`}
