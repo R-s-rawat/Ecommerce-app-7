@@ -83,7 +83,7 @@ const HomePage = () => {
   <div className="text-center my-3 text-secondary">Loading categories...</div>
 ) : categoryError ? (
   <div className="text-danger text-center my-3">{categoryError}</div>
-) : categories.length === 0 ? (
+) : categories?.length === 0 ? (
   <div className="text-center my-3 text-muted">No categories found.</div>
 ) : (
   <div className="d-flex flex-column">
@@ -168,7 +168,7 @@ const HomePage = () => {
                 <span className="visually-hidden">Loading...</span>
               </div>
             </div>
-          ) : error && products.length === 0 ? (
+          ) : error && products?.length === 0 ? (
             <div className="text-center my-5">
               <p className="text-danger">
                 ⚠️ Failed to load products. Please try again.
@@ -220,9 +220,9 @@ const HomePage = () => {
             </div>
           )}
 
-          {(checked.length || radio.length
-            ? products.length < filteredTotal
-            : products.length < total) && (
+          {(checked?.length || radio?.length
+            ? products?.length < filteredTotal
+            : products?.length < total) && (
             <div className="text-center my-3">
               <button className="btn btn-warning" onClick={loadMore}>
                 {loading ? "Loading..." : "Load More"}
