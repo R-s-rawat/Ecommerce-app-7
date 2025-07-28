@@ -79,28 +79,36 @@ const HomePage = () => {
         <div className="col-md-2">
           {/* filter by category begins */}
           <h4 className="text-center">Filter by Category</h4>
-{loadingCategories ? (
-  <div className="text-center my-3 text-secondary">Loading categories...</div>
-) : categoryError ? (
-  <div className="text-danger text-center my-3">{categoryError}</div>
-) : categories?.length === 0 ? (
-  <div className="text-center my-3 text-muted">No categories found.</div>
-) : (
-  <div className="d-flex flex-column">
-    {categories?.map((c) => (
-      <Checkbox
-        key={c._id}
-        onChange={(e) =>
-          handleCatFilter(e.target.checked, c._id, checked, setChecked)
-        }
-        checked={checked.includes(c._id)}
-      >
-        {c.name}
-      </Checkbox>
-    ))}
-  </div>
-)}
-
+          {loadingCategories ? (
+            <div className="text-center my-3 text-secondary">
+              Loading categories...
+            </div>
+          ) : categoryError ? (
+            <div className="text-danger text-center my-3">{categoryError}</div>
+          ) : categories?.length === 0 ? (
+            <div className="text-center my-3 text-muted">
+              No categories found.
+            </div>
+          ) : (
+            <div className="d-flex flex-column">
+              {categories?.map((c) => (
+                <Checkbox
+                  key={c._id}
+                  onChange={(e) =>
+                    handleCatFilter(
+                      e.target.checked,
+                      c._id,
+                      checked,
+                      setChecked
+                    )
+                  }
+                  checked={checked.includes(c._id)}
+                >
+                  {c.name}
+                </Checkbox>
+              ))}
+            </div>
+          )}
 
           {/* filter by price begins */}
           <h4 className="text-center mt-4">Filter by Price</h4>
@@ -141,7 +149,7 @@ const HomePage = () => {
                 getFilteredProducts({
                   checked,
                   radio,
-                  page: 1,
+                  page,
                   sortRef,
                   setProducts,
                   setFilteredTotal,
