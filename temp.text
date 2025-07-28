@@ -2363,7 +2363,12 @@ If you're loading page > 1   → append (append: true)💀💀
 
       setLoading(true);
       const { data } = await axios.post( `${API}/api/v1/product/product-filters`,
-        {  checked, radio, page, sortingObject, }
+        {  checked, radio, page,
+      //  sortingObject: // the direct way within the network call, no new-var/ variable 🔥
+      //  sortRef.current === "pricehightolow"   ? { price: -1 }
+      //  : sortRef.current === "pricelowtohigh" ? { price: 1 }
+      //  : { createdAt: -1 },
+          sortingObject, }
       );
 
       if (append) {
@@ -3209,7 +3214,54 @@ ______________________________________________________________________________
 
 // The built in braintree Ui - (the package), that will save (1 hour or maybe) more of manual braintree ui development, and works great with braintree..
 
+//firstly, having spinner ✅ Better UX = Spinner + Timeout + Error Message
+// HomePage showing products — spinner + error + better fallback UX
+// & also 1-minute timeout-based error fallback for category loading (🔄 Show Loading... for up to 1 minute → ✅ If API responds → show categories,, ❌ If it doesn’t → show Failed to load categories.)
 
+// so the results if(categories is fetched along with fallbacks(just like for products))
+✅ Result
+Time Passed ||	Backend Response	  || UI Behavior
+0–60 sec    ||	✅ Responded	      ||Shows checkboxes
+> 60 sec    ||	❌ No response	    ||Shows error: ⚠️ Failed to load categories
+< 60 sec	  ||  ❌ Error (404,..)  ||	Shows same error message
 
+// we used the abort controller (for better fallback_)
+| Feature                    | With AbortController | Without AbortController               |
+| -------------------------- | -------------------- | ----------------------------------    |
+| Cancel request after 1 min | ✅ Yes                | ❌ No                               |
+| Avoid memory leaks         | ✅ Yes                | ❌ Risky                            |
+| Avoid race conditions      | ✅ Yes                | ❌ Possible                         |
+| Required?                  | ❌ No                 | ❌ No                               |
+| Recommended?               | ✅ Yes                | 🤔 Only if you want basic fallback  |
 
+// Revision NOTE: import { useHomepageLogic } from "./HomepageLogic"; // ⛔ This assumes named export
+// i.e. export default function useHomepageLogic() {} // ⛔ If default, then import without curly braces!
+
+// UI enforcement - great dev strategy.. (for ✅ Data Normalization or Data Sanitization)
+(for eg. Type enforcement — making sure the data is always an array before using it.)
+🔍 Why it's important:
+
+    Avoid runtime crashes (like .map is not a function)
+    Ensure predictable rendering — your UI components expect certain types
+    Make your components resilient — even if the API returns bad, null, or incomplete data
+    Improve dev experience — avoids confusing error logs and bugs
+
+// above, type-safe/fail-safe/fallback to array(if invalid)/defaulting to empty state - is good! (guard against RESPONSES not being an array.)
+
+// good for dx(developer experience too)..
+✅ No crash if categories is null, undefined, or an object
+✅ Shows fallback message when list is empty
+✅ Renders only when it's safe to call .map()
+✅ Makes debugging way easier — you always know what will render
+
+// e.g in our hook.. the custom hook( useCategory)
+Changing:
+setCategories(data?.category || []);
+
+To this (safer):
+setCategories(Array.isArray(data?.category) ? data.category : []);
+
+Will ensures even if backend sends { category: null } or malformed response, it still results in an array.
+
+// so, fact: for better dx and debugging, always ensure = Guarantee that your code will always return an array to the component, no matter what goes wrong.✍👈
 

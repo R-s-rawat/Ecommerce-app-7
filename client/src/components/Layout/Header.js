@@ -11,7 +11,9 @@ const Header = () => {
   const [auth, setAuth] = useAuth();
 
   //extract categories state
-  const categories = useCategory();
+  // const categories = useCategory();
+  const { categories, loadingCategories, categoryError } = useCategory(); 
+
 
   // show cart, useCart hook (providers data should show), so only destructure cart state's context(the getter)
   const [cart] = useCart();

@@ -8,24 +8,15 @@ export const useHomepageLogic = () => {
       : "http://localhost:8080";
 
   const [products, setProducts] = useState([]);
-  // const [categories, setCategories] = useState([]);
   const [checked, setChecked] = useState([]);
   const [radio, setRadio] = useState([]);
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState(0);
   const [filteredTotal, setFilteredTotal] = useState(0);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null); // ✅ for errors
   const [sortPriceRadio, setSortPriceRadio] = useState("newestfirst");
   const sortRef = useRef("newestfirst");
-
-  // const getAllCategories = async (setCategories) => {
-  //   try {
-  //     const { data } = await axios.get(`${API}/api/v1/category/get-category`);
-  //     setCategories(data?.category || []);
-  //   } catch (err) {
-  //     console.error("Error loading categories:", err);
-  //   }
-  // };
 
   const getTotalCreatedProductsCount = async (setTotal) => {
     try {
@@ -37,44 +28,41 @@ export const useHomepageLogic = () => {
   };
 
   const getFilteredProducts = async ({
-    checked,
-    radio,
-    page,
-    sortRef,
-    setProducts,
-    setFilteredTotal,
-    append = false,
-  }) => {
-    try {
-      let sortingObject = { createdAt: -1 };
-      if (sortRef.current === "pricehightolow") sortingObject = { price: -1 };
-      if (sortRef.current === "pricelowtohigh") sortingObject = { price: 1 };
+  checked,
+  radio,
+  page,
+  sortRef,
+  setProducts,
+  setFilteredTotal,
+  append = false,
+}) => {
+  setError(null);
+  setLoading(true);
 
-      setLoading(true);
-      const { data } = await axios.post(
-        `${API}/api/v1/product/product-filters`,
-        {
-          checked,
-          radio,
-          page,
-          sortingObject,
-        }
-      );
+  let finished = false;
 
-      // if (append) {
-      //   setProducts((prev) => [...prev, ...data?.products]);
-      // } else {
-      //   setProducts(data?.products || []);
-      // }
-
+  const delay = new Promise((resolve) => setTimeout(resolve, 60000)); // 1 minute
+  
+  const apiCall = axios
+    .post(`${API}/api/v1/product/product-filters`, {
+      checked,
+      radio,
+      page,
+      // let sortingObject = { createdAt: -1 };
+      // if (sortRef.current === "pricehightolow") sortingObject = { price: -1 };
+      // if (sortRef.current === "pricelowtohigh") sortingObject = { price: 1 };
+      sortingObject:
+        sortRef.current === "pricehightolow"   ? { price: -1 }
+          : sortRef.current === "pricelowtohigh" ? { price: 1 }
+          : { createdAt: -1 },
+    })
+    .then(({ data }) => {
       if (append) {
-        console.log("Append:", append); // If append = true (correct) && // Load more → Add to old list
-        const newProducts = Array.isArray(data?.filteredProducts)
-          ? data.filteredProducts
-          : [];
-        setProducts((prev) => [...prev, ...newProducts]);
+        setProducts((prev) => [
+          ...prev,
+          ...(Array.isArray(data?.filteredProducts) ? data.filteredProducts : []),
+        ]);
       } else {
-        console.log("Append:", append); // If append = false (correct) && // Filters/sort changed → New list
         setProducts(
           Array.isArray(data?.filteredProducts) ? data.filteredProducts : []
         );
@@ -83,12 +71,26 @@ export const useHomepageLogic = () => {
       if (setFilteredTotal) {
         setFilteredTotal(data?.filteredTotal || 0);
       }
-      setLoading(false);
-    } catch (err) {
+
+      finished = true;
+    })
+    .catch((err) => {
       console.error("Error fetching filtered products:", err);
-      setLoading(false);
-    }
-  };
+      setError("⚠️ Failed to load products. Please try again.");
+    });
+
+  // Wait for both API call and delay
+  await Promise.all([delay, apiCall]);
+
+  // Only turn off loading after delay + api finishes
+  setLoading(false);
+
+  // Optional: if nothing loaded, set error
+  if (!finished && products.length === 0) {
+    setError("⚠️ Failed to load products. Please try again.");
+  }
+};
+
 
   const handleCatFilter = (checkedValue, id, checked, setChecked) => {
     const updated = checkedValue
@@ -108,16 +110,15 @@ export const useHomepageLogic = () => {
 
   return {
     products,
-    // categories,
     checked,
     radio,
     page,
     total,
     loading,
+    error, // ✅ for errors
     filteredTotal,
     sortPriceRadio,
     sortRef,
-    // setCategories,
     setChecked,
     setRadio,
     setPage,
@@ -127,9 +128,9 @@ export const useHomepageLogic = () => {
     handleCatFilter,
     loadMore,
     resetSort,
-    // getAllCategories,
     getTotalCreatedProductsCount,
     getFilteredProducts,
     setTotal,
+    setError
   };
 };

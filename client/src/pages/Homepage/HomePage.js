@@ -21,25 +21,20 @@ const HomePage = () => {
       : "http://localhost:8080";
 
   const navigate = useNavigate();
-
-  //extract categories state
-  const categories = useCategory();
-
-  // getters, setters (implement cart provider)
+  const { categories, loadingCategories, categoryError } = useCategory();
   const [cart, setCart] = useCart();
 
   const {
     products,
-    // categories,
     checked,
     radio,
     page,
     total,
     loading,
+    error,
     filteredTotal,
     sortPriceRadio,
     sortRef,
-    // setCategories,
     setChecked,
     setRadio,
     setPage,
@@ -49,42 +44,15 @@ const HomePage = () => {
     handleCatFilter,
     loadMore,
     resetSort,
-    // getAllCategories,
     getTotalCreatedProductsCount,
     getFilteredProducts,
     setTotal,
+    setError,
   } = useHomepageLogic();
 
   useEffect(() => {
-    // getAllCategories(setCategories);
     getTotalCreatedProductsCount(setTotal);
   }, []);
-
-  //   useEffect(() => {
-  //   const isInitialLoad = page === 1 && !checked.length && !radio.length; //it's ought to be false, as dependencies changed
-  //   getFilteredProducts({
-  //     checked,
-  //     radio,
-  //     page,
-  //     sortRef,
-  //     setProducts,
-  //     setFilteredTotal,
-  //     append: !isInitialLoad, // Append if it's not first load (append to the product list, not overwrite. i.e !isInitalLoad='T')
-  //   });
-  // }, [checked, radio, page]);
-
-  // useEffect(() => {
-  //   const append = page !== 1; // Append only when page > 1 ("Load More") 👌
-  //   getFilteredProducts({
-  //     checked,
-  //     radio,
-  //     page,
-  //     sortRef,
-  //     setProducts,
-  //     setFilteredTotal,
-  //     append,
-  //   });
-  // }, [checked, radio, page]);
 
   // 🟢 Trigger fresh fetch on checked or radio change
   useEffect(() => {
@@ -105,50 +73,36 @@ const HomePage = () => {
     });
   }, [page, checked, radio]);
 
-  // // useEffect(() => {
-  // //   if (page === 1) return;
-  // //   getFilteredProducts({
-  // //     checked,
-  // //     radio,
-  // //     page,
-  // //     sortRef,
-  // //     setProducts,
-  // //     append: true,
-  // //   });
-  // // }, [page]);
-
-  // /* a multi line comment */
-
-  // // useEffect(() => {
-  // //   getFilteredProducts({
-  // //     checked,
-  // //     radio,
-  // //     page: 1,
-  // //     sortRef,
-  // //     setProducts,
-  // //     setFilteredTotal,
-  // //   });
-  // // }, [checked, radio]);
-
   return (
     <Layout title="Home - Ecommerce">
       <div className="row mt-3">
         <div className="col-md-2">
+          {/* filter by category begins */}
           <h4 className="text-center">Filter by Category</h4>
-          <div className="d-flex flex-column">
-            {categories.map((c) => (
-              <Checkbox
-                key={c._id}
-                onChange={(e) =>
-                  handleCatFilter(e.target.checked, c._id, checked, setChecked)
-                }
-                checked={checked.includes(c._id)}
-              >
-                {c.name}
-              </Checkbox>
-            ))}
-          </div>
+{loadingCategories ? (
+  <div className="text-center my-3 text-secondary">Loading categories...</div>
+) : categoryError ? (
+  <div className="text-danger text-center my-3">{categoryError}</div>
+) : categories.length === 0 ? (
+  <div className="text-center my-3 text-muted">No categories found.</div>
+) : (
+  <div className="d-flex flex-column">
+    {categories.map((c) => (
+      <Checkbox
+        key={c._id}
+        onChange={(e) =>
+          handleCatFilter(e.target.checked, c._id, checked, setChecked)
+        }
+        checked={checked.includes(c._id)}
+      >
+        {c.name}
+      </Checkbox>
+    ))}
+  </div>
+)}
 
+
+          {/* filter by price begins */}
           <h4 className="text-center mt-4">Filter by Price</h4>
           <Radio.Group onChange={(e) => setRadio(e.target.value)} value={radio}>
             {Prices.map((p) => (
@@ -183,10 +137,8 @@ const HomePage = () => {
                 const selected = e.target.value;
                 setSortPriceRadio(selected);
                 sortRef.current = selected;
-                // ✅ Reset page to 1
                 setPage(1);
                 getFilteredProducts({
-                  // ✅ Fetch fresh sorted products from page 1
                   checked,
                   radio,
                   page: 1,
@@ -205,7 +157,8 @@ const HomePage = () => {
           </div>
 
           <h1 className="text-center">All Products</h1>
-          {loading && page === 1 && (
+
+          {loading && page === 1 ? (
             <div className="d-flex justify-content-center align-items-center my-5 w-100">
               <div
                 className="spinner-border text-primary"
@@ -215,51 +168,58 @@ const HomePage = () => {
                 <span className="visually-hidden">Loading...</span>
               </div>
             </div>
+          ) : error && products.length === 0 ? (
+            <div className="text-center my-5">
+              <p className="text-danger">
+                ⚠️ Failed to load products. Please try again.
+              </p>
+              {/* <button className="btn btn-outline-primary" onClick={() => {
+                setError(false);
+                setPage(1);
+              }}>
+                Retry
+              </button> */}
+            </div>
+          ) : (
+            <div className="d-flex flex-wrap">
+              {products.map((p) => (
+                <div key={p._id} className="card m-2 product-card">
+                  <img
+                    src={`${API}/api/v1/product/product-photo/${p._id}`}
+                    className="card-img-top product-img"
+                    alt={p.name}
+                  />
+                  <div className="card-body">
+                    <h5 className="card-title">{p.name}</h5>
+                    <p className="card-text">
+                      {p.description.substring(0, 30)}...
+                    </p>
+                    <p className="card-text">$ {p.price}</p>
+                    <button
+                      className="btn btn-primary ms-1"
+                      onClick={() => navigate(`/product/${p.slug}`)}
+                    >
+                      More Details
+                    </button>
+                    <button
+                      className="btn btn-secondary ms-1"
+                      onClick={() => {
+                        setCart([...cart, p]);
+                        toast.success("Item added to cart");
+                        localStorage.setItem(
+                          "cart",
+                          JSON.stringify([...cart, p])
+                        );
+                      }}
+                    >
+                      ADD TO CART
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
           )}
 
-          <div className="d-flex flex-wrap">
-            {products.map((p) => (
-              <div
-                key={p._id}
-                className="card m-2 product-card"
-                // onClick={() => navigate(`/product/${p.slug}`)}
-              >
-                <img
-                  src={`${API}/api/v1/product/product-photo/${p._id}`}
-                  className="card-img-top product-img"
-                  alt={p.name}
-                />
-                <div className="card-body">
-                  <h5 className="card-title">{p.name}</h5>
-                  <p className="card-text">
-                    {p.description.substring(0, 30)}...
-                  </p>
-                  <p className="card-text">$ {p.price}</p>
-                  <button
-                    className="btn btn-primary ms-1"
-                    onClick={() => navigate(`/product/${p.slug}`)}
-                  >
-                    More Details
-                  </button>
-                  <button
-                    className="btn btn-secondary ms-1"
-                    // cart is array in the provider, so 1st keep the value of carts as it is(spread), then add whatever data in p to that cart
-                    onClick={() => {
-                      setCart([...cart, p]);
-                      toast.success("Item added to cart");
-                      localStorage.setItem(
-                        "cart",
-                        JSON.stringify([...cart, p])
-                      );
-                    }}
-                  >
-                    ADD TO CART
-                  </button>
-                </div>
-              </div>
-            ))}
-          </div>
-          {/* {console.log(filteredTotal)} */}
           {(checked.length || radio.length
             ? products.length < filteredTotal
             : products.length < total) && (
