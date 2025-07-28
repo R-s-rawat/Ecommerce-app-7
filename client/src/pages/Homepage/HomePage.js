@@ -205,6 +205,18 @@ const HomePage = () => {
           </div>
 
           <h1 className="text-center">All Products</h1>
+          {loading && page === 1 && (
+            <div className="d-flex justify-content-center align-items-center my-5 w-100">
+              <div
+                className="spinner-border text-primary"
+                role="status"
+                style={{ width: "3rem", height: "3rem" }}
+              >
+                <span className="visually-hidden">Loading...</span>
+              </div>
+            </div>
+          )}
+
           <div className="d-flex flex-wrap">
             {products.map((p) => (
               <div
@@ -235,7 +247,10 @@ const HomePage = () => {
                     onClick={() => {
                       setCart([...cart, p]);
                       toast.success("Item added to cart");
-                      localStorage.setItem( "cart", JSON.stringify([...cart, p]));
+                      localStorage.setItem(
+                        "cart",
+                        JSON.stringify([...cart, p])
+                      );
                     }}
                   >
                     ADD TO CART
