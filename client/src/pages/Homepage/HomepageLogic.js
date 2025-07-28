@@ -39,6 +39,8 @@ export const useHomepageLogic = () => {
   const controller = new AbortController();
   const signal = controller.signal;
 
+    //  console.log('running')
+
   const API =
     process.env.NODE_ENV === "production"
       ? process.env.REACT_APP_API
@@ -74,11 +76,11 @@ export const useHomepageLogic = () => {
     clearTimeout(timeout);
 
     if (append) {
-      setProducts((prev) => [...prev, ...data.products]);
+      setProducts((prev) => [...prev, ...data.filteredProducts]);
     } else {
-      setProducts(data.products);
+      setProducts(data.filteredProducts);
     }
-    setFilteredTotal(data.total);
+    setFilteredTotal(data.filteredProducts);
   } catch (err) {
     if (err.name === "CanceledError") {
       console.warn("❌ Product fetch aborted due to timeout");
