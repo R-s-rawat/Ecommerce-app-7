@@ -27,7 +27,7 @@ export const useHomepageLogic = () => {
     }
   };
 
- const getFilteredProducts = async ({
+  const getFilteredProducts = async ({
   checked,
   radio,
   page,
@@ -35,41 +35,40 @@ export const useHomepageLogic = () => {
   setProducts,
   setFilteredTotal,
   append = false,
-  setLoading,
-  setError,
 }) => {
   const controller = new AbortController();
+  const signal = controller.signal;
 
   const API =
     process.env.NODE_ENV === "production"
       ? process.env.REACT_APP_API
       : "http://localhost:8080";
 
-  if (setLoading) setLoading(true);
-  if (setError) setError(false);
-
   try {
+    setLoading(true);
+    setError(false);
+
+    // 🕒 Setup 1-minute timeout
     const timeout = setTimeout(() => {
       controller.abort();
-    }, 60000); // 1 minute
-
-    // let sortingObject = { createdAt: -1 };
-      // if (sortRef.current === "pricehightolow") sortingObject = { price: -1 };
-      // if (sortRef.current === "pricelowtohigh") sortingObject = { price: 1 };
+    }, 60000);
 
     const { data } = await axios.post(
-      `${API}/api/v1/product/filtered-products`,
-      { checked, radio, page, 
-      // // sort: sortRef.current 
-      // let sortingObject = { createdAt: -1 };
+      `${API}/api/v1/product/product-filters`,
+      {
+        checked,
+        radio,
+        page,
+        // sortBy: sortRef.current || "newestfirst",
+         // let sortingObject = { createdAt: -1 };
       // if (sortRef.current === "pricehightolow") sortingObject = { price: -1 };
       // if (sortRef.current === "pricelowtohigh") sortingObject = { price: 1 };
       sortingObject:
         sortRef.current === "pricehightolow"   ? { price: -1 }
           : sortRef.current === "pricelowtohigh" ? { price: 1 }
-          : { createdAt: -1 },
+          : { createdAt: -1 }
       },
-      { signal: controller.signal }
+      { signal }
     );
 
     clearTimeout(timeout);
@@ -79,20 +78,18 @@ export const useHomepageLogic = () => {
     } else {
       setProducts(data.products);
     }
-
-    setFilteredTotal(data.total || 0);
+    setFilteredTotal(data.total);
   } catch (err) {
-    if (err.name === "CanceledError" || err.code === "ERR_CANCELED") {
-      console.warn("⚠️ Product fetch aborted due to timeout.");
+    if (err.name === "CanceledError") {
+      console.warn("❌ Product fetch aborted due to timeout");
     } else {
       console.error("❌ Error fetching products:", err);
-      if (setError) setError(true);
     }
+    setError(true);
   } finally {
-    if (setLoading) setLoading(false);
+    setLoading(false);
   }
 };
-
 
 
   const handleCatFilter = (checkedValue, id, checked, setChecked) => {
