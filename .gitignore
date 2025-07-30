@@ -1,5 +1,21 @@
 # no secret keys
-.env 
+# ENV files
+.env
+.env.local
+.env.development
+.env.production
+
+# Covers all variants
+.env.* 
+
+client/.env
+client/.env.local
+# if you're using Create React App or Vite frontend
+client/.env.*  
+
+server/.env
+server/.env.local
+server/.env.*
 
 # Logs
 logs
