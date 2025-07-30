@@ -3346,6 +3346,8 @@ and install braintree packages (for frontend consumption)
 so, npm i braintree
 and npm i braintree-web-drop-in-react(This is a React component that wraps braintree-web-drop-in)
 
+// remove .env(secret keys files if git done)
+git rm --cached .env (for backend, that's in our root)
+git rm --cached client/src/.env 
 
-
-
+/// now have the braintree functioality...
