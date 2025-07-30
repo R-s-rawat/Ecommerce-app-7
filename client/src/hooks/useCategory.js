@@ -15,9 +15,7 @@ export default function useCategory() {
         : "http://localhost:8080";
 
     const getCategories = async () => {
-      
       const timeoutPromise = new Promise((_, reject) => {
-
         setTimeout(() => {
           reject(new Error("Request timed out after 60 seconds"));
         }, 60000);
@@ -27,6 +25,10 @@ export default function useCategory() {
         const response = await Promise.race([
           axios.get(`${API}/api/v1/category/get-category`, {
             signal: controller.signal,
+            withCredentials: true,
+            headers: {
+              "Content-Type": "application/json",
+            },
           }),
           timeoutPromise,
         ]);
@@ -48,9 +50,7 @@ export default function useCategory() {
           error.message.includes("Network") ||
           error.message.includes("CORS")
         ) {
-          setCategoryError(
-            "⚠️ Network or CORS issue. Please check server."
-          );
+          setCategoryError("⚠️ Network or CORS issue. Please check server.");
         } else {
           console.error("Error fetching categories:", error);
           setCategoryError("⚠️ Failed to load categories.");

@@ -28,71 +28,78 @@ export const useHomepageLogic = () => {
   };
 
   const getFilteredProducts = async ({
-  checked,
-  radio,
-  page,
-  sortRef,
-  setProducts,
-  setFilteredTotal,
-  append = false,
-}) => {
-  const controller = new AbortController();
-  const signal = controller.signal;
+    checked,
+    radio,
+    page,
+    sortRef,
+    setProducts,
+    setFilteredTotal,
+    append = false,
+  }) => {
+    const controller = new AbortController();
+    const signal = controller.signal;
 
     //  console.log('running')
 
-  const API =
-    process.env.NODE_ENV === "production"
-      ? process.env.REACT_APP_API
-      : "http://localhost:8080";
+    const API =
+      process.env.NODE_ENV === "production"
+        ? process.env.REACT_APP_API
+        : "http://localhost:8080";
 
-  try {
-    setLoading(true);
-    setError(false);
+    try {
+      setLoading(true);
+      setError(false);
 
-    // 🕒 Setup 1-minute timeout
-    const timeout = setTimeout(() => {
-      controller.abort();
-    }, 60000);
+      // 🕒 Setup 1-minute timeout
+      const timeout = setTimeout(() => {
+        controller.abort();
+      }, 60000);
 
-    const { data } = await axios.post(
-      `${API}/api/v1/product/product-filters`,
-      {
-        checked,
-        radio,
-        page,
-        // sortBy: sortRef.current || "newestfirst",
-         // let sortingObject = { createdAt: -1 };
-      // if (sortRef.current === "pricehightolow") sortingObject = { price: -1 };
-      // if (sortRef.current === "pricelowtohigh") sortingObject = { price: 1 };
-      sortingObject:
-        sortRef.current === "pricehightolow"   ? { price: -1 }
-          : sortRef.current === "pricelowtohigh" ? { price: 1 }
-          : { createdAt: -1 }
-      },
-      { signal }
-    );
+      const { data } = await axios.post(
+        `${API}/api/v1/product/product-filters`,
+        {
+          checked,
+          radio,
+          page,
+          // sortBy: sortRef.current || "newestfirst",
+          // let sortingObject = { createdAt: -1 };
+          // if (sortRef.current === "pricehightolow") sortingObject = { price: -1 };
+          // if (sortRef.current === "pricelowtohigh") sortingObject = { price: 1 };
+          sortingObject:
+            sortRef.current === "pricehightolow"
+              ? { price: -1 }
+              : sortRef.current === "pricelowtohigh"
+              ? { price: 1 }
+              : { createdAt: -1 },
+        },
+        {
+          signal,
+          withCredentials: true, // only if backend sends cookies or sessions
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
-    clearTimeout(timeout);
+      clearTimeout(timeout);
 
-    if (append) {
-      setProducts((prev) => [...prev, ...data.filteredProducts]);
-    } else {
-      setProducts(data.filteredProducts);
+      if (append) {
+        setProducts((prev) => [...prev, ...data.filteredProducts]);
+      } else {
+        setProducts(data.filteredProducts);
+      }
+      setFilteredTotal(data.filteredProducts);
+    } catch (err) {
+      if (err.name === "CanceledError") {
+        console.warn("❌ Product fetch aborted due to timeout");
+      } else {
+        console.error("❌ Error fetching products:", err);
+      }
+      setError(true);
+    } finally {
+      setLoading(false);
     }
-    setFilteredTotal(data.filteredProducts);
-  } catch (err) {
-    if (err.name === "CanceledError") {
-      console.warn("❌ Product fetch aborted due to timeout");
-    } else {
-      console.error("❌ Error fetching products:", err);
-    }
-    setError(true);
-  } finally {
-    setLoading(false);
-  }
-};
-
+  };
 
   const handleCatFilter = (checkedValue, id, checked, setChecked) => {
     const updated = checkedValue
@@ -133,6 +140,6 @@ export const useHomepageLogic = () => {
     getTotalCreatedProductsCount,
     getFilteredProducts,
     setTotal,
-    setError
+    setError,
   };
 };

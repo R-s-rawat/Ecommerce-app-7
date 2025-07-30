@@ -2,10 +2,11 @@ import React, { useState, useEffect } from "react";
 import Layout from "../components/Layout/Layout";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
+import { useCart } from "../context/cart";
+import toast from "react-hot-toast";
 
 const ProductDetails = () => {
-
-     const API =
+  const API =
     process.env.NODE_ENV === "production"
       ? process.env.REACT_APP_API
       : "http://localhost:8080";
@@ -14,6 +15,7 @@ const ProductDetails = () => {
   const navigate = useNavigate();
   const [product, setProduct] = useState({});
   const [relatedProducts, setRelatedProducts] = useState([]);
+  const [cart, setCart] = useCart();
 
   //inital p details
   useEffect(() => {
@@ -66,7 +68,7 @@ const ProductDetails = () => {
       </div>
       <hr />
       <div className="row container">
-        <h6>Similar Products</h6>
+        <h6>Related Products in category</h6>
         {relatedProducts.length < 1 && (
           <p className="text-center">No Similar Products found</p>
         )}
@@ -88,7 +90,16 @@ const ProductDetails = () => {
                 >
                   More Details
                 </button>
-                <button class="btn btn-secondary ms-1">ADD TO CART</button>
+                <button
+                  onClick={() => {
+                    setCart([...cart, p]);
+                    toast.success("Item added to cart");
+                    localStorage.setItem("cart", JSON.stringify([...cart, p]));
+                  }}
+                  class="btn btn-secondary ms-1"
+                >
+                  ADD TO CART
+                </button>
               </div>
             </div>
           ))}

@@ -3270,6 +3270,10 @@ Will ensures even if backend sends { category: null } or malformed response, it 
 
 // Revision NOTE: If you're seeing CORS errors❌, the fix is 99% on the backend,, ---Frontend can't bypass CORS, because browsers enforce it at network level.
 
+// Revision NOTE: >>>withCredentials<<<<
+Only use it in frontend + backend if you’re using cookies❌ or sessions❌.
+If not — remove it from both sides.🔥
+
 // the programming(coding part) in js ->should be defensive, 
 i.e defensive programming is the pragmatic((dealing with problems in a practical way rather than by following ideas or principles)), --the fun fact (languages like c++, java, zod etc. etc. enforces some techniques by default..)
 
