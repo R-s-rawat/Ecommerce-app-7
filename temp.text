@@ -3334,6 +3334,18 @@ Besides leveraging ai in daily coding,, the paypal site have some errors for dev
 Paypal /developer-signup/ not have any password field in form, okay for later password, like after confirm, but then 
 just login form, without any password submission...🤔
 
+// i figured it, the confusion created by paypal, signup in actual paypal then dev paypal, then it works..
+then  https://developer.paypal.com > dashboard
+///////////////////////////////////////////////////
+update cvv rule (to not match for any transaction) in braintree.. (there are lot of options to discover..)
+
+have the braintree> keys in node server(backend folder)'s .env(for local testing) [[env is not meant to be deployed,we learned]]
+so, the backend's .env (write all braintree keys(uppercase for sure))
+
+and install braintree packages (for frontend consumption)
+so, npm i braintree
+and npm i braintree-web-drop-in-react(This is a React component that wraps braintree-web-drop-in)
+
 
 
 
