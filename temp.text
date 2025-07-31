@@ -3409,4 +3409,17 @@ Braintree requires specific dummy/test card numbers in sandbox mode — not just
 Card Type	Number	CVV	Expiration Date
 Visa	4111 1111 1111 1111	123	Any future date
 Mastercard	5555 5555 5555 4444	123	Any future date
+______________________________________________________________________________
+
+react versions and ui creating frontend errors.. so,, going for exact versions..
+| Syntax               | Allows updates to | Recommended use case                                |
+| -------------------- | ----------------- | --------------------------------------------------- |
+| `"react": "^18.2.0"` | 18.3.x, 18.4.x    | Default choice, safe + flexible                     |
+| `"react": "18.2.0"`  | Only 18.2.0       | When stability or deterministic builds are critical |
+
+// downgraded some other dependencies..
+
+
+
+
 
