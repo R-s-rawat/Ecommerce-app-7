@@ -17,8 +17,8 @@ const CartPage = () => {
   const navigate = useNavigate();
 
   // braintree
-  const [clientToken, setClientToken] = useState("");
-  const [instance, setInstance] = useState("");
+  const [clientToken, setClientToken] = useState(null);
+  const [instance, setInstance] = useState(null);
 
   //total price
   const totalPrice = () => {
@@ -51,9 +51,10 @@ const CartPage = () => {
   const getToken = async () => {
     try {
       const { data } = await axios.get(`${API}/api/v1/product/braintree/token`);
-      console.log("Received clientToken:", data?.clientToken);
+      // console.log("Received clientToken:", data?.clientToken);
       // we will store clientToken which we will get from braintree api
       setClientToken(data?.clientToken);
+      console.log("Client token:", typeof data?.clientToken)
     } catch (error) {
       console.log(error);
     }
@@ -155,20 +156,20 @@ const CartPage = () => {
                 )}
               </div>
             )}
+            {/* {console.log("Client token:", typeof clientToken)} */}
             {clientToken ? (
-              <div className="mt-2">
-                <p>DropIn should appear below this:</p>
-                <DropIn
-                  options={{
-                    authorization: clientToken,
-                    paypal: { flow: "vault" },
-                  }}
-                  onInstance={(instance) => setInstance(instance)}
-                />
-                <button className="btn btn-primary" onClick={handlePayment}>
-                  Make Payment
-                </button>
-              </div>
+              // <div className="mt-2">
+              //   <p>DropIn should appear below this:</p>
+              //   <DropIn
+              //     options={{  authorization: clientToken  }}
+              //   />
+              //   <button className="btn btn-primary" onClick={handlePayment}>
+              //     Make Payment
+              //   </button>
+              // </div>
+              <div style={{ border: "2px solid red", padding: "20px" }}>
+  <DropIn options={  { authorization: clientToken } } />
+</div>
             ) : (
               <p>Waiting for clientToken...</p>
             )}
