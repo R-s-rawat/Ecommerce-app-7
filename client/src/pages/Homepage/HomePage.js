@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import Layout from "../../components/Layout/Layout";
 import { Checkbox, Radio } from "antd";
 import { Prices } from "../../data/Prices";

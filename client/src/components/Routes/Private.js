@@ -17,10 +17,10 @@ export default function PrivateRoute() {
     const authCheck = async () => {
       try {
         const res = await axios.get(`${API}/api/v1/auth/user-auth`, {
-  headers: {
-    Authorization: `Bearer ${auth?.token}`,
-  },
-});
+          headers: {
+            Authorization: `Bearer ${auth?.token}`,
+          },
+        });
         if (res.data.ok && auth?.user?.role === 0) {
           setOk(true);
         } else {
@@ -44,10 +44,10 @@ export default function PrivateRoute() {
   // // ✅ Authorized user
   // return <Outlet />;
 
-   // ✅ NEW: Prevent admin users from accessing user routes (redirect admin back to admin)
-    if (ok && auth?.user?.role !== 0) {
+  // ✅ NEW: Prevent admin users from accessing user routes (redirect admin back to admin)
+  if (ok && auth?.user?.role !== 0) {
     return <Navigate to="/dashboard/admin" />;
   }
-  
-    return ok ? <Outlet /> : <Spinner path="" />;
+
+  return ok ? <Outlet /> : <Spinner path="" />;
 }

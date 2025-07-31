@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import AdminMenu from "../../components/Menu/AdminMenu";
 import Layout from "../../components/Layout/Layout";
 import axios from "axios";

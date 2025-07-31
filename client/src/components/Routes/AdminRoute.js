@@ -17,16 +17,16 @@ export default function AdminRoute() {
 
   // get token to send while making requests (full-proof and more robust then context)
   const authToken = JSON.parse(localStorage.getItem("auth"));
-const token = authToken?.token;
+  const token = authToken?.token;
 
   useEffect(() => {
     const authCheck = async () => {
-      console.log(token)
-      const res = await axios.get(`${API}/api/v1/auth/admin-auth`,{
-  headers: {
-    Authorization: `Bearer ${token}`, // token = "your-jwt-token"
-  },
-});
+      console.log(token);
+      const res = await axios.get(`${API}/api/v1/auth/admin-auth`, {
+        headers: {
+          Authorization: `Bearer ${token}`, // token = "your-jwt-token"
+        },
+      });
       if (res.data.ok) {
         setOk(true);
       } else {
@@ -34,13 +34,12 @@ const token = authToken?.token;
       }
     };
     if (auth?.token) authCheck();
-    
   }, [auth?.token]);
 
-    // ✅ NEW: Prevent normal users from accessing admin routes (redirect user back to user)
+  // ✅ NEW: Prevent normal users from accessing admin routes (redirect user back to user)
   if (ok && auth?.user?.role !== 1) {
-  return <Navigate to="/dashboard/user" />;
-}
+    return <Navigate to="/dashboard/user" />;
+  }
 
   return ok ? <Outlet /> : <Spinner path="" />;
 }
