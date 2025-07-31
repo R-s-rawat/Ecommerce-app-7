@@ -3450,8 +3450,8 @@ same mistake done for users as export default mongoose.model("users", userSchema
 ///////////////////////////////////////
 if orders done not show up in database, then delete indexes.. (eg. categories indexes)
 
-
-
+// now we will work on user orders...
+controller + route (after integrating, we show now the orders made and their status)
 
 
 
