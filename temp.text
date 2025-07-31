@@ -3349,5 +3349,49 @@ and npm i braintree-web-drop-in-react(This is a React component that wraps brain
 // remove .env(secret keys files if git done)
 git rm --cached .env (for backend, that's in our root)
 git rm --cached client/src/.env 
-
+---------------------------------------------------------------------------------------------------------
+// the backend architecture is like mvc, but the frontend is (partial mvvm- as that's idiomatic React way) architecture..
 /// now have the braintree functioality...
+
+// we now use the braintree web drop in react (using side effect(useEffect))
+// we had mistakenly installed the (braintree-web-drop-in-react) in node server, but that's to be used in frontend, only the braintree package purpose is to be used in backend...
+// so, cd .\client\ or just cd client...
+
+// now check the braintree documentation...
+// so in dummy theory, 1st get token, then take amount from frontend, and perform deduction/transaction..
+// backend->  token, transaction (and a order model👈)
+
+// so, we use braintree(The Braintree Node library provides integration access to the Braintree Gateway) in productController...
+
+// have a var(for eg. gateway to start make a instance for braintree) as a interface..
+// then route and controllers(ctrl will use that var (for braintree instance) with that var working as interface)
+
+1st route -> for 'token' we will get from braintree..(for ACCOUNT verification..), then assign controller function..
+2nd route ->  then 'payments' (without any errors)
+
+// third party braintree.. docs makes it easy to implement..
+after 'payments' done, we will store that in database using order schema, so +orderModel👈...
+////////////////////////////////////////////////
+import mongoose from "mongoose";
+
+const orderSchema = new mongoose.Schema({
+  ......
+});
+
+export default mongoose.model('Order', orderSchema)
+//////////////////////////////////////////////
+We will have order status/delivery status in enum.. within orderModel(enum stores multiple values)..
+
+braintree-web-drop-in-react documentation showcases a variable ... (nonce)/(nonce from the client) ->will be used for /payment..
+
+// prettier extension fun fact..
+it saves  cart.map(i => total += i.price); as  cart.map((i) => (total += i.price));
+but then we edit to cart.map((i) => {total += i.price}); then it saves as cart.map((i) => {total += i.price});(as-it-is)
+
+// products, payment, buyer( the _id,, it will come form requireSignIn middleware), status
+______________________________________________________________________________
+
+______________________________________________________________________________
+Now, we will work on cartPage (frontend)
+
+
