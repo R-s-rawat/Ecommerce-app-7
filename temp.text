@@ -3419,7 +3419,11 @@ react versions and ui creating frontend errors.. so,, going for exact versions..
 
 // downgraded some other dependencies..
 
+In React 17 and below, react-dom/client does not exist, so you must use:
 
+import ReactDOM from 'react-dom';
+
+ReactDOM.render(<App />, document.getElementById('root'));
 
 
 
