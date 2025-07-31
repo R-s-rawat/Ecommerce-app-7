@@ -15,6 +15,7 @@ const CartPage = () => {
   const [auth, setAuth] = useAuth();
   const [cart, setCart] = useCart();
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
 
   // braintree
   const [clientToken, setClientToken] = useState(null);
@@ -51,14 +52,15 @@ const CartPage = () => {
   const getToken = async () => {
     try {
       const { data } = await axios.get(`${API}/api/v1/product/braintree/token`);
-      // console.log("Received clientToken:", data?.clientToken);
-      // we will store clientToken which we will get from braintree api
       setClientToken(data?.clientToken);
-      console.log("Client token:", typeof data?.clientToken)
+      console.log("Client token:", typeof data?.clientToken);
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false); // hide spinner regardless of success/failure
     }
   };
+
   // handle payment utility function
   const handlePayment = () => {};
 
@@ -156,22 +158,37 @@ const CartPage = () => {
                 )}
               </div>
             )}
-            {/* {console.log("Client token:", typeof clientToken)} */}
-            {clientToken ? (
-              // <div className="mt-2">
-              //   <p>DropIn should appear below this:</p>
-              //   <DropIn
-              //     options={{  authorization: clientToken  }}
-              //   />
-              //   <button className="btn btn-primary" onClick={handlePayment}>
-              //     Make Payment
-              //   </button>
-              // </div>
+            {loading ? (
+              <div className="d-flex justify-content-center my-4">
+                <div
+                  className="spinner-border text-primary"
+                  role="status"
+                  style={{ width: "3rem", height: "3rem" }}
+                >
+                  <span className="visually-hidden">Loading...</span>
+                </div>
+              </div>
+            ) : clientToken ? (
               <div style={{ border: "2px solid red", padding: "20px" }}>
-  <DropIn options={  { authorization: clientToken } } />
-</div>
+                <DropIn
+                  options={{
+                    authorization: clientToken,
+                    // paypal: false, // optionally disable PayPal
+                  }}
+                  onInstance={(instance) => setInstance(instance)}
+                />
+                <button
+                  className="btn btn-primary mt-3"
+                  onClick={handlePayment}
+                  disabled={!loading || !instance || !auth?.user?.address}
+                >
+                  Make Payment
+                </button>
+              </div>
             ) : (
-              <p>Waiting for clientToken...</p>
+              <p className="text-danger">
+                Failed to load payment gateway. Try again later.
+              </p>
             )}
           </div>
         </div>

@@ -3399,5 +3399,14 @@ import dotenv from 'dotenv'
 
 dotenv.config()
 ------------------------------------------
+React downgrade as ui not showing of drop-in react
+braintree paypal taking long time..
+// for testing, no dummy, so, the following card numbers...
+Use official Braintree test card numbers
 
+Braintree requires specific dummy/test card numbers in sandbox mode — not just random ones.
+🔐 Use this standard test card:
+Card Type	Number	CVV	Expiration Date
+Visa	4111 1111 1111 1111	123	Any future date
+Mastercard	5555 5555 5555 4444	123	Any future date
 
