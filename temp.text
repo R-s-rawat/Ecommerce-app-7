@@ -3424,6 +3424,34 @@ In React 17 and below, react-dom/client does not exist, so you must use:
 import ReactDOM from 'react-dom';
 
 ReactDOM.render(<App />, document.getElementById('root'));
+______________________________________________________________________________
+
+______________________________________________________________________________
+now payment testing,, 200 ok
+
+as export default mongoose.model("Products", productSchema); so the orderModel will also have same name "Products"
+const orderSchema = new mongoose.Schema(
+  {
+    products: [
+      {
+        type: mongoose.ObjectId,
+        ref: "Products",👈
+      },
+/////////////////////////////////////
+
+same mistake done for users as export default mongoose.model("users", userSchema);
+  },
+    ],
+    payment: {},
+    buyer: {
+      type: mongoose.ObjectId,
+      ref: "users",👈
+    },
+///////////////////////////////////////
+if orders done not show up in database, then delete indexes.. (eg. categories indexes)
+
+
+
 
 
 

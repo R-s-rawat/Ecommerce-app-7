@@ -411,7 +411,7 @@ export const braintreePaymentController = async (req, res) => {
     let newTransaction = gateway.transaction.sale(
       {
         amount: total,
-        PaymentMethodNonce: nonce,
+        paymentMethodNonce: nonce,
         options: {
           submitForSettlement: true,
         },
