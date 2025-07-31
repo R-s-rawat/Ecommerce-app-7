@@ -3393,5 +3393,11 @@ ______________________________________________________________________________
 
 ______________________________________________________________________________
 Now, we will work on cartPage (frontend)
+// but backend issue, resolved, as the backend not getting secret keys(from .env) properly so,
+in productController..
+import dotenv from 'dotenv'
+
+dotenv.config()
+------------------------------------------
 
 

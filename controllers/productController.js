@@ -3,8 +3,11 @@ import categoryModel from "../models/categoryModel.js";
 import fs from "fs";
 import slugify from "slugify";
 import { generateUniqueSlug } from "../helpers/slugifyUnique.js";
-import braintree, { PaymentMethodNonce } from "braintree";
+import braintree from "braintree";
 import orderModel from "../models/orderModel.js";
+import dotenv from 'dotenv'
+
+dotenv.config()
 
 // payment gateway
 var gateway = new braintree.BraintreeGateway({
