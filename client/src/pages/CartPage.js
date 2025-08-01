@@ -54,7 +54,7 @@ const CartPage = () => {
     try {
       const { data } = await axios.get(`${API}/api/v1/product/braintree/token`);
       setClientToken(data?.clientToken);
-      console.log("Client token:", typeof data?.clientToken);
+      console.log("Client token:", typeof data?.clientToken, data?.clientToken);
     } catch (error) {
       console.log(error);
     }
