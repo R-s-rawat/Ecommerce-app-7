@@ -3458,3 +3458,4 @@ controller + route (after integrating, we show now the orders made and their sta
 
 // still paypal option in braintree not working as intended...
 
+// the drop-in is will deprecated by paypal as per official notification
