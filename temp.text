@@ -3499,7 +3499,10 @@ Let your merchants accept payments online, in person, or on the go. Offer more p
 ✅✅✅NOTE(APPLE PAY: Your website must be served over HTTPS for the Apple-pay optio to appear in Drop-in)
 Same for GOOGLE PAY: The HTTPS mandatory(or localhost if testing in sandbox) to make the payment-method visible(by drop-in), and also the browser/platform version compatibility...
 
-By-default, only 1 payment method(i.e card)
+-------------------------------------------------------------------------------------------------------------------
+By-default, braintree only 1 payment method(i.e card) - no extra setup needed in Braintree.
+------------------------------------------------------------------------------------------------------------------
+
 So, we are correctly sending a nonce to our server, just the integration b/w Braintree & Paypal is not ok..
 There are a lot of things in docs to test...
 ______________________________________________________________________________
@@ -3539,6 +3542,13 @@ A mocked PayPal flow is enabled by default in the sandbox.
 
 // The issue is failure of paypal devs to provide a good doc.. (braintree rest or graphql, the silent braintree is bad)
 
+| Payment Method                | Available by Default? | Requires Setup | Notes       
 
+| 💳 **Credit/Debit Card**      | ✅ Yes            | ❌ No            | Always enabled in sandbox and production             |
+| 🅿️ **PayPal**                | ❌ No              | ✅ Yes           | Must ** link** PayPal sandbox to Braintree   |
+| 🏦 **Venmo**                  | ❌ No             | ✅ Yes           | Needs to be **enabled** in Braintree settings        |
+| 🧾 **Apple Pay / Google Pay** | ❌ No             | ✅ Yes           | Requires certificates/config and domain verification |
+______________________________________________________________________________
 
+______________________________________________________________________________
 
