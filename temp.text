@@ -3459,3 +3459,41 @@ controller + route (after integrating, we show now the orders made and their sta
 // still paypal option in braintree not working as intended...
 
 // the drop-in is will deprecated by paypal as per official notification
+
+// So, Paypal's Technical Merchant Support:
+https://www.paypal-status.com/product/sandbox
+(all sandbox systems operational)
+
+Online Checkout?, Retail Checkout?, Reporting?, Homepage?, Batch?, Notifications?, Account?, Payflow?, Braintree Sandbox?, Xoom?, Zettle?, Hyperwallet?, Honey?, Venmo?, Chargehound?, Login?
+
+// Figuring out the paypal issues with braintree (non developers way)...
+// Going back to paypal business sandbox account we created...
+
+// WHEN TRYING TO logiN😬😅 TO THE Braintree, USING THE PAYPAL...
+// AT EVERY LAST STEPS.. GETTING errors❌ : 💢The PayPal account you entered is not linked to a Braintree user.💢
+
+// LET'S break the issues into chunks/components.. 
+// we fill braintree credentials in (backend-controller) - braintree merchantID(most imp.) and braintree public/private..
+
+// within braintree(tried so far.. linking to the paypal sandbox, not working) so, we tried
+
+PayPal Here(withing braintree dashboard✨✨)
+Enable PayPal Here on Braintree. This will show PayPal Here transactions in the Control Panel and enable vaulting from PayPal Here points of sale.
+// got error: An error occurred communicating with PayPal
+############################################################################################################################
+################################
+// our Checkout-UI(Drop -in PACKAGE) ---The Drop-in UI is the quickest way to start accepting payments
+###############################
+############################################################################################################################
+There are also other Checkout UI (mentioned in Paypal)
+
+/// Paypal (provides 4 buttons for Pay)
+Accept payments everywhere you sell
+Let your merchants accept payments online, in person, or on the go. Offer more payment methods including:
+
+PayPal payments
+Venmo⁷
+Credit and debit cards
+Apple Pay, Google Pay, and other alternative payment methods
+
+
