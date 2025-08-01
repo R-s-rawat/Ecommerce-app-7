@@ -3521,4 +3521,24 @@ Gotcha, resolved, Clicking on profile photo(our the first name_1st letter🔥�
 
 //// 
 Now, the same error in our cart page.. (but braintree website has some progress..)
+🚨 Don’t Use:
+Personal or Premier PayPal accounts
+
+// inspecting suspect (bugs) the braintree (on link button event)
+
+request -> payload::(POST)
+utf8=%E2%9C%93&
+authenticity_token=9fJ8l_ihH2jjbonKDo-XWfMNdHrqAIZihex6Y_Xr_n8AguoRhuM9wPRqhsslJODXt6RJqt08wR-r0T_qjlARnA&paypal_account%5Bpaypal_email%5D=sb-vq6yd44758134%40business.example.com&paypal_account%5Bpaypal_client_id%5D=AUFI4XUaMV8kmBkkQ2ce8g1a15-vHI1IpPDvGRWVmttPdH9cUZGfxINZN1qvv8ft82jSdU1nt5xwqzjc&paypal_account%5Bpaypal_client_secret%5D=EAIJbsogzOREeMW0HNSj6fhpB4FdUd5-ZMkE6QjvsZnRlbpq7SW9SsH2GbIPrORpTcgp4ya7Ja9lcY9N&commit=Link+PayPal+Sandbox
+
+response -> HTML(page)
+______________________________________________________________________________
+Payment method -> Paypal is still like a mountain...
+
+Enable customers to pay with PayPal
+A mocked PayPal flow is enabled by default in the sandbox.
+
+// The issue is failure of paypal devs to provide a good doc.. (braintree rest or graphql, the silent braintree is bad)
+
+
+
 
