@@ -3551,4 +3551,66 @@ A mocked PayPal flow is enabled by default in the sandbox.
 ______________________________________________________________________________
 
 ______________________________________________________________________________
+(
+A "developer error" related to a PayPal payment method issue within a "Drop-in" integration typically indicates a misconfiguration or incorrect implementation in the code that integrates with PayPal's or Braintree's Drop-in UI.
+)
 
+// let's read other docs too..
+https://braintree.github.io/braintree-web-drop-in/docs/current/Dropin.html
+
+ Dropin
+This class represents a Drop-in component, that will create a pre-made UI for accepting cards and PayPal on your page. Instances of this class have methods for requesting a payment method and subscribing to events. 
+
+ Dropin(options <- mandatory)
+Specify creation options as data attributes in your script tag, as shown in the examples below. The following configuration properties may be set:
+
+ Note📌📌 : All you need to do is add the Drop-in script inside your form element where you want Drop-in to appear and include a data-braintree-dropin-authorization property with your tokenization key or client token.
+
+    data-locale
+    data-card.cardholder-name.required
+    data-payment-option-priority
+    data-data-collector.kount
+    data-data-collector.paypal
+    data-paypal.amount
+    data-paypal.currency
+    data-paypal.flow
+    data-paypal-credit.amount
+    data-paypal-credit.currency
+    data-paypal-credit.flow
+
+For more control and customization, use dropin.create instead.
+
+// ❌ PayPal button appears with error in the Drop-in UI.
+#############################################################
+PAYPAL_SANDBOX_ACCOUNT_NOT_LINKED
+
+// so, let's https://www.paypal.com/businessmanage/account/accountAccess (here we will get paypal merchant id)
+
+Braintree control panel has announcement for Drop-in users:
+The SSL certificates for all Braintree SDKs, including Drop-In, are set to expire by March 30, 2026. This will impact both Sandbox and Production traffic for existing SDKs. To avoid interruption to your processing, please notify your developers about this change so they can update your SDK version to the appropriate minimum versions.
+_______________________________________________________________________________
+
+As, the braintree SDK is open source.. (2 errors are possible on render (for creation errors❌)...)
+ paypal-checkout/errors.js
+###########################
+__________________________
+ NAME🔥: BraintreeError.PayPal Checkout - Creation Error Codes ✅
+___________________________
+ DESCRIPTION:  Errors that occur when [creating the PayPal Checkout component](./module-braintree-web_paypal-checkout.html#.create).
+___________________________
+ 1st PROPERTY: {MERCHANT} PAYPAL_NOT_ENABLED Occurs when PayPal is not enabled on the Braintree control panel.
+
+ 2nd PROPERTY: {MERCHANT} PAYPAL_SANDBOX_ACCOUNT_NOT_LINKED Occurs only when testing in Sandbox, when a PayPal sandbox account is not linked to the merchant account in the Braintree control panel.
+ ___________________________
+// 
+______________________________________________________________________________
+other NAME🔥: 
+ BraintreeError.PayPal Checkout - createPayment Error Codes
+ BraintreeError.PayPal Checkout - startVaultInitiatedCheckout Error Codes
+  BraintreeError.PayPal Checkout - tokenizePayment Error Codes
+  BraintreeError.Paypal Checkout - updatePayment Error Codes
+ 
+ ______________________________________________________________________________
+
+ _______________________________________________________________________________
+ 

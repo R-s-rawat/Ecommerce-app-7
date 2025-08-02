@@ -182,7 +182,7 @@ const CartPage = () => {
                 ""
               ) : (
                 <>
-                  <DropIn
+                  {/* <DropIn
                     options={{
                       authorization: clientToken,
                       paypal: {
@@ -190,8 +190,18 @@ const CartPage = () => {
                       },
                     }}
                     onInstance={(instance) => setInstance(instance)}
+                  /> */}
+                  <DropIn
+                    options={{
+                      authorization: clientToken,
+                      paypal: {
+                        flow: "checkout", // also try "vault" if needed
+                        amount: 100.0, // must be present for "checkout"
+                        currency: "USD", // some currencies like INR cause errors
+                      },
+                    }}
+                    onInstance={(instance) => setInstance(instance)}
                   />
-
                   <button
                     className="btn btn-primary"
                     onClick={handlePayment}
