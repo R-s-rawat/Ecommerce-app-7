@@ -3613,4 +3613,25 @@ other NAME🔥:
  ______________________________________________________________________________
 
  _______________________________________________________________________________
- 
+Let's check root: paypal...
+ paypal supports various req/res type of payloads, unlike razorpay -------------------------------------
+ ---------------i.e body schema format(application/json,, multipart/related,, multipart/form-data,, multipart/mixed,,)
+
+Deprecation notice: The /v1/payments endpoint is deprecated. Use the /v2/payments endpoint instead. 
+
+Something went wrong. Your sandbox account could not be linked to your developer account. Try again. Debug ID: 7505800add484.
+With PayPal Checkout you can accept PayPal, Venmo, Pay Later and all major credit cards
+For custom integration without Drop-in
+https://developer.paypal.com/studio/checkout/standard/integrate (one-time Payment/ re-curring Payment)
+
+///////////////////////////////////////our paypal (ecommerce app)
+Follow paypal (without braintree)..
+integrate within code (in frontend and backend as per docs)
+//
+    Log into the PayPal Developer Dashboard with your PayPal business account.
+    Obtain your live credentials.
+    Include the new credentials in your integration and Update your PayPal endpoint.
+
+// But braintree (works in few clicks)
+
+//What is the name of Amazon payment gateway? -- Self system
