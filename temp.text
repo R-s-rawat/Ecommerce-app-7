@@ -3642,7 +3642,7 @@ is clientToken changes? -> yes
 // as we are communicating with backend, on load(using sideEffect), we have no token related issue.
 
 // we confirmed the email/mobile no. of paypal business. the braintree error is reproducible but buggy...
-
+// disable tracking (of our browser) and enable'd pop-ups(of our browser) - for BRAINTREE CONTROL PANEL...💀
 ###########################################################################################################
 ######################## Progress: Braintree control panel (paypal here done) ################################
 ###########################################################################################################
@@ -3654,7 +3654,29 @@ Enable PayPal Here on Braintree. This will show PayPal Here transactions in the 
 ______________________________________________________________________________
 
 ______________________________________________________________________________
+We for now, keeping aside the Braintree Drop-in UI,,  BraintreeError -paypal(initialize Paypal flow) bad,,
 
+other braintree methods (except PayPal is time lengthy).. Venmo, GooglePay, ApplePay...
+and braintree other methods we talking about sometimes does'nt even support sandbox.... (eg. venmo requires only mobile, maybe not work with just mobile fake headers from a browser)..
 
+Venmo does not currently support sandbox testing. Venmo payment methods must be tested using the production environment and a live Venmo account.
 
+// so going with card only option from braintree... and paypal button just for showcase(good for ui, bad for ux)
+ <DropIn
+                    options={{
+                      authorization: clientToken,
+                      // paypal: {
+                      //   flow: "vault",
+                      // },
+                    }}
+                    onInstance={(instance) => setInstance(instance)}
+                  />
+ <button className="btn btn-outline-primary w-100 mb-3 text-dark">
+                    <i className="fa fa-paypal"></i> Pay with PayPal
+  </button>
+
+// Now, Orders page...(for user)..
+______________________________________________________________________________
+
+For users orders page... 
 
