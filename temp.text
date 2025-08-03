@@ -3635,3 +3635,26 @@ integrate within code (in frontend and backend as per docs)
 // But braintree (works in few clicks)
 
 //What is the name of Amazon payment gateway? -- Self system
+______________________________________________________________________________
+
+______________________________________________________________________________
+is clientToken changes? -> yes
+// as we are communicating with backend, on load(using sideEffect), we have no token related issue.
+
+// we confirmed the email/mobile no. of paypal business. the braintree error is reproducible but buggy...
+
+###########################################################################################################
+######################## Progress: Braintree control panel (paypal here done) ################################
+###########################################################################################################
+In Store
+PayPal Here
+Enabled🔥👈 (previously, error communicating with paypal)
+
+Enable PayPal Here on Braintree. This will show PayPal Here transactions in the Control Panel and enable vaulting from PayPal Here points of sale.
+______________________________________________________________________________
+
+______________________________________________________________________________
+
+
+
+

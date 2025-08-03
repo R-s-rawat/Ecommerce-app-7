@@ -182,7 +182,7 @@ const CartPage = () => {
                 ""
               ) : (
                 <>
-                  {/* <DropIn
+                  <DropIn
                     options={{
                       authorization: clientToken,
                       paypal: {
@@ -190,8 +190,8 @@ const CartPage = () => {
                       },
                     }}
                     onInstance={(instance) => setInstance(instance)}
-                  /> */}
-                  <DropIn
+                  />
+                  {/* <DropIn
                     options={{
                       authorization: clientToken,
                       paypal: {
@@ -201,7 +201,7 @@ const CartPage = () => {
                       },
                     }}
                     onInstance={(instance) => setInstance(instance)}
-                  />
+                  /> */}
                   <button
                     className="btn btn-primary"
                     onClick={handlePayment}
