@@ -3694,3 +3694,11 @@ Create new controller and route for that.. (we created along auth)
 //
 .find({buyer:req.user._id}).populate('products','-photo').populate('buyer','name')
 
+// NOTE⚡💀💀: import React from "react"; was historically necessary in React applications for files containing JSX
+// But react 17 removed that so no longer explicitly required.
+// Developers not have to explicitly write that in every jsx file...(better for dx)
+
+// sometimes local development(in localhost) - shows un-necessary runtime err; (getState cannot be called after teardown.)
+
+users order page..
+//
