@@ -1,47 +1,71 @@
 // import React from "react";
 import { useEffect, useState } from "react";
 import Layout from "../../components/Layout/Layout";
-import UserMenu from "../../components/Menu/UserMenu";
+import AdminMenu from "../../components/Menu/AdminMenu";
 import axios from "axios";
-import { useAuth } from "../../context/auth";
+import toast from "react-hot-toast";
 import moment from "moment";
+import { useAuth } from "../../context/auth";
+import { Select } from "antd";
+const { Option } = Select;
 
-const Orders = () => {
-  const API =
+const AdminOrders = () => {
+      const API =
     process.env.NODE_ENV === "production"
       ? process.env.REACT_APP_API
       : "http://localhost:8080";
 
-  const [orders, setOrders] = useState([]);
+  const [status, setStatus] = useState([
+    "Not processed",
+    "Processing",
+    "Shipped",
+    "Delivered",
+    "Cancelled",
+  ]);
 
-  const [auth, setAuth] = useAuth();
+  const [changedStatus, setChangedStatus] = useState("");
 
-  const getOrders = async () => {
+    const [orders, setOrders] = useState([]);
+  
+    const [auth, setAuth] = useAuth();
+  
+    const getOrders = async () => {
+      try {
+        const { data } = await axios.get(`${API}/api/v1/auth/all-orders`);
+        setOrders(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    const handleChange = async (orderId, value) => {
     try {
-      const { data } = await axios.get(`${API}/api/v1/auth/orders`);
-      setOrders(data);
+      const { data } = await axios.put(`${API}/api/v1/auth/order-status/${orderId}`, {
+        status: value,
+      });
+      getOrders();
     } catch (error) {
       console.log(error);
     }
   };
-
-  useEffect(() => {
-    if (auth?.token) {
-      getOrders();
-    }
-  }, [auth?.token]);
+  
+    useEffect(() => {
+      if (auth?.token) {
+        getOrders();
+      }
+    }, [auth?.token]);
 
   return (
-    <Layout title={"Your orders"}>
-      <div className="container-fluid p-3 m-3">
+    <Layout title={"All orders data"}>
+      <div className="container-fluid m-3 p-3">
         <div className="row">
           <div className="col-md-3">
-            <UserMenu />
+            <AdminMenu />
           </div>
           <div className="col-md-9">
-            <h1 className="text-center">All orders</h1>
-            {/* <p>{JSON.stringify(orders, null, 4)}</p> */}
-            <div className="border shadow">
+            <div className="text-center">All Orders</div>
+            {/* show orders begin */}
+   <div className="border shadow">
               {orders?.map((order, index) => (
                 <div key={order._id} className="border shadow mb-4 me-4 m-2">
                   <table className="table">
@@ -59,7 +83,20 @@ const Orders = () => {
                     <tbody>
                       <tr>
                         <td>{index + 1}</td>
-                        <td>{order?.status}</td>
+                        {/* <td>{order?.status}</td> */}
+                        <td>
+                              <Select
+                          bordered={false}
+                          onChange={(value) => handleChange(order._id, value)}
+                          defaultValue={order?.status}
+                        >
+                          {status.map((s, i) => (
+                            <Option key={i} value={s}>
+                              {s}
+                            </Option>
+                          ))}
+                        </Select>
+                        </td>
                         <td>{order?.buyer?.name}</td>
                         <td>{moment(order?.createAt).fromNow()}</td>
                         <td>
@@ -97,6 +134,7 @@ const Orders = () => {
                 </div>
               ))}
             </div>
+            {/* show orders end */}
           </div>
         </div>
       </div>
@@ -104,4 +142,4 @@ const Orders = () => {
   );
 };
 
-export default Orders;
+export default AdminOrders;

@@ -3703,16 +3703,19 @@ Create new controller and route for that.. (we created along auth)
 users order page..
 // we will show each order's product details (cards/images) below its corresponding <tbody>
 
-// so the simplest one can be:: (no th, as we not need bold-text, td's regular text is ok)
+// ✅✅✅NOTE: Add scope only to headings(<th> in<thead>, th distinguishes-normal td)
+
+// so the simplest one can be:: ( th, as <thead> need bold-text for focus(better ui), td's regular text is not ok)
  <table className="table">
                 <thead>
                   <tr>
-                    <td scope="col">#</td>
-                    <td scope="col">Status</td>
-                    <td scope="col">Buyer</td>
-                    <td scope="col">Orders</td>
-                    <td scope="col">Payment</td>
-                    <td scope="col">Quantity</td>
+                    <th scope="col">#</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Buyer</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Orders</th>
+                    <th scope="col">Payment</th>
+                    <th scope="col">Quantity</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -3721,8 +3724,48 @@ users order page..
                       <td>{index + 1}</td>
                       <td>{order?.status}</td>
                       ...
+                      <td>{moment(order?.createAt).fromNow()}</td>👈 (Moment.js)
+                      ...
                     </tr>
                   ))}
                 </tbody>
+__________________________
+Install Moment.js(for date) A JavaScript date library for parsing, validating, manipulating, and formatting dates.
+&
+import moment from "moment";
+(It helps in date-time,,, e.g most basic parsing-formatting: parse date strings in various formats into Moment objects and then format them into a desired display string.)
+__________________________
 
-// 
+// Now we will work on admin, for adding functionality from 'not processed' -> others..(for orders by users)
+
+//user -> orders done..
+// admin -> orders..(new file AdminOrders)
+
+// Now bootstraping ui..
+  <div className="row">
+        <div className="col-md-3">
+
+        </div>
+        <div className="col-md-9">
+            
+        </div>
+    </div>
+
+// have admin menu and layout..
+Note📌📌: Make sure to not import Layout (other than our custom for header/footer) e.g import { Layout } from "antd";
+
+// For admin orders (we will fetch all order despite of what buyer../user)
+______________________________________________________________________________
+
+creat controller and route for all orders (admin panel purpose)
+// now, AdminOrders 
+have "enum" in useState,, storing our structure/schema ->defined values(which is within orderModel👈) for STATUS..
+
+// For status change -> dropdown menu(we will use SelectBox) from antD;
+import { Select } from "antd";
+const { Option } = Select;
+
+// now, for order status change, add controller and route...
+
+
+
