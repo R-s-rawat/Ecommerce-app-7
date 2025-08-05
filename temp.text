@@ -3701,4 +3701,28 @@ Create new controller and route for that.. (we created along auth)
 // sometimes local development(in localhost) - shows un-necessary runtime err; (getState cannot be called after teardown.)
 
 users order page..
-//
+// we will show each order's product details (cards/images) below its corresponding <tbody>
+
+// so the simplest one can be:: (no th, as we not need bold-text, td's regular text is ok)
+ <table className="table">
+                <thead>
+                  <tr>
+                    <td scope="col">#</td>
+                    <td scope="col">Status</td>
+                    <td scope="col">Buyer</td>
+                    <td scope="col">Orders</td>
+                    <td scope="col">Payment</td>
+                    <td scope="col">Quantity</td>
+                  </tr>
+                </thead>
+                <tbody>
+                  {orders?.map((order, index) => (
+                    <tr key={order._id || index}>
+                      <td>{index + 1}</td>
+                      <td>{order?.status}</td>
+                      ...
+                    </tr>
+                  ))}
+                </tbody>
+
+// 
