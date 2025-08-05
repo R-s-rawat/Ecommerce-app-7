@@ -3674,9 +3674,23 @@ Venmo does not currently support sandbox testing. Venmo payment methods must be 
  <button className="btn btn-outline-primary w-100 mb-3 text-dark">
                     <i className="fa fa-paypal"></i> Pay with PayPal
   </button>
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////// Paypal even sometimes bans the email for sandbox too.. ////////////////////////////////
+  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  Disabled (paypal here) in Braintree control panel: stating -> Are you sure you want to disable PayPal Here on Braintree? By disabling, you will no longer be able to add to your vault using PayPal Here points of sale or view PayPal Here transactions in the Control Panel.
 
-// Now, Orders page...(for user)..
+  Causing un-necessary api requests to paypal every 5-10 mins (GET /v1/activities/activities),, 
+  Now, we cancelling (Paypal's custom checkout experience - Braintree SDK(the second & last option is NVP/soap api)), no more payments, invoicing, shipping.. (and with that the Shopping Cart Provider too(pre-built/restApi))
+///////////////////////////////
+// Now, Orders page...(for user).. (and admin (as user placed order - (default status - 'not processed')))
 ______________________________________________________________________________
 
-For users orders page... 
+For after placing order, users orders page (users side -)... then admin panel(admin side -)
+
+// user order..
+Create new controller and route for that.. (we created along auth)
+
+&& const orders = await orderModel.find({})
+//
+.find({buyer:req.user._id}).populate('products','-photo').populate('buyer','name')
 
