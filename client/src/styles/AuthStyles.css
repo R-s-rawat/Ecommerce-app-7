@@ -54,3 +54,13 @@
     #000000
   ); /* W3C, IE10+, Edge, Firefox, Chrome, Opera, Safari*/
 }
+
+.forgot-btn {
+  background-color: #434343a4 !important;
+  border: 0 !important;
+}
+
+.forgot-btn:hover {
+  color: white !important;
+}
+
