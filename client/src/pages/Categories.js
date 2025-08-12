@@ -10,7 +10,7 @@ const Categories = () => {
       ? process.env.REACT_APP_API
       : "http://localhost:8080";
 
-  const categories = useCategory();
+  const {categories} = useCategory();
 
   console.log(categories)
 
