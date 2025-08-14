@@ -1,6 +1,6 @@
- /* form pages (i.e login/register)  */
 
-/* .form-container {
+
+.form-container {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -62,6 +62,6 @@
 .forgot-btn:hover {
   color: white !important;
 }
- */
 
- 
+
+
