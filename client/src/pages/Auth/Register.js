@@ -61,7 +61,7 @@ const Register = () => {
       <div className="form-container">
         {" "}
         {/*simple sover design using css for forms */}
-        <h1>Register Form</h1>
+        {/* <h1>Register Form</h1> */}
         {/* paste form from bootstrap-5 docs && then convert HTML to JSX*/}
         <form onSubmit={handleSubmit}>
           {/* for name */}
@@ -103,7 +103,7 @@ const Register = () => {
           {/* for phone number */}
           <div className="mb-3">
             <input
-              type="text"
+              type="number"
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
               className="form-control"
