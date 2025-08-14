@@ -1,7 +1,6 @@
-/* ======================================
-================ form pages (i.e login/register) */
+ /* form pages (i.e login/register)  */
 
-.form-container {
+/* .form-container {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -47,12 +46,12 @@
 
 .form-container form button:hover {
   border: 1px solid black;
-  background: #000000; /*fallback for old browsers */
+  background: #000000; 
   background: -webkit-linear-gradient(
     to right,
     #434343,
     #000000
-  ); /* W3C, IE10+, Edge, Firefox, Chrome, Opera, Safari*/
+  ); 
 }
 
 .forgot-btn {
@@ -63,4 +62,6 @@
 .forgot-btn:hover {
   color: white !important;
 }
+ */
 
+ 
