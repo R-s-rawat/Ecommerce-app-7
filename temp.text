@@ -3775,3 +3775,5 @@ Remove Bootstrap😃 default class (bg-body-tertiary) for nav, as it's having (!
 //bootstrap (is as it is) public folder/ outside src/, adding some icons, and improve for smaller screens 
 
 move the filters (price and categories) to header, and improve DESIGN🌈🌈
+
+// import stylesheet to respected components.. and alter accordingly
