@@ -7,11 +7,11 @@ import useCategory from "../../hooks/useCategory";
 import { useCart } from "../../context/cart";
 import { Badge } from "antd";
 import siteLogo from "../../images/ecommerceLogo.jpg";
-import "../../styles/HeaderStyles.css";
 import { useState } from "react";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 import FilterDrawer from "../../components/Filters/FilterDrawer";
 import { useHomepageLogic } from "../../pages/Homepage/HomepageLogic";
+import "../../styles/HeaderStyles.css";
 
 const Header = () => {
   const [auth, setAuth] = useAuth();

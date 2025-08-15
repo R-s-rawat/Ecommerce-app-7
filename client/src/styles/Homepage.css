@@ -169,3 +169,29 @@
     max-width: 200px;
   }
 }
+
+.mobile-sort {
+  padding-right: 5px; /* minimal from right */
+}
+.mobile-sort .form-select {
+  width: auto;
+  min-width: 160px;
+}
+
+.sorting-mobile {
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 5px;
+  margin-bottom: 1rem;
+}
+
+.sorting-mobile .ant-select {
+  min-width: 160px;
+  max-width: 200px;
+}
+
+
+
+
+
+

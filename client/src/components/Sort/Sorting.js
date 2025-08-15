@@ -1,6 +1,8 @@
 import React from "react";
+import { Select } from "antd";
 
 const Sorting = ({
+  variant = "desktop", // "mobile" or "desktop"
   sortType,
   sortPriceRadio,
   setSortPriceRadio,
@@ -12,10 +14,9 @@ const Sorting = ({
   setProducts,
   setFilteredTotal,
 }) => {
-  const handleChange = (e) => {
-    const selectedId = e.target.value;
-    setSortPriceRadio(selectedId);
-    sortRef.current = selectedId;
+  const onChange = (value) => {
+    setSortPriceRadio(value);
+    sortRef.current = value;
     setPage(1);
     getFilteredProducts({
       checked,
@@ -27,41 +28,31 @@ const Sorting = ({
     });
   };
 
-  return (
-    <>
-     {/* Mobile version */}
-<div className="mb-3 d-md-none d-flex justify-content-end">
-  <select
-    className="form-select w-auto"
-    value={sortPriceRadio}
-    onChange={handleChange}
-  >
-    {sortType.map((t) => (
-      <option key={t._id} value={t._id}>
-        {t.name}
-      </option>
-    ))}
-  </select>
-</div>
+  if (variant === "mobile") {
+    // IMPORTANT: width: "auto" so it doesn't stretch full width on mobile
+    return (
+      <Select
+        value={sortPriceRadio}
+        onChange={onChange}
+        style={{ width: "auto", minWidth: 140, maxWidth: 200 }}
+        options={sortType.map((t) => ({ label: t.name, value: t._id }))}
+      />
+    );
+  }
 
-      {/* Desktop version */}
-      <div className="mb-3 d-none d-md-block" style={{  padding: "0.5rem", borderRadius: "4px", 
-       }}>
-       
-        <select
-          id="desktopSort"
-          className="form-select"
-          value={sortPriceRadio}
-          onChange={handleChange}
-        >
-          {sortType.map((t) => (
-            <option key={t._id} value={t._id}>
-              {t.name}
-            </option>
-          ))}
-        </select>
-      </div>
-    </>
+  // Desktop (Bootstrap select)
+  return (
+    <select
+      className="form-select w-auto"
+      value={sortPriceRadio}
+      onChange={(e) => onChange(e.target.value)}
+    >
+      {sortType.map((t) => (
+        <option key={t._id} value={t._id}>
+          {t.name}
+        </option>
+      ))}
+    </select>
   );
 };
 

@@ -92,11 +92,15 @@ const HomePage = () => {
         <aside className="filter-sidebar d-none d-md-block">
           <h4 className="text-center">Filter by Category</h4>
           {loadingCategories ? (
-            <div className="text-center my-3 text-secondary">Loading categories...</div>
+            <div className="text-center my-3 text-secondary">
+              Loading categories...
+            </div>
           ) : categoryError ? (
             <div className="text-danger text-center my-3">{categoryError}</div>
           ) : categories?.length === 0 ? (
-            <div className="text-center my-3 text-muted">No categories found.</div>
+            <div className="text-center my-3 text-muted">
+              No categories found.
+            </div>
           ) : (
             <div className="d-flex flex-column">
               {categories?.map((c) => (
@@ -135,23 +139,49 @@ const HomePage = () => {
         {/* ================= Main Content ================= */}
         <main className="product-content-area flex-grow-1">
           {/* Header with Sorting */}
-          <div className="product-header d-flex justify-content-between align-items-center mb-3 flex-column flex-md-row">
-            <h1 className="all-products-heading mb-2 mb-md-0">
-              All Products
-            </h1>
-            <div className="sort-dropdown-wrapper">
-              <Sorting
-                sortType={sortType}
-                sortPriceRadio={sortPriceRadio}
-                setSortPriceRadio={setSortPriceRadio}
-                sortRef={sortRef}
-                setPage={setPage}
-                getFilteredProducts={getFilteredProducts}
-                checked={checked}
-                radio={radio}
-                setProducts={setProducts}
-                setFilteredTotal={setFilteredTotal}
-              />
+          <div className="product-header mb-3 mt-2" style={{ width: "100%" }}>
+            {/* Desktop: flex row */}
+            <div className="d-none d-md-flex justify-content-between align-items-center">
+              {/* Left: Title */}
+              <h1 className="mb-0">All Products</h1>
+              {/* Right: Sorting */}
+              <div style={{  maxWidth: '60%' }} className="flex-shrink-0 me-1">
+                <Sorting
+                  sortType={sortType}
+                  sortPriceRadio={sortPriceRadio}
+                  setSortPriceRadio={setSortPriceRadio}
+                  sortRef={sortRef}
+                  setPage={setPage}
+                  getFilteredProducts={getFilteredProducts}
+                  checked={checked}
+                  radio={radio}
+                  setProducts={setProducts}
+                  setFilteredTotal={setFilteredTotal}
+                />
+              </div>
+            </div>
+
+            {/* Mobile: title on one row, sorting on next row right-aligned */}
+            {/* Mobile: title left, sorting right */}
+            <div
+              className="d-md-none d-flex justify-content-between align-items-center mb-2"
+              style={{ width: "100%" }}
+            >
+              <h1 className="mb-0 ms-2">All Products</h1>
+              <div className="flex-shrink-0 me-1" style={{ maxWidth: "60%" }}>
+                <Sorting
+                  sortType={sortType}
+                  sortPriceRadio={sortPriceRadio}
+                  setSortPriceRadio={setSortPriceRadio}
+                  sortRef={sortRef}
+                  setPage={setPage}
+                  getFilteredProducts={getFilteredProducts}
+                  checked={checked}
+                  radio={radio}
+                  setProducts={setProducts}
+                  setFilteredTotal={setFilteredTotal}
+                />
+              </div>
             </div>
           </div>
 
@@ -168,7 +198,9 @@ const HomePage = () => {
             </div>
           ) : error && products?.length === 0 ? (
             <div className="text-center my-5">
-              <p className="text-danger">⚠️ Failed to load products. Please try again.</p>
+              <p className="text-danger">
+                ⚠️ Failed to load products. Please try again.
+              </p>
             </div>
           ) : (
             <div className="d-flex flex-wrap">
@@ -181,7 +213,9 @@ const HomePage = () => {
                   />
                   <div className="card-body">
                     <h5 className="card-title">{p.name}</h5>
-                    <p className="card-text">{p.description.substring(0, 30)}...</p>
+                    <p className="card-text">
+                      {p.description.substring(0, 30)}...
+                    </p>
                     <p className="card-text">$ {p.price}</p>
                     <button
                       className="btn btn-primary ms-1"
@@ -194,7 +228,10 @@ const HomePage = () => {
                       onClick={() => {
                         setCart([...cart, p]);
                         toast.success("Item added to cart");
-                        localStorage.setItem("cart", JSON.stringify([...cart, p]));
+                        localStorage.setItem(
+                          "cart",
+                          JSON.stringify([...cart, p])
+                        );
                       }}
                     >
                       ADD TO CART
