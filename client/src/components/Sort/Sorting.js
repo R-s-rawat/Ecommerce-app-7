@@ -29,23 +29,24 @@ const Sorting = ({
 
   return (
     <>
-      {/* Mobile version */}
-      <div className="mb-3 d-md-none" style={{ backgroundColor: "black" }}>
-        <select
-          className="form-select"
-          value={sortPriceRadio}
-          onChange={handleChange}
-        >
-          {sortType.map((t) => (
-            <option key={t._id} value={t._id}>
-              {t.name}
-            </option>
-          ))}
-        </select>
-      </div>
+     {/* Mobile version */}
+<div className="mb-3 d-md-none d-flex justify-content-end">
+  <select
+    className="form-select w-auto"
+    value={sortPriceRadio}
+    onChange={handleChange}
+  >
+    {sortType.map((t) => (
+      <option key={t._id} value={t._id}>
+        {t.name}
+      </option>
+    ))}
+  </select>
+</div>
 
       {/* Desktop version */}
-      <div className="mb-3 d-none d-md-block" style={{ backgroundColor: "#f8f9fa", padding: "0.5rem", borderRadius: "4px" }}>
+      <div className="mb-3 d-none d-md-block" style={{  padding: "0.5rem", borderRadius: "4px", 
+       }}>
        
         <select
           id="desktopSort"

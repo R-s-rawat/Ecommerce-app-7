@@ -7,15 +7,7 @@ import { useNavigate } from "react-router-dom";
 import useCategory from "../../hooks/useCategory";
 import { useCart } from "../../context/cart";
 import toast from "react-hot-toast";
-import FilterDrawer from "../../components/Filters/FilterDrawer";
 import Sorting from "../../components/Sort/Sorting";
-
-// 🟢 Sorting types list
-// const sortType = [
-//   { name: "Newest First", _id: "newestfirst" },
-//   { name: "Price: High to Low", _id: "pricehightolow" },
-//   { name: "Price: Low to High", _id: "pricelowtohigh" },
-// ];
 
 const sortType = [
   { name: "Latest", _id: "newestfirst" },
@@ -59,20 +51,16 @@ const HomePage = () => {
     setError,
   } = useHomepageLogic();
 
-  // 🟢 Mobile filter drawer state
   const [drawerOpen, setDrawerOpen] = useState(false);
 
-  // 🔹 Load total products count on first render
   useEffect(() => {
     getTotalCreatedProductsCount(setTotal);
   }, []);
 
-  // 🔹 Reset page when filters change
   useEffect(() => {
     setPage(1);
   }, [checked, radio]);
 
-  // 🔹 Fetch filtered products whenever filters or page changes
   useEffect(() => {
     const append = page > 1;
     getFilteredProducts({
@@ -86,7 +74,6 @@ const HomePage = () => {
     });
   }, [page, checked, radio]);
 
-  // 🟢 Handle reset of all filters
   const handleResetFilters = () => {
     setChecked([]);
     setRadio([]);
@@ -95,28 +82,21 @@ const HomePage = () => {
     setFilteredTotal(0);
     getTotalCreatedProductsCount(setTotal);
     resetSort(sortRef, setSortPriceRadio);
-    setDrawerOpen(false); // close drawer on reset
+    setDrawerOpen(false);
   };
 
   return (
     <Layout title="Home - Ecommerce">
-      <div className="row mt-3">
-        {/* ===============================
-            ✍ DESKTOP FILTER SIDEBAR
-           =============================== */}
-        <div className="col-md-2 d-none d-md-block">
-          {/* Category Filter */}
+      <div className="homepage-container d-flex">
+        {/* ================= Sidebar ================= */}
+        <aside className="filter-sidebar d-none d-md-block">
           <h4 className="text-center">Filter by Category</h4>
           {loadingCategories ? (
-            <div className="text-center my-3 text-secondary">
-              Loading categories...
-            </div>
+            <div className="text-center my-3 text-secondary">Loading categories...</div>
           ) : categoryError ? (
             <div className="text-danger text-center my-3">{categoryError}</div>
           ) : categories?.length === 0 ? (
-            <div className="text-center my-3 text-muted">
-              No categories found.
-            </div>
+            <div className="text-center my-3 text-muted">No categories found.</div>
           ) : (
             <div className="d-flex flex-column">
               {categories?.map((c) => (
@@ -138,7 +118,6 @@ const HomePage = () => {
             </div>
           )}
 
-          {/* Price Filter */}
           <h4 className="text-center mt-4">Filter by Price</h4>
           <Radio.Group onChange={(e) => setRadio(e.target.value)} value={radio}>
             {Prices.map((p) => (
@@ -148,34 +127,35 @@ const HomePage = () => {
             ))}
           </Radio.Group>
 
-          {/* Reset Button */}
           <button className="btn btn-danger mt-3" onClick={handleResetFilters}>
             Reset Filters
           </button>
-        </div>
+        </aside>
 
-        {/* ===============================
-            📦 PRODUCTS & SORTING SECTION
-           =============================== */}
-        <div className="col-md-9">
-          {/* Sorting bar */}
-          <Sorting
-            sortType={sortType}
-            sortPriceRadio={sortPriceRadio}
-            setSortPriceRadio={setSortPriceRadio}
-            sortRef={sortRef}
-            setPage={setPage}
-            getFilteredProducts={getFilteredProducts}
-            checked={checked}
-            radio={radio}
-            setProducts={setProducts}
-            setFilteredTotal={setFilteredTotal}
-          />
+        {/* ================= Main Content ================= */}
+        <main className="product-content-area flex-grow-1">
+          {/* Header with Sorting */}
+          <div className="product-header d-flex justify-content-between align-items-center mb-3 flex-column flex-md-row">
+            <h1 className="all-products-heading mb-2 mb-md-0">
+              All Products
+            </h1>
+            <div className="sort-dropdown-wrapper">
+              <Sorting
+                sortType={sortType}
+                sortPriceRadio={sortPriceRadio}
+                setSortPriceRadio={setSortPriceRadio}
+                sortRef={sortRef}
+                setPage={setPage}
+                getFilteredProducts={getFilteredProducts}
+                checked={checked}
+                radio={radio}
+                setProducts={setProducts}
+                setFilteredTotal={setFilteredTotal}
+              />
+            </div>
+          </div>
 
-          {/* Product grid heading */}
-          <h1 className="text-center">All Products</h1>
-
-          {/* Loading state (first page only) */}
+          {/* Loading */}
           {loading && page === 1 ? (
             <div className="d-flex justify-content-center align-items-center my-5 w-100">
               <div
@@ -187,14 +167,10 @@ const HomePage = () => {
               </div>
             </div>
           ) : error && products?.length === 0 ? (
-            // Error state
             <div className="text-center my-5">
-              <p className="text-danger">
-                ⚠️ Failed to load products. Please try again.
-              </p>
+              <p className="text-danger">⚠️ Failed to load products. Please try again.</p>
             </div>
           ) : (
-            // Product grid
             <div className="d-flex flex-wrap">
               {products?.map((p) => (
                 <div key={p._id} className="card m-2 product-card">
@@ -205,9 +181,7 @@ const HomePage = () => {
                   />
                   <div className="card-body">
                     <h5 className="card-title">{p.name}</h5>
-                    <p className="card-text">
-                      {p.description.substring(0, 30)}...
-                    </p>
+                    <p className="card-text">{p.description.substring(0, 30)}...</p>
                     <p className="card-text">$ {p.price}</p>
                     <button
                       className="btn btn-primary ms-1"
@@ -220,10 +194,7 @@ const HomePage = () => {
                       onClick={() => {
                         setCart([...cart, p]);
                         toast.success("Item added to cart");
-                        localStorage.setItem(
-                          "cart",
-                          JSON.stringify([...cart, p])
-                        );
+                        localStorage.setItem("cart", JSON.stringify([...cart, p]));
                       }}
                     >
                       ADD TO CART
@@ -234,7 +205,7 @@ const HomePage = () => {
             </div>
           )}
 
-          {/* Load More Button */}
+          {/* Load More */}
           {(checked?.length || radio?.length
             ? products?.length < filteredTotal
             : products?.length < total) && (
@@ -244,7 +215,7 @@ const HomePage = () => {
               </button>
             </div>
           )}
-        </div>
+        </main>
       </div>
     </Layout>
   );

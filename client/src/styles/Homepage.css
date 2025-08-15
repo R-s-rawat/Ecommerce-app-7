@@ -1,6 +1,4 @@
-
-
-/* Sidebar filters */
+/* ===================== SIDEBAR ===================== */
 .col-md-2 {
   border-right: 1px solid #ddd;
   background-color: #fafafa;
@@ -13,20 +11,18 @@
   color: #111;
 }
 
-/* Sort by bar */
-.col-md-9 h4 {
+/* ===================== MAIN CONTENT HEADINGS ===================== */
+.col-md-9 h4,
+.all-products-heading {
   font-size: 16px;
   font-weight: 500;
-  margin-top: 5px;
   color: #111;
 }
-
-/* All Products Heading */
-.col-md-9 h1 {
+.all-products-heading {
   font-size: 24px;
   font-weight: bold;
-  margin-bottom: 25px;
   color: #0f1111;
+  margin-bottom: 25px;
 }
 
 /* ===================== PRODUCT CARDS ===================== */
@@ -41,7 +37,6 @@
 .product-card:hover {
   box-shadow: 0 4px 8px rgba(15, 17, 17, 0.3);
 }
-
 .product-img {
   height: 220px;
   object-fit: contain;
@@ -49,19 +44,16 @@
   background-color: #f7f7f7;
   border-bottom: 1px solid #eee;
 }
-
 .card-title {
   font-size: 16px;
   font-weight: 600;
   color: #0f1111;
 }
-
 .card-text {
   font-size: 14px;
   color: #565959;
   margin-bottom: 8px;
 }
-
 .card-text:last-of-type {
   font-size: 18px;
   font-weight: bold;
@@ -80,7 +72,6 @@
   border-color: #f2c200;
   color: #111;
 }
-
 .btn-secondary {
   background-color: #ffa41c;
   border-color: #f08804;
@@ -92,7 +83,6 @@
   border-color: #de7700;
   color: #111;
 }
-
 .btn-warning {
   background-color: #f0c14b;
   border-color: #a88734;
@@ -110,65 +100,72 @@
   height: 3rem !important;
 }
 
-/* ===================== RESPONSIVE FIXES ===================== */
+/* ===================== SORTING DROPDOWN ===================== */
+.product-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.sort-dropdown-wrapper {
+  min-width: 160px;
+  max-width: 200px;
+  margin-left: auto;
+  margin-right: 5px; /* minimal right margin */
+}
+.sort-dropdown-wrapper select {
+  padding: 6px 8px;
+  font-size: 14px;
+}
+
+/* ===================== RESPONSIVE ===================== */
 @media (max-width: 768px) {
   .row {
     flex-direction: column;
   }
-
   .col-md-2,
   .col-md-9 {
     width: 100% !important;
     padding: 15px;
   }
-
   .product-card {
     width: 100% !important;
     margin: 10px 0;
   }
-
   .product-img {
     height: 180px;
   }
-
   .d-flex.flex-row.mb-3 {
     flex-direction: column;
   }
+  .product-header {
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+  .sort-dropdown-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 0;
+  }
 }
 
-/* Shared for all buttons */
-.sort-by-boxes {
-  width: 100%;
-  display: flex;
-  gap: 0.5rem;
+@media (max-width: 768px) {
+  .product-header {
+    flex-direction: column !important;
+    align-items: flex-start; /* heading left */
+  }
+
+  .product-header .sort-dropdown-wrapper {
+    align-self: flex-end; /* push dropdown to right edge */
+    margin-top: 8px;
+    margin-right: 5px; /* minimal gap from edge */
+  }
+
+  /* optional: stop full-width stretch */
+  .product-header .sort-dropdown-wrapper .form-select {
+    width: auto;
+    min-width: 160px;
+    max-width: 200px;
+  }
 }
-
-/* Buttons take equal space */
-.sort-box {
-  flex: 1;
-  text-align: center;
-  padding: 0.75rem 1rem;
-  font-weight: 500;
-  border-radius: 4px;
-  border: 1px solid transparent;
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
-}
-
-/* These two match your color choices */
-.btn-primary {
-  background-color: #ffd814;
-  border-color: #fcd200;
-  color: #0f1111;
-  font-weight: 500;
-}
-
-.btn-secondary {
-  background-color: #ffa41c;
-  border-color: #f08804;
-  color: #0f1111;
-  font-weight: 500;
-}
-
-
-
