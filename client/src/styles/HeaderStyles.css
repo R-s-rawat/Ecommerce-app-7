@@ -1,24 +1,31 @@
 .header-style {
-    background-color: black !important;
+  background-color: black !important;
 }
 
- .header-style .nav-link {
+.header-style .nav-link {
   color: white !important;
 }
 
 .header-style .nav-link:hover,
 .header-style .nav-link:focus,
 .header-style .nav-link.active {
-  color: #f8f9fa !important; 
+  color: #f8f9fa !important;
 }
 
 /* .navbar-toggler {
   border-color: white;
 } */
 
+.navbar-toggler {
+  width: auto;
+  height: auto;
+  padding: 0.25rem 0.5rem;
+  border: none;
+}
+
 /* Controls the width of search bar container */
 .searchbar-container {
-  max-width: 300px;        /* You can adjust as needed */
+  max-width: 300px; /* You can adjust as needed */
   width: 100%;
 }
 
@@ -34,8 +41,9 @@
 }
 
 .navbar-toggler {
-  flex-shrink: 0; /* prevent shrinking */
-  width: auto;    /* prevent full width */
+  padding: 0.25rem 0.5rem;
+  width: auto;
+  height: auto;
 }
 
 .searchbar-container {
@@ -93,4 +101,61 @@
 .custom-sidebar .dropdown-item:hover {
   color: #f08804;
   background: none;
+}
+
+.navbar-toggler-icon {
+  width: 30px !important;
+  height: 30px !important;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* Sidebar category dropdown improvements */
+.category-toggle {
+  color: #fff;
+  padding: 10px 0;
+  font-weight: 500;
+}
+
+.category-toggle:hover {
+  color: #f08804;
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Accordion-style dropdown list */
+.category-dropdown {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+  padding-left: 0.5rem;
+  list-style-type: none;
+}
+
+.category-dropdown.open {
+  max-height: 500px; /* Enough to show all items */
+}
+
+.category-dropdown .dropdown-item {
+  color: #ccc;
+  font-size: 0.9rem;
+  padding: 6px 0;
+  display: block;
+  transition: color 0.2s ease;
+}
+
+.category-dropdown .dropdown-item:hover {
+  color: #f08804;
+  background: none;
+}
+
+.custom-sidebar li:not(:last-child) {
+  border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.sidebar-divider {
+  border: white;
+  height: 1px;
+  background-color: white; /* or use #f08804 if you want an accent color */
+  margin: 0 1rem 1rem 1rem;
 }
