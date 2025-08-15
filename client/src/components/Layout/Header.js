@@ -6,6 +6,7 @@ import SearchbarInputForm from "../Form/SearchbarInputForm";
 import useCategory from "../../hooks/useCategory";
 import { useCart } from "../../context/cart";
 import { Badge } from "antd";
+import siteLogo from '../../images/ecommerceLogo.jpg'
 
 const Header = () => {
   const [auth, setAuth] = useAuth();
@@ -46,7 +47,7 @@ const Header = () => {
           {/* ////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */}
           <div className="collapse navbar-collapse" id="navbarTogglerDemo01">
             <Link to="/" className="navbar-brand">
-              🛒 Ecommerce App
+             <img src={siteLogo} alt="Site logo image" width="25%" />
             </Link>
             {/* <li className="nav-item dropdown">
               <a
@@ -190,7 +191,7 @@ const Header = () => {
                   {/*------------------------------------------------------- */}
                 </>
               )}
-              {/* // Cart -  list-item-navbar */}
+              {/* // Cart -  list-item-navbar */} 
               <li className="nav-item">
                 {/* <NavLink to="/cart" className="nav-link">
                   Cart {cart?.length}
