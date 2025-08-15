@@ -1,0 +1,91 @@
+
+.form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
+  background-color: #f3f3f3;
+  padding: 30px;
+  font-family: "Poppins", sans-serif;
+}
+
+.form-container form {
+  background-color: #ffffff;
+  padding: 30px;
+  width: 100%;
+  max-width: 400px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.form-container h1 {
+  font-size: 24px;
+  font-weight: 600;
+  text-align: left;
+  margin-bottom: 25px;
+  color: #111;
+}
+
+/* =============== INPUTS =============== */
+.form-container input {
+  width: 100%;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #a6a6a6;
+  border-radius: 4px;
+  outline: none;
+}
+
+.form-container input:focus {
+  border-color: #f08804;
+}
+
+/* =============== BUTTONS =============== */
+.form-container .btn {
+  width: 100%;
+  padding: 10px;
+  font-size: 15px;
+  font-weight: bold;
+  border: 1px solid #a88734;
+  border-radius: 4px;
+  margin-top: 10px;
+  background-color: #f0c14b;
+  color: #111;
+  transition: all 0.2s ease;
+}
+
+.form-container .btn:hover {
+  background-color: #ddb347;
+  color: #000;
+}
+
+/* Special button: Forgot Password */
+.forgot-password-btn {
+  background-color: #e7e9ec;
+  color: #111;
+  border: 1px solid #a6a6a6;
+}
+
+.forgot-password-btn:hover {
+  background-color: #d5d9dc;
+}
+
+/* Optional links */
+.form-container .form-links {
+  margin-top: 15px;
+  text-align: center;
+}
+
+.form-container .form-links a {
+  font-size: 13px;
+  color: #0066c0;
+  text-decoration: none;
+}
+
+.form-container .form-links a:hover {
+  text-decoration: underline;
+}
+
+
+ 
