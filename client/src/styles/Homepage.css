@@ -136,59 +136,39 @@
   }
 }
 
+/* Shared for all buttons */
 .sort-by-boxes {
+  width: 100%;
   display: flex;
-  gap: 10px;
+  gap: 0.5rem;
 }
 
+/* Buttons take equal space */
 .sort-box {
-  padding: 8px 14px;
+  flex: 1;
+  text-align: center;
+  padding: 0.75rem 1rem;
+  font-weight: 500;
   border-radius: 4px;
-  font-weight: bold;
-  border: 1px solid #a88734;
+  border: 1px solid transparent;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  transition: all 0.2s ease-in-out;
 }
 
-.sort-box.active {
-  background-color: #f08804; /* orange */
-  color: #fff;
+/* These two match your color choices */
+.btn-primary {
+  background-color: #ffd814;
+  border-color: #fcd200;
+  color: #0f1111;
+  font-weight: 500;
 }
 
-.sort-box.inactive {
-  background-color: #f0c14b; /* yellow */
-  color: #111;
+.btn-secondary {
+  background-color: #ffa41c;
+  border-color: #f08804;
+  color: #0f1111;
+  font-weight: 500;
 }
 
-.sort-box:hover {
-  opacity: 0.9;
-}
 
-.sort-by-boxes {
-  display: flex;
-  gap: 10px;
-}
 
-.sort-box {
-  padding: 10px 16px;
-  border-radius: 4px;
-  font-weight: bold;
-  border: 1px solid #a88734;
-  cursor: pointer;
-  transition: background-color 0.2s ease, transform 0.1s ease;
-}
-
-.sort-box.active {
-  background-color: #f08804; /* orange */
-  color: #fff;
-}
-
-.sort-box.inactive {
-  background-color: #f0c14b; /* yellow */
-  color: #111;
-}
-
-.sort-box:hover {
-  transform: translateY(-1px);
-  opacity: 0.95;
-}

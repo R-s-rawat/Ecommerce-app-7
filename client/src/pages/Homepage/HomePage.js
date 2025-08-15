@@ -11,10 +11,16 @@ import FilterDrawer from "../../components/Filters/FilterDrawer";
 import Sorting from "../../components/Sort/Sorting";
 
 // 🟢 Sorting types list
+// const sortType = [
+//   { name: "Newest First", _id: "newestfirst" },
+//   { name: "Price: High to Low", _id: "pricehightolow" },
+//   { name: "Price: Low to High", _id: "pricelowtohigh" },
+// ];
+
 const sortType = [
-  { name: "Newest First", _id: "newestfirst" },
-  { name: "Price: High to Low", _id: "pricehightolow" },
-  { name: "Price: Low to High", _id: "pricelowtohigh" },
+  { name: "Latest", _id: "newestfirst" },
+  { name: "Highest", _id: "pricehightolow" },
+  { name: "Lowest", _id: "pricelowtohigh" },
 ];
 
 const HomePage = () => {
@@ -95,7 +101,6 @@ const HomePage = () => {
   return (
     <Layout title="Home - Ecommerce">
       <div className="row mt-3">
-
         {/* ===============================
             ✍ DESKTOP FILTER SIDEBAR
            =============================== */}

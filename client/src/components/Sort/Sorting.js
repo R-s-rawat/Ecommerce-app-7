@@ -12,9 +12,10 @@ const Sorting = ({
   setProducts,
   setFilteredTotal,
 }) => {
-  const handleClick = (id) => {
-    setSortPriceRadio(id);
-    sortRef.current = id;
+  const handleChange = (e) => {
+    const selectedId = e.target.value;
+    setSortPriceRadio(selectedId);
+    sortRef.current = selectedId;
     setPage(1);
     getFilteredProducts({
       checked,
@@ -26,32 +27,40 @@ const Sorting = ({
     });
   };
 
-  const renderBoxes = (extraClasses) =>
-    sortType.map((t) => {
-      const isActive = sortPriceRadio === t._id;
-      return (
-        <div
-          key={t._id}
-          className={`sort-box ${isActive ? "active" : "inactive"}`}
-          onClick={() => handleClick(t._id)}
-        >
-          {t.name}
-        </div>
-      );
-    });
-
   return (
-    <div className="d-flex flex-row mb-3">
-      {/* Desktop */}
-      <div className="sort-by-boxes flex-wrap d-none d-md-flex">
-        {renderBoxes()}
+    <>
+      {/* Mobile version */}
+      <div className="mb-3 d-md-none" style={{ backgroundColor: "black" }}>
+        <select
+          className="form-select"
+          value={sortPriceRadio}
+          onChange={handleChange}
+        >
+          {sortType.map((t) => (
+            <option key={t._id} value={t._id}>
+              {t.name}
+            </option>
+          ))}
+        </select>
       </div>
 
-      {/* Mobile */}
-      <div className="sort-by-boxes flex-wrap d-flex d-md-none">
-        {renderBoxes()}
+      {/* Desktop version */}
+      <div className="mb-3 d-none d-md-block" style={{ backgroundColor: "#f8f9fa", padding: "0.5rem", borderRadius: "4px" }}>
+       
+        <select
+          id="desktopSort"
+          className="form-select"
+          value={sortPriceRadio}
+          onChange={handleChange}
+        >
+          {sortType.map((t) => (
+            <option key={t._id} value={t._id}>
+              {t.name}
+            </option>
+          ))}
+        </select>
       </div>
-    </div>
+    </>
   );
 };
 
