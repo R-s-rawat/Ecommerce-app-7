@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Layout from "../../components/Layout/Layout";
 import axios from "axios";
-import { useLocation, useNavigate } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 // import { toast } from "react-toastify";
 import toast from "react-hot-toast";
 // import "../../styles/AuthStyles.css";
@@ -112,6 +112,7 @@ const Login = () => {
           <button type="submit" className="btn btn-primary">
             LOGIN
           </button>
+           <p>If not registered, Please <NavLink to="/register">Register</NavLink></p>
         </form>
       </div>
     </Layout>
