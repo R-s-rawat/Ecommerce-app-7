@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Layout from "../../components/Layout/Layout";
 import { Checkbox, Radio } from "antd";
 import { Prices } from "../../data/Prices";
@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import useCategory from "../../hooks/useCategory";
 import { useCart } from "../../context/cart";
 import toast from "react-hot-toast";
+import FilterDrawer from "../../components/Filters/FilterDrawer"; 
 
 const sortType = [
   { name: "Newest First", _id: "newestfirst" },
@@ -50,18 +51,19 @@ const HomePage = () => {
     setError,
   } = useHomepageLogic();
 
+  // 🟢  drawer state
+  const [drawerOpen, setDrawerOpen] = useState(false);
+
   useEffect(() => {
     getTotalCreatedProductsCount(setTotal);
   }, []);
 
-  // 🟢 Trigger fresh fetch on checked or radio change
   useEffect(() => {
-    setPage(1); // Reset page first!
+    setPage(1);
   }, [checked, radio]);
 
-  // 🟢 Trigger fetch on page change
   useEffect(() => {
-    const append = page > 1; // Only append if Load More
+    const append = page > 1;
     getFilteredProducts({
       checked,
       radio,
@@ -73,11 +75,42 @@ const HomePage = () => {
     });
   }, [page, checked, radio]);
 
+  const handleResetFilters = () => {
+    setChecked([]);
+    setRadio([]);
+    setProducts([]);
+    setPage(1);
+    setFilteredTotal(0);
+    getTotalCreatedProductsCount(setTotal);
+    resetSort(sortRef, setSortPriceRadio);
+    setDrawerOpen(false); // 🟢 close drawer on reset
+  };
+
   return (
     <Layout title="Home - Ecommerce">
+      {/* 🟢 Filter Button for Mobile */}
+      {/* <div className="d-block d-md-none text-end px-3 mt-2">
+        <button className="btn btn-warning" onClick={() => setDrawerOpen(true)}>
+          Filters
+        </button>
+      </div> */}
+
+      {/* 🟢 Mobile Filter Drawer */}
+      {/* <FilterDrawer
+        open={drawerOpen}
+        onClose={() => setDrawerOpen(false)}
+        categories={categories}
+        checked={checked}
+        radio={radio}
+        setChecked={setChecked}
+        setRadio={setRadio}
+        handleCatFilter={handleCatFilter}
+        onReset={handleResetFilters}
+      /> */}
+
       <div className="row mt-3">
-        <div className="col-md-2">
-          {/* filter by category begins */}
+        {/* 🟢 Desktop Sidebar Only */}
+        <div className="col-md-2 d-none d-md-block">
           <h4 className="text-center">Filter by Category</h4>
           {loadingCategories ? (
             <div className="text-center my-3 text-secondary">
@@ -110,7 +143,6 @@ const HomePage = () => {
             </div>
           )}
 
-          {/* filter by price begins */}
           <h4 className="text-center mt-4">Filter by Price</h4>
           <Radio.Group onChange={(e) => setRadio(e.target.value)} value={radio}>
             {Prices.map((p) => (
@@ -120,22 +152,12 @@ const HomePage = () => {
             ))}
           </Radio.Group>
 
-          <button
-            className="btn btn-danger mt-3"
-            onClick={() => {
-              setChecked([]);
-              setRadio([]);
-              setProducts([]);
-              setPage(1);
-              setFilteredTotal(0);
-              getTotalCreatedProductsCount(setTotal);
-              resetSort(sortRef, setSortPriceRadio);
-            }}
-          >
+          <button className="btn btn-danger mt-3" onClick={handleResetFilters}>
             Reset Filters
           </button>
         </div>
 
+        {/* Product Grid */}
         <div className="col-md-9">
           <div className="d-flex flex-row mb-3">
             <h4 className="me-3">Sort by</h4>
@@ -145,12 +167,10 @@ const HomePage = () => {
                 const selected = e.target.value;
                 setSortPriceRadio(selected);
                 sortRef.current = selected;
-                // ✅ Reset page to 1
                 setPage(1);
                 getFilteredProducts({
                   checked,
                   radio,
-                  // ✅ Fetch fresh sorted products from page 1
                   page: 1,
                   sortRef,
                   setProducts,
@@ -183,12 +203,6 @@ const HomePage = () => {
               <p className="text-danger">
                 ⚠️ Failed to load products. Please try again.
               </p>
-              {/* <button className="btn btn-outline-primary" onClick={() => {
-                setError(false);
-                setPage(1);
-              }}>
-                Retry
-              </button> */}
             </div>
           ) : (
             <div className="d-flex flex-wrap">
@@ -216,10 +230,7 @@ const HomePage = () => {
                       onClick={() => {
                         setCart([...cart, p]);
                         toast.success("Item added to cart");
-                        localStorage.setItem(
-                          "cart",
-                          JSON.stringify([...cart, p])
-                        );
+                        localStorage.setItem("cart", JSON.stringify([...cart, p]));
                       }}
                     >
                       ADD TO CART

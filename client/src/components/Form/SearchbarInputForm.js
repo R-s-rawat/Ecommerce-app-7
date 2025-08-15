@@ -37,9 +37,9 @@ const SearchbarInputForm = () => {
         value={values.keyword}
         onChange={(e) => setValues({ ...values, keyword: e.target.value })}
       />
-      <button className="btn btn-outline-light" type="submit">
+      {/* <button className="btn btn-outline-light" type="submit">
         Search
-      </button>
+      </button> */}
     </form>
   </div>
 );

@@ -149,7 +149,7 @@ const Register = () => {
           <button type="submit" className="btn btn-primary">
             REGISTER
           </button>
-          <p>If already registered, Please <NavLink to="/login">Login</NavLink></p>
+          <p>If registered, Please <NavLink to="/login">Login</NavLink></p>
         </form>
       </div>
     </Layout>

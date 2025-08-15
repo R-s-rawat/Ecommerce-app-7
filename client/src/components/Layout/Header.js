@@ -10,10 +10,40 @@ import siteLogo from "../../images/ecommerceLogo.jpg";
 import "../../styles/HeaderStyles.css";
 import { useState } from "react";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
-
+import FilterDrawer from "../../components/Filters/FilterDrawer";
+import { useHomepageLogic } from "../../pages/Homepage/HomepageLogic";
 
 const Header = () => {
   const [auth, setAuth] = useAuth();
+
+  const {
+    products,
+    checked,
+    radio,
+    page,
+    total,
+    loading,
+    error,
+    filteredTotal,
+    sortPriceRadio,
+    sortRef,
+    setChecked,
+    setRadio,
+    setPage,
+    setProducts,
+    setFilteredTotal,
+    setSortPriceRadio,
+    handleCatFilter,
+    loadMore,
+    resetSort,
+    getTotalCreatedProductsCount,
+    getFilteredProducts,
+    setTotal,
+    setError,
+  } = useHomepageLogic();
+
+  // 🟢  drawer state
+  const [drawerOpen, setDrawerOpen] = useState(false);
 
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
@@ -25,6 +55,18 @@ const Header = () => {
 
   // show cart, useCart hook (providers data should show), so only destructure cart state's context(the getter)
   const [cart] = useCart();
+
+  // handle close filters
+  const handleResetFilters = () => {
+    setChecked([]);
+    setRadio([]);
+    setProducts([]);
+    setPage(1);
+    setFilteredTotal(0);
+    getTotalCreatedProductsCount(setTotal);
+    resetSort(sortRef, setSortPriceRadio);
+    setDrawerOpen(false); // 🟢 close drawer on reset
+  };
 
   const handleLogout = () => {
     setAuth({
@@ -40,8 +82,8 @@ const Header = () => {
   return (
     <header className="header-style">
       <nav className="navbar navbar-expand-lg">
-        <div className="container-fluid d-flex justify-content-between align-items-center">
-          {/* Toggler & Logo */}
+        <div className="container-fluid">
+          {/* Left: logo/toggler */}
           <div className="d-flex align-items-center">
             <button
               className="navbar-toggler me-2"
@@ -55,10 +97,73 @@ const Header = () => {
             </Link>
           </div>
 
-          {/* Search bar */}
-          <div className="d-flex align-items-center">
+          {/* Middle: searchbar (flex-grow keeps it wide) */}
+          <div className="flex-grow-1 d-flex justify-content-center">
             <SearchbarInputForm />
+            {/* 🟢 Filter Button for Mobile */}{" "}
+            <div className="d-block d-md-none text-end px-3">
+              {" "}
+              <button
+                className="btn btn-warning"
+                onClick={() => setDrawerOpen(true)}
+              >
+                {" "}
+                Filters{" "}
+              </button>{" "}
+            </div>{" "}
+            {/* 🟢 Mobile Filter Drawer */}{" "}
+            <FilterDrawer
+              open={drawerOpen}
+              onClose={() => setDrawerOpen(false)}
+              categories={categories}
+              checked={checked}
+              radio={radio}
+              setChecked={setChecked}
+              setRadio={setRadio}
+              handleCatFilter={handleCatFilter}
+              onReset={handleResetFilters}
+            />
           </div>
+
+          {/* Right: desktop menu */}
+          <ul className="navbar-nav d-none d-lg-flex align-items-center">
+            {!auth.user ? (
+              <li className="nav-item">
+                <NavLink to="/login" className="nav-link">
+                  Login
+                </NavLink>
+              </li>
+            ) : (
+              <>
+                <li className="nav-item">
+                  <NavLink
+                    to={`/dashboard/${
+                      auth?.user?.role === 1 ? "admin" : "user"
+                    }`}
+                    className="nav-link"
+                  >
+                    Dashboard
+                  </NavLink>
+                </li>
+                <li className="nav-item">
+                  <NavLink
+                    to="/login"
+                    className="nav-link"
+                    onClick={handleLogout}
+                  >
+                    Logout
+                  </NavLink>
+                </li>
+              </>
+            )}
+            <li className="nav-item">
+              <Badge count={cart?.length} showZero>
+                <NavLink to="/cart" className="nav-link">
+                  Cart
+                </NavLink>
+              </Badge>
+            </li>
+          </ul>
         </div>
       </nav>
 
@@ -147,7 +252,7 @@ const Header = () => {
               style={{ cursor: "pointer" }}
             >
               <span>Categories</span>
-             {categoryOpen ? <FaChevronUp /> : <FaChevronDown />}
+              {categoryOpen ? <FaChevronUp /> : <FaChevronDown />}
             </div>
 
             <ul className={`category-dropdown ${categoryOpen ? "open" : ""}`}>
