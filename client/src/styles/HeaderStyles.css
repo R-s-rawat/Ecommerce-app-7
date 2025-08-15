@@ -1,0 +1,48 @@
+.header-style {
+    background-color: black !important;
+}
+
+ .header-style .nav-link {
+  color: white !important;
+}
+
+.header-style .nav-link:hover,
+.header-style .nav-link:focus,
+.header-style .nav-link.active {
+  color: #f8f9fa !important; 
+}
+
+.navbar-toggler {
+  border-color: white;
+}
+
+/* Controls the width of search bar container */
+.searchbar-container {
+  max-width: 300px;        /* You can adjust as needed */
+  width: 100%;
+}
+
+/* On large screens, align it to the right */
+@media (min-width: 992px) {
+  .searchbar-container {
+    margin-left: auto;
+  }
+}
+
+.container-fluid {
+  flex-wrap: nowrap !important;
+}
+
+.navbar-toggler {
+  flex-shrink: 0; /* prevent shrinking */
+  width: auto;    /* prevent full width */
+}
+
+.searchbar-container {
+  max-width: 300px; /* or whatever you prefer */
+  width: 100%;
+}
+
+.navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3e%3cpath stroke='%23f08804' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}

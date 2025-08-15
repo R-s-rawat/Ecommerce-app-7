@@ -3770,5 +3770,5 @@ ______________________________________________________________________________
 
 CSS styling, ui is the soul of ecommerce stores, lets' craft good ui for our store/marketplace site, ecommerce..
 
-
+Remove Bootstrap😃 default class (bg-body-tertiary) for nav, as it's having (!important) for nav and not letting the css to taking its effect.
 
