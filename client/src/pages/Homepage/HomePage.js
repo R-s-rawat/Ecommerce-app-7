@@ -8,6 +8,7 @@ import useCategory from "../../hooks/useCategory";
 import { useCart } from "../../context/cart";
 import toast from "react-hot-toast";
 import Sorting from "../../components/Sort/Sorting";
+import FilterDrawer from "../../components/Filters/FilterDrawer";
 
 const sortType = [
   { name: "Latest", _id: "newestfirst" },
@@ -82,13 +83,13 @@ const HomePage = () => {
     setFilteredTotal(0);
     getTotalCreatedProductsCount(setTotal);
     resetSort(sortRef, setSortPriceRadio);
-    setDrawerOpen(false);
+    setDrawerOpen(false); // close drawer when reset
   };
 
   return (
     <Layout title="Home - Ecommerce">
       <div className="homepage-container d-flex">
-        {/* ================= Sidebar ================= */}
+        {/* ================= Sidebar (Desktop) ================= */}
         <aside className="filter-sidebar d-none d-md-block">
           <h4 className="text-center">Filter by Category</h4>
           {loadingCategories ? (
@@ -138,14 +139,22 @@ const HomePage = () => {
 
         {/* ================= Main Content ================= */}
         <main className="product-content-area flex-grow-1">
+          {/* Mobile Filter Button */}
+          <div className="d-md-none d-flex justify-content-end me-2 mb-2">
+            <button
+              className="btn btn-outline-primary"
+              onClick={() => setDrawerOpen(true)}
+            >
+              Filters
+            </button>
+          </div>
+
           {/* Header with Sorting */}
           <div className="product-header mb-3 mt-2" style={{ width: "100%" }}>
             {/* Desktop: flex row */}
             <div className="d-none d-md-flex justify-content-between align-items-center">
-              {/* Left: Title */}
               <h1 className="mb-0">All Products</h1>
-              {/* Right: Sorting */}
-              <div style={{  maxWidth: '60%' }} className="flex-shrink-0 me-1">
+              <div style={{ maxWidth: "60%" }} className="flex-shrink-0 me-1">
                 <Sorting
                   sortType={sortType}
                   sortPriceRadio={sortPriceRadio}
@@ -161,7 +170,6 @@ const HomePage = () => {
               </div>
             </div>
 
-            {/* Mobile: title on one row, sorting on next row right-aligned */}
             {/* Mobile: title left, sorting right */}
             <div
               className="d-md-none d-flex justify-content-between align-items-center mb-2"
@@ -185,7 +193,7 @@ const HomePage = () => {
             </div>
           </div>
 
-          {/* Loading */}
+          {/* Loading / Error / Products */}
           {loading && page === 1 ? (
             <div className="d-flex justify-content-center align-items-center my-5 w-100">
               <div
@@ -254,6 +262,19 @@ const HomePage = () => {
           )}
         </main>
       </div>
+
+      {/* ================= Mobile Drawer (uses same state) ================= */}
+      <FilterDrawer
+        open={drawerOpen}
+        onClose={() => setDrawerOpen(false)}
+        categories={categories}
+        checked={checked}
+        radio={radio}
+        setChecked={setChecked}
+        setRadio={setRadio}
+        handleCatFilter={handleCatFilter}
+        onReset={handleResetFilters}
+      />
     </Layout>
   );
 };
