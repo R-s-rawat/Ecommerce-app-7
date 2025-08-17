@@ -107,9 +107,13 @@ const getFilteredProducts = async ({
     if (sortRef) sortRef.current = "newestfirst"; // harmless if kept
   };
 
+  // const loadMore = () => {
+  //   setPage((prev) => prev + 1);
+  // };
   const loadMore = () => {
-    setPage((prev) => prev + 1);
-  };
+  setPage(prev => prev + 1);
+};
+
 
   return {
     products,

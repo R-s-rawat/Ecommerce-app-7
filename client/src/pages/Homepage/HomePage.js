@@ -55,44 +55,30 @@ const HomePage = () => {
     setError,
   } = useHomepageLogic();
 
-  // ================== Load filters + sort from URL ==================
+// ================== Load filters + sort + page from URL ==================
+useEffect(() => {
+  const catParam = searchParams.get("categories");
+  const priceParam = searchParams.get("price");
+  const sortParam = searchParams.get("sort");
+  const pageParam = searchParams.get("page");
+
+  if (catParam) setChecked(catParam.split(","));
+  if (priceParam) setRadio(priceParam.split(",").map(Number));
+  if (sortParam) setSortPriceRadio(sortParam);
+  if (pageParam) setPage(Number(pageParam) || 1);
+}, []);
+
+
   useEffect(() => {
-    const catParam = searchParams.get("categories");
-    const priceParam = searchParams.get("price");
-    const sortParam = searchParams.get("sort");
+  const params = {};
 
-    if (catParam) {
-      setChecked(catParam.split(","));
-    }
+  if (checked.length > 0) params.categories = checked.join(",");
+  if (radio.length > 0) params.price = radio.join(",");
+  if (sortPriceRadio) params.sort = sortPriceRadio;
+  if (page > 1) params.page = page; // 👈 include pagination
 
-    if (priceParam) {
-      setRadio(priceParam.split(",").map(Number));
-    }
-
-   if (sortParam) {
-  setSortPriceRadio(sortParam);
-}
-
-  }, []);
-
-  // ================== Sync to URL ==================
-  useEffect(() => {
-    const params = {};
-
-    if (checked.length > 0) {
-      params.categories = checked.join(",");
-    }
-
-    if (radio.length > 0) {
-      params.price = radio.join(",");
-    }
-
-    if (sortPriceRadio) {
-      params.sort = sortPriceRadio;
-    }
-
-    setSearchParams(params);
-  }, [checked, radio, sortPriceRadio]);
+  setSearchParams(params, { replace: true });
+}, [checked, radio, sortPriceRadio, page]);
 
   // ================== Load data ==================
   useEffect(() => {
