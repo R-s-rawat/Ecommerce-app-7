@@ -9,6 +9,8 @@ import { useCart } from "../../context/cart";
 import toast from "react-hot-toast";
 import Sorting from "../../components/Sort/Sorting";
 import FilterDrawer from "../../components/Filters/FilterDrawer";
+import "../../styles/HomepageStyles.css"
+
 
 const sortType = [
   { name: "Latest", _id: "newestfirst" },
@@ -89,53 +91,56 @@ const HomePage = () => {
   return (
     <Layout title="Home - Ecommerce">
       <div className="homepage-container d-flex">
-        {/* ================= Sidebar (Desktop) ================= */}
-        <aside className="filter-sidebar d-none d-md-block">
-          <h4 className="text-center">Filter by Category</h4>
-          {loadingCategories ? (
-            <div className="text-center my-3 text-secondary">
-              Loading categories...
-            </div>
-          ) : categoryError ? (
-            <div className="text-danger text-center my-3">{categoryError}</div>
-          ) : categories?.length === 0 ? (
-            <div className="text-center my-3 text-muted">
-              No categories found.
-            </div>
-          ) : (
-            <div className="d-flex flex-column">
-              {categories?.map((c) => (
-                <Checkbox
-                  key={c._id}
-                  onChange={(e) =>
-                    handleCatFilter(
-                      e.target.checked,
-                      c._id,
-                      checked,
-                      setChecked
-                    )
-                  }
-                  checked={checked.includes(c._id)}
-                >
-                  {c.name}
-                </Checkbox>
-              ))}
-            </div>
-          )}
+   {/* ================= Sidebar (Desktop) ================= */}
+<aside className="filter-sidebar d-none d-md-block">
+  <div className="filter-section">
+    <h4>Filter by Category</h4>
+    {loadingCategories ? (
+      <div className="text-center my-3 text-secondary">
+        Loading categories...
+      </div>
+    ) : categoryError ? (
+      <div className="text-danger text-center my-3">{categoryError}</div>
+    ) : categories?.length === 0 ? (
+      <div className="text-center my-3 text-muted">
+        No categories found.
+      </div>
+    ) : (
+      <div className="d-flex flex-column">
+        {categories?.map((c) => (
+          <Checkbox
+            key={c._id}
+            onChange={(e) =>
+              handleCatFilter(e.target.checked, c._id, checked, setChecked)
+            }
+            checked={checked.includes(c._id)}
+          >
+            {c.name}
+          </Checkbox>
+        ))}
+      </div>
+    )}
+  </div>
 
-          <h4 className="text-center mt-4">Filter by Price</h4>
-          <Radio.Group onChange={(e) => setRadio(e.target.value)} value={radio}>
-            {Prices.map((p) => (
-              <Radio key={p._id} value={p.array}>
-                {p.name}
-              </Radio>
-            ))}
-          </Radio.Group>
+  <div className="filter-section">
+    <h4>Filter by Price</h4>
+    <Radio.Group
+      onChange={(e) => setRadio(e.target.value)}
+      value={radio}
+    >
+      {Prices.map((p) => (
+        <Radio key={p._id} value={p.array}>
+          {p.name}
+        </Radio>
+      ))}
+    </Radio.Group>
+  </div>
 
-          <button className="btn btn-danger mt-3" onClick={handleResetFilters}>
-            Reset Filters
-          </button>
-        </aside>
+  <button className="btn btn-danger" onClick={handleResetFilters}>
+    Reset Filters
+  </button>
+</aside>
+
 
         {/* ================= Main Content ================= */}
         <main className="product-content-area flex-grow-1">
