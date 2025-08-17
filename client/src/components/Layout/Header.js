@@ -101,7 +101,7 @@ const Header = () => {
           <div className="flex-grow-1 d-flex justify-content-center">
             <SearchbarInputForm />
             {/* 🟢 Filter Button for Mobile */}{" "}
-            <div className="d-block d-md-none text-end px-3">
+            {/* <div className="d-block d-md-none text-end px-3">
               {" "}
               <button
                 className="btn btn-warning"
@@ -110,9 +110,9 @@ const Header = () => {
                 {" "}
                 Filters{" "}
               </button>{" "}
-            </div>{" "}
+            </div>{" "} */}
             {/* 🟢 Mobile Filter Drawer */}{" "}
-            <FilterDrawer
+            {/* <FilterDrawer
               open={drawerOpen}
               onClose={() => setDrawerOpen(false)}
               categories={categories}
@@ -122,7 +122,7 @@ const Header = () => {
               setRadio={setRadio}
               handleCatFilter={handleCatFilter}
               onReset={handleResetFilters}
-            />
+            /> */}
           </div>
 
           {/* Right: desktop menu */}

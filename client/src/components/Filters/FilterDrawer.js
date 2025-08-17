@@ -1,7 +1,6 @@
-// (Mobile Drawer Filter)
-
 import { Drawer, Checkbox, Radio, Button } from "antd";
 import { Prices } from "../../data/Prices";
+import Sorting from "../Sort/Sorting"; 
 
 const FilterDrawer = ({
   open,
@@ -13,6 +12,14 @@ const FilterDrawer = ({
   setRadio,
   handleCatFilter,
   onReset,
+  sortType,
+  sortPriceRadio,
+  setSortPriceRadio,
+  sortRef,
+  setPage,
+  getFilteredProducts,
+  setProducts,
+  setFilteredTotal,
 }) => {
   return (
     <Drawer
@@ -46,8 +53,24 @@ const FilterDrawer = ({
         ))}
       </Radio.Group>
 
+      {/* Sorting */}
+      {/* <h5 className="mt-4">Sort By</h5>
+      <Sorting
+        variant="mobile"
+        sortType={sortType}
+        sortPriceRadio={sortPriceRadio}
+        setSortPriceRadio={setSortPriceRadio}
+        sortRef={sortRef}
+        setPage={setPage}
+        getFilteredProducts={getFilteredProducts}
+        checked={checked}
+        radio={radio}
+        setProducts={setProducts}
+        setFilteredTotal={setFilteredTotal}
+      /> */}
+
       {/* Reset Button */}
-      <Button className="mt-3" danger block onClick={onReset}>
+      <Button className="mt-4" danger block onClick={onReset}>
         Reset Filters
       </Button>
     </Drawer>

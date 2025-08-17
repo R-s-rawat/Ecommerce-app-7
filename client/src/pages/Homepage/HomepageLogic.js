@@ -8,13 +8,14 @@ export const useHomepageLogic = () => {
       : "http://localhost:8080";
 
   const [products, setProducts] = useState([]);
-  const [checked, setChecked] = useState([]);
-  const [radio, setRadio] = useState([]);
+  const [checked, setChecked] = useState([]); // category ids
+  const [radio, setRadio] = useState([]); // price range
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState(0);
   const [filteredTotal, setFilteredTotal] = useState(0);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null); // ✅ for errors
+  const [error, setError] = useState(null);
+
   const [sortPriceRadio, setSortPriceRadio] = useState("newestfirst");
   const sortRef = useRef("newestfirst");
 
@@ -27,11 +28,13 @@ export const useHomepageLogic = () => {
     }
   };
 
-  const getFilteredProducts = async ({
+const getFilteredProducts = async ({
     checked,
     radio,
     page,
-    sortRef,
+    // accept either a string sortKey or a ref (for old callers)
+    sortKey,
+    sortRef: incomingSortRef,
     setProducts,
     setFilteredTotal,
     append = false,
@@ -39,46 +42,29 @@ export const useHomepageLogic = () => {
     const controller = new AbortController();
     const signal = controller.signal;
 
-    //  console.log('running')
-
-    const API =
-      process.env.NODE_ENV === "production"
-        ? process.env.REACT_APP_API
-        : "http://localhost:8080";
-
     try {
       setLoading(true);
       setError(false);
 
-      // 🕒 Setup 1-minute timeout
-      const timeout = setTimeout(() => {
-        controller.abort();
-      }, 60000);
+      const timeout = setTimeout(() => controller.abort(), 60000);
+
+      // Resolve the actual sort key
+      const key =
+        sortKey ??
+        incomingSortRef?.current ??
+        sortPriceRadio; // fallback to hook state
+
+      const sortingObject =
+        key === "pricehightolow"
+          ? { price: -1 }
+          : key === "pricelowtohigh"
+          ? { price: 1 }
+          : { createdAt: -1 };
 
       const { data } = await axios.post(
         `${API}/api/v1/product/product-filters`,
-        {
-          checked,
-          radio,
-          page,
-          // sortBy: sortRef.current || "newestfirst",
-          // let sortingObject = { createdAt: -1 };
-          // if (sortRef.current === "pricehightolow") sortingObject = { price: -1 };
-          // if (sortRef.current === "pricelowtohigh") sortingObject = { price: 1 };
-          sortingObject:
-            sortRef.current === "pricehightolow"
-              ? { price: -1 }
-              : sortRef.current === "pricelowtohigh"
-              ? { price: 1 }
-              : { createdAt: -1 },
-        },
-        {
-          signal,
-          withCredentials: true, // only if backend sends cookies or sessions
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
+        { checked, radio, page, sortingObject },
+        { signal, withCredentials: true, headers: { "Content-Type": "application/json" } }
       );
 
       clearTimeout(timeout);
@@ -88,7 +74,15 @@ export const useHomepageLogic = () => {
       } else {
         setProducts(data.filteredProducts);
       }
-      setFilteredTotal(data.filteredProducts);
+
+      // make sure this is a NUMBER; adjust to your API’s field name
+      const count =
+        data.filteredTotal ??
+        data.totalFiltered ??
+        data.total ??
+        data.filteredProducts?.length ??
+        0;
+      setFilteredTotal(count);
     } catch (err) {
       if (err.name === "CanceledError") {
         console.warn("❌ Product fetch aborted due to timeout");
@@ -108,9 +102,9 @@ export const useHomepageLogic = () => {
     setChecked(updated);
   };
 
-  const resetSort = (sortRef, setSortPriceRadio) => {
-    sortRef.current = "newestfirst";
+  const resetSort = () => {
     setSortPriceRadio("newestfirst");
+    if (sortRef) sortRef.current = "newestfirst"; // harmless if kept
   };
 
   const loadMore = () => {
@@ -124,10 +118,9 @@ export const useHomepageLogic = () => {
     page,
     total,
     loading,
-    error, // ✅ for errors
+    error,
     filteredTotal,
     sortPriceRadio,
-    sortRef,
     setChecked,
     setRadio,
     setPage,
@@ -141,5 +134,7 @@ export const useHomepageLogic = () => {
     getFilteredProducts,
     setTotal,
     setError,
+      sortPriceRadio,
+    sortRef, // optional
   };
 };

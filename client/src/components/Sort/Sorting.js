@@ -2,11 +2,11 @@ import React from "react";
 import { Select } from "antd";
 
 const Sorting = ({
-  variant = "desktop", // "mobile" or "desktop"
-  sortType,
+  variant = "desktop",
+  // sortType,
+  sortType = [],   // ✅ ensure it’s always an array
   sortPriceRadio,
   setSortPriceRadio,
-  sortRef,
   setPage,
   getFilteredProducts,
   checked,
@@ -16,20 +16,20 @@ const Sorting = ({
 }) => {
   const onChange = (value) => {
     setSortPriceRadio(value);
-    sortRef.current = value;
     setPage(1);
     getFilteredProducts({
       checked,
       radio,
       page: 1,
-      sortRef,
+      // use a string key, not a ref
+      sortKey: value,
       setProducts,
       setFilteredTotal,
+      append: false,
     });
   };
 
   if (variant === "mobile") {
-    // IMPORTANT: width: "auto" so it doesn't stretch full width on mobile
     return (
       <Select
         value={sortPriceRadio}
@@ -40,7 +40,6 @@ const Sorting = ({
     );
   }
 
-  // Desktop (Bootstrap select)
   return (
     <select
       className="form-select w-auto"
