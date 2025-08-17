@@ -77,6 +77,8 @@ useEffect(() => {
   if (sortPriceRadio) params.sort = sortPriceRadio;
   if (page > 1) params.page = page; // 👈 include pagination
 
+   console.log("Updating URL params:", params); // 👈 check this in console
+
   setSearchParams(params, { replace: true });
 }, [checked, radio, sortPriceRadio, page]);
 
