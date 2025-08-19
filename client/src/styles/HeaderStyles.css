@@ -159,3 +159,23 @@
   background-color: white; /* or use #f08804 if you want an accent color */
   margin: 0 1rem 1rem 1rem;
 }
+
+/* Sidebar fixed width */
+.filter-sidebar {
+  width: 20%;              /* 👈 fixed width */
+  min-width: 260px;          /* optional: prevent shrinking */
+  max-width: 300px;          /* optional: prevent growing */
+  flex-shrink: 0;            /* sidebar should not shrink */
+  background: #fff;          /* background color */
+  border-right: 1px solid #eee;
+  padding: 16px;
+  height: 100%;              /* full height */
+  box-shadow: 2px 0 6px rgba(0,0,0,0.05);
+}
+
+/* Main content should take remaining space */
+.product-content-area {
+  flex-grow: 1;
+  padding: 16px;
+}
+
